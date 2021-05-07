@@ -55,7 +55,7 @@ public class PlantsBase : MonoBehaviour
     /// </summary>
     protected void DepletionCheck()
     {
-        if(!IsCompleted)
+        if(MyGrowth == GrowthState.Planted)
         {
             // …‚Æ”ì—¿‚ÌÁ–Õ
             _PlantsWater -= _WaterConsumption * Time.deltaTime;
