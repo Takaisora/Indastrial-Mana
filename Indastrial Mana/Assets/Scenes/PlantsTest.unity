@@ -123,6 +123,90 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &158067637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 158067640}
+  - component: {fileID: 158067639}
+  - component: {fileID: 158067638}
+  m_Layer: 0
+  m_Name: StandardPlants_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &158067638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158067637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b560cb4ec950e5438b9e5f0e0c3d580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PlantsWater: 0
+  _PlantsFert: 0
+  _GenerateTimeCount: 0
+  _WitherTimeCount: 0
+  MyGrowth: 0
+  _NumOfGenerateMana: 2
+  _NumOfGenerate: 1
+  _DefaultWater: 50
+  _DefaultFert: 50
+  _WaterConsumption: 10
+  _FertConsumption: 10
+  _GenerateTime: 15
+  _WitherTime: 5
+  _IsOR: 1
+--- !u!114 &158067639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158067637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b311956ea162754fbb9f9ea5945392f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PlantsWater: 0
+  _PlantsFert: 0
+  _GenerateTimeCount: 0
+  _WitherTimeCount: 0
+  MyGrowth: 0
+  _NumOfGenerateMana: 1
+  _NumOfGenerate: 2
+  _DefaultWater: 50
+  _DefaultFert: 50
+  _WaterConsumption: 20
+  _FertConsumption: 20
+  _GenerateTime: 10
+  _WitherTime: 5
+  _IsOR: 1
+--- !u!4 &158067640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158067637}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &376147298
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +471,90 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1244445330}
   m_CullTransparentMesh: 1
+--- !u!1 &1481343933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1481343936}
+  - component: {fileID: 1481343935}
+  - component: {fileID: 1481343934}
+  m_Layer: 0
+  m_Name: StandardPlants_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1481343934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481343933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b560cb4ec950e5438b9e5f0e0c3d580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PlantsWater: 0
+  _PlantsFert: 0
+  _GenerateTimeCount: 0
+  _WitherTimeCount: 0
+  MyGrowth: 0
+  _NumOfGenerateMana: 1
+  _NumOfGenerate: 1
+  _DefaultWater: 50
+  _DefaultFert: 50
+  _WaterConsumption: 20
+  _FertConsumption: 20
+  _GenerateTime: 10
+  _WitherTime: 3
+  _IsOR: 1
+--- !u!114 &1481343935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481343933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b311956ea162754fbb9f9ea5945392f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PlantsWater: 0
+  _PlantsFert: 0
+  _GenerateTimeCount: 0
+  _WitherTimeCount: 0
+  MyGrowth: 0
+  _NumOfGenerateMana: 1
+  _NumOfGenerate: 2
+  _DefaultWater: 50
+  _DefaultFert: 50
+  _WaterConsumption: 20
+  _FertConsumption: 20
+  _GenerateTime: 10
+  _WitherTime: 5
+  _IsOR: 1
+--- !u!4 &1481343936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481343933}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1791546732
 GameObject:
   m_ObjectHideFlags: 0
