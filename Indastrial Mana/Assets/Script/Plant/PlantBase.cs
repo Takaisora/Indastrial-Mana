@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+//using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlantsBase : MonoBehaviour
+public class PlantBase : MonoBehaviour
 {
-    // 全植物共通っぽい変数
-    // Serializeはテスト用
+    public float PlantsWater = 0;// 水蓄積値
+    public float PlantsFert = 0;// 肥料蓄積値
     private const byte _MAXPLANTSWATER = 100;// 水蓄積上限値
     private const byte _MAXPLANTSFERT = 100;// 肥料蓄積上限値
-    [SerializeField]
-    public float _PlantsWater = 0;// 水蓄積値
-    [SerializeField]
-    public float _PlantsFert = 0;// 肥料蓄積値
+    // デバッグ用Serialize
     [SerializeField]
     private float _GenerateTimeCount = 0;// 生成までの経過時間カウント
     [SerializeField]
@@ -19,11 +18,16 @@ public class PlantsBase : MonoBehaviour
     [SerializeField]
     protected GrowthState MyGrowth;// 植物の成長状態
     private byte _GeneratedCount = 0;// マナ生成毎にカウント
-    private bool IsCompleted = false;// マナを全て生成しきったか
+    private bool _IsCompleted = false;// マナを全て生成しきったか
+    // UI
+    [SerializeField]
+    Image WaterGauge;// 水ゲージUI
+    [SerializeField]
+    Image FertGauge;// 肥料ゲージUI
 
 
-    // 植物によって変わりそうな変数
-    [SerializeField, Header("1度のマナ生成数(本, 整数)")]// 1本 = 100マナ
+    // レベルデザイン用
+    [SerializeField, Header("1度のマナ生成数(本, 整数)"), Space, Space, Space]// 1本 = 100マナ
     private byte _NumOfGenerateMana;
     [SerializeField, Header("マナ生成回数（回, 整数）")]
     byte _NumOfGenerate;
@@ -58,28 +62,28 @@ public class PlantsBase : MonoBehaviour
         if(MyGrowth == GrowthState.Planted)
         {
             // 水と肥料の消耗
-            _PlantsWater -= _WaterConsumption * Time.deltaTime;
-            if (_PlantsWater < 0)
-                _PlantsWater = 0;
-            _PlantsFert -= _FertConsumption * Time.deltaTime;
-            if (_PlantsFert < 0)
-                _PlantsFert = 0;
+            PlantsWater -= _WaterConsumption * Time.deltaTime;
+            if (PlantsWater < 0)
+                PlantsWater = 0;
+            PlantsFert -= _FertConsumption * Time.deltaTime;
+            if (PlantsFert < 0)
+                PlantsFert = 0;
 
-            // 枯渇しているなら経過時間をカウント
+            // 枯渇経過時間をカウント
             _WitherTimeCount += Time.deltaTime;
 
             // 水肥料片方でもない場合枯れ始める
             if (_IsOR)
             {
                 // 両方ともあるならカウントリセット
-                if (_PlantsWater > 0 && _PlantsFert > 0)
+                if (PlantsWater > 0 && PlantsFert > 0)
                     _WitherTimeCount = 0;
             }
             // 水肥料両方ない場合枯れ始める
             else
             {
                 // どちらかあるならカウントリセット
-                if (_PlantsWater > 0 || _PlantsFert > 0)
+                if (PlantsWater > 0 || PlantsFert > 0)
                     _WitherTimeCount = 0;
             }
 
@@ -103,30 +107,37 @@ public class PlantsBase : MonoBehaviour
             MyGrowth = GrowthState.Generated;
             // この生成で最後になるなら
             if (_NumOfGenerate <= _GeneratedCount)
-                IsCompleted = true;
+                _IsCompleted = true;
         }
+    }
+
+    protected void DrawGauge()
+    {
+        // ゲージUIに百分率で代入
+        WaterGauge.fillAmount = PlantsWater / 100;
+        FertGauge.fillAmount = PlantsFert / 100;
     }
 
     protected void Plant()
     {
         if(MyGrowth == GrowthState.Seed)
         {
-            _PlantsWater = _DefaultWater;
-            _PlantsFert = _DefaultFert;
+            PlantsWater = _DefaultWater;
+            PlantsFert = _DefaultFert;
             MyGrowth = GrowthState.Planted;
         }
     }
 
     protected void Watering()
     {
-        if(!IsCompleted)
-            _PlantsWater = _MAXPLANTSWATER;
+        if(!_IsCompleted)
+            PlantsWater = _MAXPLANTSWATER;
     }
     
     protected void fertilizing()
     {
-        if (!IsCompleted)
-            _PlantsFert = _MAXPLANTSFERT;
+        if (!_IsCompleted)
+            PlantsFert = _MAXPLANTSFERT;
     }
     
     protected void Harvest()
@@ -136,7 +147,7 @@ public class PlantsBase : MonoBehaviour
             Debug.Log("マナ" + _NumOfGenerateMana +"本収穫！");
             MyGrowth = GrowthState.Planted;
             // 全て生成済なら枯れる
-            if(IsCompleted)
+            if(_IsCompleted)
                 MyGrowth = GrowthState.Withered;
         }
     }

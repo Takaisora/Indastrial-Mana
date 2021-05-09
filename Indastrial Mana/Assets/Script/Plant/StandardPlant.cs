@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StandardPlants : PlantsBase
+public class StandardPlant : PlantBase
 {
     private void Update()
     {
@@ -26,5 +26,7 @@ public class StandardPlants : PlantsBase
         }
         else if (base.MyGrowth != GrowthState.Seed)
             base.DepletionCheck();
+
+        DrawGauge();
     }
 }
