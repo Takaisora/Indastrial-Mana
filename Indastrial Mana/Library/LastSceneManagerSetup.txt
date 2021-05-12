@@ -1,5 +1,9 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/PlantsTest.unity
+=======
+- path: Assets/Script/Player/Playeranimation.unity
+>>>>>>> origin/Character
   isLoaded: 1
   isActive: 1
   isSubScene: 0
