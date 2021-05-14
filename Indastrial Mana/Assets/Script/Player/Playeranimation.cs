@@ -17,18 +17,21 @@ public class Playeranimation : MonoBehaviour
     int Movenowx = 0;//いま動いているかの判断　アニメーションの有無に使用 0=立ち絵,1=移動アニメーション
     int Movenowy = 0;//いま動いているかの判断　アニメーションの有無に使用 0=立ち絵,1=移動アニメーション
 
-    int ToolState = 0;//何を所持しているかの判断 0=未所持,1=シャベル,2=バケツ,3=肥料,4=水
+    int ToolState = 0;//何を所持しているかの判断 0=未所持,1=バケツ,2=シャベル,3=肥料,4=水
 
-   // [HideInInspector] public bool inPlayer;
+    
 
     Animator animator;
 
-    [SerializeField] Rigidbody2D rb2D;
+    [SerializeField] private BacketCheck bCheck;
+    [SerializeField] private ShovelCheck sCheck;
+    private Rigidbody2D rb2D;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -37,7 +40,7 @@ public class Playeranimation : MonoBehaviour
         Movex = 0;
         Movey = 0;
 
-        Vector3 scale = transform.localScale;//座標取得
+        Vector3 scale = transform.localScale;//プレイヤー情報の取得
 
         //左右移動
         if (Input.GetKey(KeyCode.A))
@@ -82,8 +85,8 @@ public class Playeranimation : MonoBehaviour
 
 
         //アニメーション差し替え判定
-        while (ToolState <2)
-        {
+        //while (ToolState <2)
+        //{
             if (Movenowx == 1)
             {
                 animator.SetInteger("PlayerState", 1);
@@ -96,26 +99,46 @@ public class Playeranimation : MonoBehaviour
             {
                 animator.SetInteger("PlayerState", 2);
             }
-            break;
-        }
+           // break;
+        //}
 
         //以下アクション
+        //道具戻す(テスト用)
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (ToolState == 1)
+            {
+                bCheck.ActiveItem(true);
+                bCheck.BacketMove(transform.position);
+                ToolState = 0;
+            }else if(ToolState == 2)
+            {
+                sCheck.ActiveItem(true);
+                sCheck.ShovelMove(transform.position);
+                ToolState = 0;
+            }
+        }
         //道具ひろう
-       /* if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             if (ToolState == 0)
             {
-               if(inPlayer = true)
+                if (bCheck.InPlayer == true)
                 {
                     ToolState = 1;
-                    Debug.Log("ToolState");
-                } 
+                    bCheck.ActiveItem(false);
+                }
+                else if (sCheck.InPlayer2 == true)
+                {
+                    ToolState = 2;
+                    sCheck.ActiveItem(false);
+                }
             }
-            else if (ToolState == 1)//肥料の上に居るかの判断,肥料をすくう
+            else if (ToolState == 1)//水場にいるかの判断,バケツをもって水を汲む
             {
 
             }
-            else if (ToolState == 2)//水場にいるかの判断,バケツをもって水を汲む
+            else if (ToolState == 2)//肥料の上に居るかの判断,肥料をすくう
             {
 
             }
@@ -126,10 +149,10 @@ public class Playeranimation : MonoBehaviour
             {
 
             }
-        }*/
+        }
 
         //以下更新用
         transform.localScale = scale;
-            transform.Translate(Movex / 1000, Movey / 1000, 0);
+        transform.Translate(Movex / 1000, Movey / 1000, 0);
         }
     }
