@@ -17,9 +17,9 @@ public class Playeranimation : MonoBehaviour
     int Movenowx = 0;//いま動いているかの判断　アニメーションの有無に使用 0=立ち絵,1=移動アニメーション
     int Movenowy = 0;//いま動いているかの判断　アニメーションの有無に使用 0=立ち絵,1=移動アニメーション
 
-    int ToolState = 0;//何を所持しているかの判断 0=未所持,1=シャベル,2=バケツ,3=肥料,4=水
+   // int ToolState = 0;//何を所持しているかの判断 0=未所持,1=シャベル,2=バケツ,3=肥料,4=水
 
-    [HideInInspector] public bool inPlayer;
+   // [HideInInspector] public bool inPlayer;
 
     Animator animator;
 
@@ -82,7 +82,7 @@ public class Playeranimation : MonoBehaviour
 
 
         //アニメーション差し替え判定
-        while (ToolState <2)
+       /* while (ToolState <2)
         {
             if (Movenowx == 1)
             {
@@ -110,7 +110,7 @@ public class Playeranimation : MonoBehaviour
                     ToolState = 1;
                     Debug.Log("ToolState");
                 } 
-            }/*
+            }
             else if (ToolState == 1)//肥料の上に居るかの判断,肥料をすくう
             {
 
@@ -125,8 +125,8 @@ public class Playeranimation : MonoBehaviour
             }else if(ToolState == 4)//畑の上にいるかの判断,畑に水をやる
             {
 
-            }*/
-        }
+            }
+        }*/
 
         //以下更新用
         transform.localScale = scale;
