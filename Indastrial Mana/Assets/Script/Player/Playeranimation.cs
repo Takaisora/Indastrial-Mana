@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Playeranimation : MonoBehaviour
 {
-
     int seikou = 0;//デバッグ用変数
 
     float Movex = 0;//左右移動の為の変数
@@ -17,7 +16,14 @@ public class Playeranimation : MonoBehaviour
     int Movenowx = 0;//いま動いているかの判断　アニメーションの有無に使用 0=立ち絵,1=移動アニメーション
     int Movenowy = 0;//いま動いているかの判断　アニメーションの有無に使用 0=立ち絵,1=移動アニメーション
 
-    int ToolState = 0;//何を所持しているかの判断 0=未所持,1=シャベル,2=バケツ,3=肥料,4=水
+    // アイテム所持状態
+    public enum ToolState : byte
+    {
+        None,
+        Shovel,
+        Bucket
+    }
+
 
    // [HideInInspector] public bool inPlayer;
 
