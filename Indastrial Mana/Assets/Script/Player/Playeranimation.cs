@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Playeranimation : MonoBehaviour
 {
+    [SerializeField] Animator animator;
     int seikou = 0;//デバッグ用変数
 
     float Movex = 0;//左右移動の為の変数
@@ -24,20 +25,6 @@ public class Playeranimation : MonoBehaviour
         Bucket
     }
 
-
-   // [HideInInspector] public bool inPlayer;
-
-    Animator animator;
-
-    [SerializeField] Rigidbody2D rb2D;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Movex = 0;
@@ -87,55 +74,55 @@ public class Playeranimation : MonoBehaviour
         }
 
 
-        //アニメーション差し替え判定
-        while (ToolState <2)
-        {
-            if (Movenowx == 1)
-            {
-                animator.SetInteger("PlayerState", 1);
-            }
-            else if (Movenowy == 1)
-            {
-                animator.SetInteger("PlayerState", 1);
-            }
-            else
-            {
-                animator.SetInteger("PlayerState", 2);
-            }
-            break;
-        }
+        // アニメーション差し替え判定
+        //while (ToolState < 2)
+        //{
+        //    if (Movenowx == 1)
+        //    {
+        //        animator.SetInteger("PlayerState", 1);
+        //    }
+        //    else if (Movenowy == 1)
+        //    {
+        //        animator.SetInteger("PlayerState", 1);
+        //    }
+        //    else
+        //    {
+        //        animator.SetInteger("PlayerState", 2);
+        //    }
+        //    break;
+        //}
 
         //以下アクション
         //道具ひろう
-       /* if (Input.GetKey(KeyCode.Space))
-        {
-            if (ToolState == 0)
-            {
-               if(inPlayer = true)
-                {
-                    ToolState = 1;
-                    Debug.Log("ToolState");
-                } 
-            }
-            else if (ToolState == 1)//肥料の上に居るかの判断,肥料をすくう
-            {
+        /* if (Input.GetKey(KeyCode.Space))
+         {
+             if (ToolState == 0)
+             {
+                if(inPlayer = true)
+                 {
+                     ToolState = 1;
+                     Debug.Log("ToolState");
+                 } 
+             }
+             else if (ToolState == 1)//肥料の上に居るかの判断,肥料をすくう
+             {
 
-            }
-            else if (ToolState == 2)//水場にいるかの判断,バケツをもって水を汲む
-            {
+             }
+             else if (ToolState == 2)//水場にいるかの判断,バケツをもって水を汲む
+             {
 
-            }
-            else if (ToolState == 3)//畑の上に居るかの判断,肥料を畑にかける
-            {
-                
-            }else if(ToolState == 4)//畑の上にいるかの判断,畑に水をやる
-            {
+             }
+             else if (ToolState == 3)//畑の上に居るかの判断,肥料を畑にかける
+             {
 
-            }
-        }*/
+             }else if(ToolState == 4)//畑の上にいるかの判断,畑に水をやる
+             {
+
+             }
+         }*/
 
         //以下更新用
         transform.localScale = scale;
             transform.Translate(Movex / 1000, Movey / 1000, 0);
-        }
     }
+}
