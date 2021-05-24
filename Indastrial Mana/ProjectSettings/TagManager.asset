@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Bucket
-  - Shovel
+  - Garden
+  - Item
   layers:
   - Default
   - TransparentFX
