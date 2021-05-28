@@ -114,8 +114,8 @@ public class PlantBase : MonoBehaviour
     protected void DrawGauge()
     {
         // ƒQ[ƒWUI‚É•S•ª—¦‚Å‘ã“ü
-        WaterGauge.fillAmount = PlantsWater / 100;
-        FertGauge.fillAmount = PlantsFert / 100;
+        //WaterGauge.fillAmount = PlantsWater / 100;
+        //FertGauge.fillAmount = PlantsFert / 100;
     }
 
     protected void Plant()
