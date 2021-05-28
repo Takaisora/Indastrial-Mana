@@ -18,6 +18,7 @@ public class Delivery : MonoBehaviour
                 _PlayerController.Tool = PlayerController.ToolState.None;
 
                 PlayerController.Money += _REWORD;
+                Day_1.ManaBottle += 1;
                 Debug.Log("ƒ}ƒi‚ğ”[•i‚µ‚½");
                 Debug.Log("‘‹à‚ª" + _REWORD + "‘‚¦‚½");
             }

@@ -1,17 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Day_1 : MonoBehaviour
 {
-    [SerializeField]
-    public int Money = 500;//お金
-
     public int RiquiredManaBottle = 0;//クリアに必要なお金
 
-    public int ManaBottle = 0;//マナボトル
+    public static int ManaBottle = 0;//マナボトル
 
     public float DayTime = 0;//一日分の時間
 
@@ -31,6 +26,11 @@ public class Day_1 : MonoBehaviour
     [SerializeField]
     public GameObject Day_Money;//オブジェクト仮置き
 
+    [SerializeField]
+    public GameObject Day_ManaBottle;
+
+    public Text Day1ManaBottle;
+
     public Text Day1Money;//Text
 
     public Text Day1Time;//Text
@@ -42,12 +42,14 @@ public class Day_1 : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        RiquiredManaBottle = RiquiredManaBottle1;//目標金額設定
+        RiquiredManaBottle = RiquiredManaBottle1;//目標数設定
     }
 
     // Update is called once per frame
     public void Update()
     {
+
+
         //Debug.Log(DayTime);
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -75,7 +77,9 @@ public class Day_1 : MonoBehaviour
             DayTime = 90;
         }
 
-        Day1Money.text = "お金" + " x " + Money;
+        Day1Money.text = "お金" + " x " + PlayerController.Money;
+
+        Day1ManaBottle.text = "マナ瓶" + ManaBottle + "/" + RiquiredManaBottle;
 
         Day1Time.text = time.ToString("F0");
 
@@ -107,7 +111,7 @@ public class Day_1 : MonoBehaviour
     }
     public void Result()
     {
-        if (ManaBottle <= RiquiredManaBottle)
+        if (ManaBottle < RiquiredManaBottle)
         {
             Result_Flag = false;
 
