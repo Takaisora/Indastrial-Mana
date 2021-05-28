@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bottle : MonoBehaviour
 {
-    public static bool IsManaFilled = false;
+    public bool IsManaFilled = false;
 
     private void Start()
     {
