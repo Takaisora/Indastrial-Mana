@@ -40,7 +40,7 @@ public class StandardPlant : PlantBase
                     base.Watering();
                 else if (PlayerController.Tool == PlayerController.ToolState.Shovel && Shovel.IsFertFilled)
                     base.Fertilizing();
-                else if (PlayerController.Tool == PlayerController.ToolState.Bottle && !Bottle.IsManaFilled)
+                else if (PlayerController.Tool == PlayerController.ToolState.Bottle)// ƒ{ƒgƒ‹‚ª‹ó‚©‚ÍŠÖ”‚Å”»’f
                     base.Harvest();
             }
         }

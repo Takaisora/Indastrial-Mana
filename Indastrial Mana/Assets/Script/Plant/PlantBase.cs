@@ -163,12 +163,17 @@ public class PlantBase : MonoBehaviour
     {
         if(MyGrowth == GrowthState.Generated)
         {
-            Bottle.IsManaFilled = true;
-            Debug.Log("マナを収穫した");
-            MyGrowth = GrowthState.Planted;
-            // 全て生成済なら枯れる
-            if(_IsCompleted)
-                MyGrowth = GrowthState.Withered;
+            GameObject MyPlayer = GameObject.Find("Player");
+            Bottle MyBottle = MyPlayer.GetComponent<PlayerController>().CarryItem.GetComponent<Bottle>();
+            if(MyBottle.IsManaFilled == false)
+            {
+                MyBottle.IsManaFilled = true;
+                Debug.Log("マナを収穫した");
+                MyGrowth = GrowthState.Planted;
+                // 全て生成済なら枯れる
+                if (_IsCompleted)
+                    MyGrowth = GrowthState.Withered;
+            }
         }
     }
 

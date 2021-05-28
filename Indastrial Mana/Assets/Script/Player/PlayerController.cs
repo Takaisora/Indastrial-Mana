@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private float _MoveX;//左右移動の為の変数
     private float _MoveY;//前後移動の為の変数
     private Vector3 _PlayerScale;
-    private GameObject _CarryItem = null;
+    public GameObject CarryItem = null;
     public ToolState Tool = ToolState.None;
 
     // アイテム所持状態
@@ -114,9 +114,9 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector3 SetPosition = new Vector3(Mathf.RoundToInt(transform.position.x)
                                 , Mathf.RoundToInt(transform.position.y));
-                    _CarryItem.transform.position = SetPosition;
-                    _CarryItem.GetComponent<PlantBase>().Plant(g.WaterGauge, g.FertGauge);
-                    _CarryItem = null;
+                    CarryItem.transform.position = SetPosition;
+                    CarryItem.GetComponent<PlantBase>().Plant(g.WaterGauge, g.FertGauge);
+                    CarryItem = null;
                     Tool = ToolState.None;
                 }
             }
@@ -149,9 +149,9 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider != null && hit.collider.gameObject.tag == "Item")
         {
-            _CarryItem = hit.collider.gameObject;
-            _CarryItem.transform.position = new Vector3(999, 999);
-            string ItemName = _CarryItem.gameObject.name;
+            CarryItem = hit.collider.gameObject;
+            CarryItem.transform.position = new Vector3(999, 999);
+            string ItemName = CarryItem.gameObject.name;
             // オブジェクトが複製された場合
             string[] ItemType = ItemName.Split('_');
 
@@ -191,8 +191,8 @@ public class PlayerController : MonoBehaviour
         // 何もない場所にのみ置ける（修正予定）
         if (hit.collider == null)
         {
-            _CarryItem.transform.position = SetPosition;
-            _CarryItem = null;
+            CarryItem.transform.position = SetPosition;
+            CarryItem = null;
 
             switch (Tool)
             {
