@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Garden
   - Item
+  - Study
   layers:
   - Default
   - TransparentFX

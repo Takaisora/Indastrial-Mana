@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,14 +7,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("移動の速さ")]
     float _MoveSpeed;//移動量の為の変数
     public static float MoveRatio = 1;// デバフなどに使用
+    [SerializeField, Header("初期資金")]
+    public static ushort Money = 500;// (日数またいで引き継ぐ)
+    public GameObject CarryItem = null;// 今持ち運んでいるアイテム
+    public ToolState Tool = ToolState.None;// 今持ち運んでいるアイテムの種類を表す状態
     private float _DeltaMove;// MoveSpeed * MoveRatio * Time.DeltaTime;
     private float _MoveX;//左右移動の為の変数
     private float _MoveY;//前後移動の為の変数
     private Vector3 _PlayerScale;
-    public GameObject CarryItem = null;
-    public ToolState Tool = ToolState.None;
+    private Study _MyStudy = null;
 
-    // アイテム所持状態
     public enum ToolState : byte
     {
         None,
@@ -28,23 +26,12 @@ public class PlayerController : MonoBehaviour
         Bottle
     }
 
-    // プレイヤーのエリア判定
-    public enum AreaState : byte
-    {
-        None,
-        Garden,
-        WaterStrage,
-        FertStrage,
-        StudyArea,
-        DeliveryArea,
-        BottoleArea
-    }
-
-
     private void Start()
     {
         MoveRatio = 1;
         _PlayerScale = transform.localScale;
+        GameObject Study = GameObject.Find("StudyArea");
+        _MyStudy = Study.GetComponent<Study>();
     }
 
     void Update()
@@ -92,10 +79,14 @@ public class PlayerController : MonoBehaviour
         #region アクションボタン
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            RaycastHit2D hit = CheckCell();
             // アイテムを持っていないなら
             if (Tool == ToolState.None)
             {
-                GetItem();
+                if (hit.collider != null && hit.collider.gameObject.tag == "Study")
+                    _MyStudy.Studying();
+                else
+                    GetItem();
             }
             else
                 RemoveItem();
@@ -124,7 +115,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// プレイヤーのマスに何があるかを調べます
+    /// プレイヤーのいるマスに何があるかを調べます
     /// </summary>
     /// <returns>コライダー情報</returns>
     private RaycastHit2D CheckCell()
@@ -211,7 +202,6 @@ public class PlayerController : MonoBehaviour
                 default:
                     break;
             }
-
             Tool = ToolState.None;
         }
         // 自動で横に置く処理を書く
