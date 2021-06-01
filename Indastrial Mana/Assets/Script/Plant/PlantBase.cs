@@ -119,17 +119,23 @@ public class PlantBase : MonoBehaviour
     /// </summary>
     /// <param name="WGauge">植えた花壇の水ゲージUI</param>
     /// <param name="FGauge">植えた花壇の肥料ゲージUI</param>
-    public void Plant(GameObject WGauge, GameObject FGauge)
+    public void Plant(GameObject Garden)
     {
         if(MyGrowth == GrowthState.Seed)
         {
-            MyGarden = WGauge.transform.parent.gameObject;
-            MyGarden.GetComponent<Garden>().IsPlanted = true;
-            _WaterGauge = WGauge.GetComponent<Image>();
+            Garden Gardens = Garden.GetComponent<Garden>();
+            // ゲージ起動
+            _WaterGauge = Gardens.WaterGauge.GetComponent<Image>();
             _WaterGauge.GetComponent<CanvasGroup>().alpha = 1;
-            _FertGauge = FGauge.GetComponent<Image>();
+            _FertGauge = Gardens.FertGauge.GetComponent<Image>();
             _FertGauge.GetComponent<CanvasGroup>().alpha = 1;
 
+            // フラグ処理
+            Gardens.IsPlanted = true;
+            PlayerController.CarryItem = null;
+            PlayerController.Tool = PlayerController.ToolState.None;
+
+            MyGarden = Garden;
             this.gameObject.tag = "Untagged";// Itemだとプレイヤーが持てるので外す
             this.name = "Plant";
             PlantsWater = _DefaultWater;
@@ -163,8 +169,7 @@ public class PlantBase : MonoBehaviour
     {
         if(MyGrowth == GrowthState.Generated)
         {
-            GameObject MyPlayer = GameObject.Find("Player");
-            Bottle MyBottle = MyPlayer.GetComponent<PlayerController>().CarryItem.GetComponent<Bottle>();
+            Bottle MyBottle = PlayerController.CarryItem.GetComponent<Bottle>();
             if(MyBottle.IsManaFilled == false)
             {
                 MyBottle.IsManaFilled = true;

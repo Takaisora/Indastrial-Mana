@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("移動の速さ")]
     private float _MoveSpeed = 0;//移動量の為の変数
     public static float MoveRatio = 1;// デバフなどに使用
-    public GameObject CarryItem = null;// 今持ち運んでいるアイテム
-    public ToolState Tool = ToolState.None;// 今持ち運んでいるアイテムの種類を表す状態
+    public static GameObject CarryItem = null;// 今持ち運んでいるアイテム
+    public static ToolState Tool = ToolState.None;// 今持ち運んでいるアイテムの種類を表す状態
     private float _DeltaMove = 0;// MoveSpeed * MoveRatio * Time.DeltaTime;
     private float _MoveX = 0;//左右移動の為の変数
     private float _MoveY = 0;//前後移動の為の変数
@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         MoveRatio = 1;
         _PlayerScale = transform.localScale;
+        Tool = ToolState.None;
         GameObject Study = GameObject.Find("StudyArea");
         _MyStudy = Study.GetComponent<Study>();
         rb = GetComponent<Rigidbody2D>();
@@ -102,28 +103,19 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
-        #region 種を植える処理
-        if (Tool == ToolState.Seed)
-        {
-            RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
-            if(Hit.collider != null && Hit.collider.gameObject.CompareTag("Garden"))
-            {
-                GameObject Garden = Hit.collider.gameObject;
-                Garden Gardens = Garden.GetComponent<Garden>();
-                if (!Gardens.IsPlanted)
-                {
-                    Vector3 SetPosition = new Vector3(Mathf.RoundToInt(transform.position.x)
-                                , Mathf.RoundToInt(transform.position.y));
-                    // 植物をその場に植える
-                    CarryItem.transform.position = SetPosition;
-                    // ゲージ起動
-                    CarryItem.GetComponent<PlantBase>().Plant(Gardens.WaterGauge, Gardens.FertGauge);
-                    CarryItem = null;
-                    Tool = ToolState.None;
-                }
-            }
-        }
-        #endregion
+        //if (Tool == ToolState.Seed)
+        //{
+        //    RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
+        //    if(Hit.collider != null && Hit.collider.gameObject.CompareTag("Garden"))
+        //    {
+        //        GameObject Garden = Hit.collider.gameObject;
+        //        Vector3 SetPosition = new Vector3(Mathf.RoundToInt(transform.position.x)
+        //                                        , Mathf.RoundToInt(transform.position.y));
+        //        // 植物をその場に植える
+        //        CarryItem.transform.position = SetPosition;
+        //        CarryItem.GetComponent<PlantBase>().Plant(Garden);
+        //    }
+        //}
     }
 
     /// <summary>

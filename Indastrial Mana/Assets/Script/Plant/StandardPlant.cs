@@ -22,9 +22,7 @@ public class StandardPlant : PlantBase
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (base.MyGrowth == GrowthState.Seed)
-        {
             return;
-        }
 
         if(collision.gameObject.tag == "Player")
         {

@@ -13,13 +13,10 @@ public class BottoleStrage : MonoBehaviour
     [SerializeField]
     int MaxBottle = 5;
     private List<GameObject> _BottleList = new List<GameObject>();
-    private PlayerController _PlayerController = null;
     private int BottleCount = 0;
 
     void Start()
     {
-        _PlayerController = Player.GetComponent<PlayerController>();
-
         for(int i = 0; i < MaxBottle; i++)
         {
             GameObject MyBottle = Instantiate(Bottle, new Vector3(999, 999), Quaternion.identity);
@@ -32,16 +29,16 @@ public class BottoleStrage : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // プレイヤーが何も持っていなければ
-        if (collision.gameObject.tag == "Player" && _PlayerController.Tool == PlayerController.ToolState.None)
+        if (collision.gameObject.tag == "Player" && PlayerController.Tool == PlayerController.ToolState.None)
         {
             _BottleList[BottleCount].GetComponent<Bottle>().IsManaFilled = false;
-            _PlayerController.CarryItem = _BottleList[BottleCount];
-            _PlayerController.CarryItem.transform.position = new Vector3(999, 999);
+            PlayerController.CarryItem = _BottleList[BottleCount];
+            PlayerController.CarryItem.transform.position = new Vector3(999, 999);
             BottleCount++;
             if (BottleCount > MaxBottle - 1)
                 BottleCount = 0;
 
-            _PlayerController.Tool = PlayerController.ToolState.Bottle;
+            PlayerController.Tool = PlayerController.ToolState.Bottle;
             Debug.Log("ビンを手に入れた");
         }
     }
