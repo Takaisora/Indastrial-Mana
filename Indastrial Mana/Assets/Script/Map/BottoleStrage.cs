@@ -5,15 +5,15 @@ using UnityEngine;
 public class BottoleStrage : MonoBehaviour
 {
     [SerializeField]
-    GameObject Player;
+    GameObject Player = null;
     [SerializeField]
-    GameObject MapCanvas;
+    GameObject MapCanvas = null;
     [SerializeField]
-    GameObject Bottle;
+    GameObject Bottle = null;
     [SerializeField]
     int MaxBottle = 5;
     private List<GameObject> _BottleList = new List<GameObject>();
-    private PlayerController _PlayerController;
+    private PlayerController _PlayerController = null;
     private int BottleCount = 0;
 
     void Start()
@@ -36,6 +36,7 @@ public class BottoleStrage : MonoBehaviour
         {
             _BottleList[BottleCount].GetComponent<Bottle>().IsManaFilled = false;
             _PlayerController.CarryItem = _BottleList[BottleCount];
+            _PlayerController.CarryItem.transform.position = new Vector3(999, 999);
             BottleCount++;
             if (BottleCount > MaxBottle - 1)
                 BottleCount = 0;
