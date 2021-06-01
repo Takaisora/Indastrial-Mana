@@ -3,19 +3,20 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    Animator _Animator;
-    [SerializeField, Header("移動の速さ")]
-    float _MoveSpeed;//移動量の為の変数
-    public static float MoveRatio = 1;// デバフなどに使用
+    private Animator _Animator = null;
     [SerializeField, Header("初期資金")]
     public static ushort Money = 500;// (日数またいで引き継ぐ)
+    [SerializeField, Header("移動の速さ")]
+    private float _MoveSpeed = 0;//移動量の為の変数
+    public static float MoveRatio = 1;// デバフなどに使用
     public GameObject CarryItem = null;// 今持ち運んでいるアイテム
     public ToolState Tool = ToolState.None;// 今持ち運んでいるアイテムの種類を表す状態
-    private float _DeltaMove;// MoveSpeed * MoveRatio * Time.DeltaTime;
-    private float _MoveX;//左右移動の為の変数
-    private float _MoveY;//前後移動の為の変数
-    private Vector3 _PlayerScale;
+    private float _DeltaMove = 0;// MoveSpeed * MoveRatio * Time.DeltaTime;
+    private float _MoveX = 0;//左右移動の為の変数
+    private float _MoveY = 0;//前後移動の為の変数
+    private Vector3 _PlayerScale = Vector3.zero;
     private Study _MyStudy = null;
+    private Rigidbody2D rb = null;
 
     public enum ToolState : byte
     {
@@ -32,11 +33,15 @@ public class PlayerController : MonoBehaviour
         _PlayerScale = transform.localScale;
         GameObject Study = GameObject.Find("StudyArea");
         _MyStudy = Study.GetComponent<Study>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         #region 移動処理
+#if UNITY_EDITOR
+        _MoveSpeed = 5;
+#endif
         _MoveX = 0;
         _MoveY = 0;
         _DeltaMove = _MoveSpeed * MoveRatio * Time.deltaTime;
@@ -60,10 +65,14 @@ public class PlayerController : MonoBehaviour
         {
             _MoveY = -_DeltaMove;
         }
-
-        transform.Translate(_MoveX, _MoveY, 0);
+#if UNITY_EDITOR
+        transform.Translate(_MoveX, _MoveY, 0);// PCが重いのでこっち
+#endif
+#if UNITY_IOS
+        Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
+        rb.velocity = move;
+#endif
         #endregion
-
 
         #region アニメーション
         if (_MoveX != 0 || _MoveY != 0)
@@ -79,56 +88,59 @@ public class PlayerController : MonoBehaviour
         #region アクションボタン
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            RaycastHit2D hit = CheckCell();
+            RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
             // アイテムを持っていないなら
             if (Tool == ToolState.None)
             {
-                if (hit.collider != null && hit.collider.gameObject.tag == "Study")
+                if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
                     _MyStudy.Studying();
                 else
                     GetItem();
             }
             else
-                RemoveItem();
+                RemoveItem(transform.position.x, transform.position.y);
         }
         #endregion
 
-        // 種を植える処理
-        if(Tool == ToolState.Seed)
+        #region 種を植える処理
+        if (Tool == ToolState.Seed)
         {
-            RaycastHit2D hit = CheckCell();
-            if(hit.collider != null && hit.collider.gameObject.tag == "Garden")
+            RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
+            if(Hit.collider != null && Hit.collider.gameObject.CompareTag("Garden"))
             {
-                GameObject Garden = hit.collider.gameObject;
-                Garden g = Garden.GetComponent<Garden>();
-                if (!g.IsPlanted)
+                GameObject Garden = Hit.collider.gameObject;
+                Garden Gardens = Garden.GetComponent<Garden>();
+                if (!Gardens.IsPlanted)
                 {
                     Vector3 SetPosition = new Vector3(Mathf.RoundToInt(transform.position.x)
                                 , Mathf.RoundToInt(transform.position.y));
+                    // 植物をその場に植える
                     CarryItem.transform.position = SetPosition;
-                    CarryItem.GetComponent<PlantBase>().Plant(g.WaterGauge, g.FertGauge);
+                    // ゲージ起動
+                    CarryItem.GetComponent<PlantBase>().Plant(Gardens.WaterGauge, Gardens.FertGauge);
                     CarryItem = null;
                     Tool = ToolState.None;
                 }
             }
         }
+        #endregion
     }
 
     /// <summary>
-    /// プレイヤーのいるマスに何があるかを調べます
+    /// 指定のマスに何があるかを調べます
     /// </summary>
-    /// <returns>コライダー情報</returns>
-    private RaycastHit2D CheckCell()
+    /// <param name="X">調べたいx座標</param>
+    /// <param name="Y">調べたいy座標</param>
+    /// <returns></returns>
+    private RaycastHit2D CheckCell(float X, float Y)
     {
         // 座標を四捨五入で整数に(偶数丸めなので不具合起こるかも？)
-        Vector3 CellPosition = new Vector3(Mathf.RoundToInt(transform.position.x)
-                                         , Mathf.RoundToInt(transform.position.y));
-        //Debug.Log(CellPosition);
-
+        Vector3 CellPosition = new Vector3(Mathf.RoundToInt(X)
+                                         , Mathf.RoundToInt(Y));
         // 足元に何があるかを判別
-        RaycastHit2D hit = Physics2D.Raycast(CellPosition, new Vector3(0, 0, 1), 100);
+        RaycastHit2D Hit = Physics2D.Raycast(CellPosition, new Vector3(0, 0, 1), 100);
 
-        return hit;
+        return Hit;
     }
 
     /// <summary>
@@ -136,14 +148,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void GetItem()
     {
-        RaycastHit2D hit = CheckCell();
+        RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
 
-        if (hit.collider != null && hit.collider.gameObject.tag == "Item")
+        if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Item"))
         {
-            CarryItem = hit.collider.gameObject;
+            CarryItem = Hit.collider.gameObject;
             CarryItem.transform.position = new Vector3(999, 999);
             string ItemName = CarryItem.gameObject.name;
-            // オブジェクトが複製された場合
+            // アイテムが複製された場合用
             string[] ItemType = ItemName.Split('_');
 
             switch (ItemType[0])
@@ -171,39 +183,76 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// プレイヤーのマスにアイテムを置きます
+    /// プレイヤーのマスかその周囲4マスにホールド中のアイテムを置きます
     /// </summary>
-    private void RemoveItem()
+    private void RemoveItem(float PlayerPosX, float PlayerPosY)
     {
-        RaycastHit2D hit = CheckCell();
-        Vector3 SetPosition = new Vector3(Mathf.RoundToInt(transform.position.x)
-                                        , Mathf.RoundToInt(transform.position.y));
+        bool Still = true;// 自身のマスにアイテムを置くか周囲4マスに空きがなければ処理を終わる
+        byte CheckCount = 0;// 0...真ん中, 1...右,2...上, 3...左, 4...下
+        // 置き場所指定用
+        float X = PlayerPosX;
+        float Y = PlayerPosY;
 
-        // 何もない場所にのみ置ける（修正予定）
-        if (hit.collider == null)
+        do
         {
-            CarryItem.transform.position = SetPosition;
-            CarryItem = null;
+            RaycastHit2D Hit = CheckCell(X, Y);
 
-            switch (Tool)
+            // 調べたマスにアイテムが置けないなら
+            if (Hit.collider != null)
             {
-                case ToolState.Bucket:
-                    Debug.Log("バケツを置いた");
-                    break;
-                case ToolState.Shovel:
-                    Debug.Log("シャベルを置いた");
-                    break;
-                case ToolState.Seed:
-                    Debug.Log("種を置いた");
-                    break;
-                case ToolState.Bottle:
-                    Debug.Log("ビンを置いた");
-                    break;
-                default:
-                    break;
+                CheckCount++;
+                // 次に調べるマスを指定
+                switch (CheckCount)
+                {
+                    case 1:
+                        X = PlayerPosX + 1;
+                        Y = PlayerPosY;
+                        break;
+                    case 2:
+                        X = PlayerPosX - 1;
+                        Y = PlayerPosY;
+                        break;
+                    case 3:
+                        X = PlayerPosX;
+                        Y = PlayerPosY + 1;
+                        break;
+                    case 4:
+                        X = PlayerPosX;
+                        Y = PlayerPosY - 1;
+                        break;
+                    default:
+                        Still = false;
+                        break;
+                }
             }
-            Tool = ToolState.None;
-        }
-        // 自動で横に置く処理を書く
+            // 何もなければアイテムを置く
+            else
+            {
+                Vector3 SetPosition = new Vector3(Mathf.RoundToInt(X)
+                                    , Mathf.RoundToInt(Y));
+                CarryItem.transform.position = SetPosition;
+                CarryItem = null;
+
+                switch (Tool)
+                {
+                    case ToolState.Bucket:
+                        Debug.Log("バケツを置いた");
+                        break;
+                    case ToolState.Shovel:
+                        Debug.Log("シャベルを置いた");
+                        break;
+                    case ToolState.Seed:
+                        Debug.Log("種を置いた");
+                        break;
+                    case ToolState.Bottle:
+                        Debug.Log("ビンを置いた");
+                        break;
+                    default:
+                        break;
+                }
+                Tool = ToolState.None;
+                Still = false;
+            }
+        } while (Still);
     }
 }
