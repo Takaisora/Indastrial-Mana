@@ -6,27 +6,41 @@ public class StandardPlant : PlantBase
 {
     private void Update()
     {
-         //関数呼び出しテスト
-        if (Input.GetMouseButtonDown(2))
-            base.Plant();
-        if (Input.GetMouseButtonDown(0))
-            base.Watering();
-        if (Input.GetMouseButtonDown(1))
-            base.fertilizing();
-        if (Input.GetKeyDown(KeyCode.Space))
-            base.Harvest();
-
         if (base.MyGrowth == GrowthState.Planted)
             base.Growing();
 
-        if (MyGrowth == GrowthState.Withered)
+        if (base.MyGrowth != GrowthState.Seed)
         {
-            Debug.Log("枯れました...");
-            Destroy(this.gameObject);
-        }
-        else if (base.MyGrowth != GrowthState.Seed)
             base.DepletionCheck();
+            base.DrawGauge();
+        }
 
-        DrawGauge();
+        if (base.MyGrowth == GrowthState.Withered)
+            base.Withered();
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (base.MyGrowth == GrowthState.Seed)
+            return;
+
+        if(collision.gameObject.tag == "Player")
+        {
+            base.Player = collision.gameObject;
+            Vector3 CellPosition = new Vector3(Mathf.RoundToInt(Player.transform.position.x)
+                                 , Mathf.RoundToInt(Player.transform.position.y));
+
+            if(CellPosition == this.transform.position)
+            {
+                PlayerController PlayerController = Player.GetComponent<PlayerController>();
+
+                if (PlayerController.Tool == PlayerController.ToolState.Bucket && Bucket.IsWaterFilled)
+                    base.Watering();
+                else if (PlayerController.Tool == PlayerController.ToolState.Shovel && Shovel.IsFertFilled)
+                    base.Fertilizing();
+                else if (PlayerController.Tool == PlayerController.ToolState.Bottle)// ボトルが空かは関数で判断
+                    base.Harvest();
+            }
+        }
     }
 }

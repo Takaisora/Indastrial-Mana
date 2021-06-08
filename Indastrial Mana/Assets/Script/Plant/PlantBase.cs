@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-//using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,19 +16,15 @@ public class PlantBase : MonoBehaviour
     private float _WitherTimeCount = 0;// 枯渇時間カウント
     [SerializeField]
     protected GrowthState MyGrowth;// 植物の成長状態
+    protected GameObject Player = null;
     private byte _GeneratedCount = 0;// マナ生成毎にカウント
     private bool _IsCompleted = false;// マナを全て生成しきったか
-    // UI
-    [SerializeField]
-    Image WaterGauge;// 水ゲージUI
-    [SerializeField]
-    Image FertGauge;// 肥料ゲージUI
-
+    private GameObject MyGarden = null;
+    private Image _WaterGauge = null;
+    private Image _FertGauge = null;
 
     // レベルデザイン用
-    [SerializeField, Header("1度のマナ生成数(本, 整数)"), Space, Space, Space]// 1本 = 100マナ
-    private byte _NumOfGenerateMana;
-    [SerializeField, Header("マナ生成回数（回, 整数）")]
+    [SerializeField, Header("マナ生成回数（回, 整数）"), Space, Space, Space]
     byte _NumOfGenerate;
     [SerializeField, Header("水の初期量(上限100, 少数可)")]
     byte _DefaultWater;
@@ -105,6 +100,7 @@ public class PlantBase : MonoBehaviour
             _GeneratedCount++;
             _GenerateTimeCount = 0;
             MyGrowth = GrowthState.Generated;
+            Debug.Log("植物がマナを生成");
             // この生成で最後になるなら
             if (_NumOfGenerate <= _GeneratedCount)
                 _IsCompleted = true;
@@ -114,41 +110,84 @@ public class PlantBase : MonoBehaviour
     protected void DrawGauge()
     {
         // ゲージUIに百分率で代入
-        //WaterGauge.fillAmount = PlantsWater / 100;
-        //FertGauge.fillAmount = PlantsFert / 100;
+        _WaterGauge.fillAmount = PlantsWater / 100;
+        _FertGauge.fillAmount = PlantsFert / 100;
     }
 
-    protected void Plant()
+    /// <summary>
+    /// 植物を植える処理
+    /// </summary>
+    /// <param name="WGauge">植えた花壇の水ゲージUI</param>
+    /// <param name="FGauge">植えた花壇の肥料ゲージUI</param>
+    public void Plant(GameObject Garden)
     {
         if(MyGrowth == GrowthState.Seed)
         {
+            Garden Gardens = Garden.GetComponent<Garden>();
+            // ゲージ起動
+            _WaterGauge = Gardens.WaterGauge.GetComponent<Image>();
+            _WaterGauge.GetComponent<CanvasGroup>().alpha = 1;
+            _FertGauge = Gardens.FertGauge.GetComponent<Image>();
+            _FertGauge.GetComponent<CanvasGroup>().alpha = 1;
+
+            // フラグ処理
+            Gardens.IsPlanted = true;
+            PlayerController.CarryItem = null;
+            PlayerController.Tool = PlayerController.ToolState.None;
+
+            MyGarden = Garden;
+            this.gameObject.tag = "Untagged";// Itemだとプレイヤーが持てるので外す
+            this.name = "Plant";
             PlantsWater = _DefaultWater;
             PlantsFert = _DefaultFert;
             MyGrowth = GrowthState.Planted;
+            Debug.Log("種を植えた");
         }
     }
 
     protected void Watering()
     {
         if(!_IsCompleted)
+        {
+            Bucket.IsWaterFilled = false;
+            Debug.Log("水を与えた");
             PlantsWater = _MAXPLANTSWATER;
+        }
     }
     
-    protected void fertilizing()
+    protected void Fertilizing()
     {
         if (!_IsCompleted)
+        {
+            Shovel.IsFertFilled = false;
+            Debug.Log("肥料を与えた");
             PlantsFert = _MAXPLANTSFERT;
+        }
     }
     
     protected void Harvest()
     {
         if(MyGrowth == GrowthState.Generated)
         {
-            Debug.Log("マナ" + _NumOfGenerateMana +"本収穫！");
-            MyGrowth = GrowthState.Planted;
-            // 全て生成済なら枯れる
-            if(_IsCompleted)
-                MyGrowth = GrowthState.Withered;
+            Bottle MyBottle = PlayerController.CarryItem.GetComponent<Bottle>();
+            if(MyBottle.IsManaFilled == false)
+            {
+                MyBottle.IsManaFilled = true;
+                Debug.Log("マナを収穫した");
+                MyGrowth = GrowthState.Planted;
+                // 全て生成済なら枯れる
+                if (_IsCompleted)
+                    MyGrowth = GrowthState.Withered;
+            }
         }
+    }
+
+    protected void Withered()
+    {
+        MyGarden.GetComponent<Garden>().IsPlanted = false;
+        _WaterGauge.GetComponent<CanvasGroup>().alpha = 0;
+        _FertGauge.GetComponent<CanvasGroup>().alpha = 0;
+        Debug.Log("枯れてしまった..");
+        Destroy(this.gameObject);
     }
 }   
