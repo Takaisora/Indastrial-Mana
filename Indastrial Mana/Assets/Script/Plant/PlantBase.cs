@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlantBase : MonoBehaviour
 {
+    public float GrowSpeed = 1;// 植物の成長速度
+
     public float PlantsWater = 0;// 水蓄積値
     public float PlantsFert = 0;// 肥料蓄積値
     private const byte _MAXPLANTSWATER = 100;// 水蓄積上限値
@@ -40,6 +42,18 @@ public class PlantBase : MonoBehaviour
     float _WitherTime;
     [SerializeField, Header("水か肥料どちらかだけでも枯れる？")]
     bool _IsOR;
+
+    // バフがかかっているかを判別するbool変数
+    [SerializeField, Header("バフが掛かるか")]
+    bool Buff;
+    // バフがかかっているなら時間をカウントするfloat変数
+    [SerializeField, Header("バフ時間カウント")]
+    float BuffTime;
+    // バフの効果時間を受け取るfloat変数
+    [SerializeField, Header("バフ時間")]
+    float GetBuff;
+
+
 
     protected enum GrowthState : byte
     {
@@ -93,7 +107,7 @@ public class PlantBase : MonoBehaviour
     /// </summary>
     protected void Growing()
     {
-        _GenerateTimeCount += Time.deltaTime;
+        _GenerateTimeCount += Time.deltaTime * GrowSpeed;
 
         if (_GenerateTime <= _GenerateTimeCount)
         {
@@ -144,6 +158,22 @@ public class PlantBase : MonoBehaviour
             Debug.Log("種を植えた");
         }
     }
+
+    //魔法時間、効果
+    public void MagicTime()
+    {
+        if (Buff)
+        {
+            //魔法効果打消し
+            BuffTime += Time.deltaTime;
+            if (BuffTime <= 0)
+            {
+                GetComponent<Randomu2>().GrowSpeed = GrowSpeed / GrowSpeed;
+                Debug.Log("成長速度が戻りました");
+            }
+        }
+    }
+
 
     protected void Watering()
     {

@@ -14,6 +14,7 @@ public class Garden : MonoBehaviour
     
     public bool IsPlanted = false;
     private GameObject _Player = null;
+    public GameObject MyPlants = null;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class Garden : MonoBehaviour
 
         if (_DefaultPlants != null && _Canvas != null)
         {
-            GameObject MyPlants = Instantiate(_DefaultPlants, transform.position, Quaternion.identity);
+            MyPlants = Instantiate(_DefaultPlants, transform.position, Quaternion.identity);
             MyPlants.transform.parent = _Canvas.transform;
             MyPlants.GetComponent<PlantBase>().Plant(gameObject);
         }
@@ -39,6 +40,7 @@ public class Garden : MonoBehaviour
         {
             PlayerController.CarryItem.transform.position = transform.position;
             PlayerController.CarryItem.GetComponent<PlantBase>().Plant(gameObject);
+            MyPlants = PlayerController.CarryItem;
         }
     }
 }
