@@ -31,21 +31,33 @@ public class Day_1_Start : MonoBehaviour
     {
         DelayTime += Time.deltaTime;
 
-        Destroy(this.gameObject, 5.0f);
-
         if (DelayTime >= 3)
         {
             Start1();
+
+            Invoke("Active", 3f);
         }
     }
     void Day1()
     {
-        Day1Start.text = "1“ú–Ú";
+        Day1Start.text = Day_1.Days + "“ú–Ú";
     }
     void Start1()
     {
         Day1Start.text = "Start!";
 
         DayManager.GetComponent<Day_1>().SFlag();
+    }
+
+    void Active()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    public void ReStart()
+    {
+        DelayTime = 0;
+
+        Day1();
     }
 }
