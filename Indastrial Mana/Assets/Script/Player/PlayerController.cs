@@ -86,20 +86,20 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region アクションボタン
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
-            // アイテムを持っていないなら
-            if (Tool == ToolState.None)
-            {
-                if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
-                    _MyStudy.Studying();
-                else
-                    GetItem();
-            }
-            else
-                RemoveItem(transform.position.x, transform.position.y);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
+        //    // アイテムを持っていないなら
+        //    if (Tool == ToolState.None)
+        //    {
+        //        if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
+        //            _MyStudy.Studying();
+        //        else
+        //            GetItem();
+        //    }
+        //    else
+        //        RemoveItem(transform.position.x, transform.position.y);
+        //}
         #endregion
 
         #region 種を植える処理
@@ -146,6 +146,23 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// プレイヤーのマスにアイテムがあれば拾います
     /// </summary>
+
+    public void ActionBotton()
+    {
+        RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
+        // アイテムを持っていないなら
+        if (Tool == ToolState.None)
+        {
+            if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
+                _MyStudy.Studying();
+            else
+                GetItem();
+        }
+        else
+            RemoveItem(transform.position.x, transform.position.y);
+    }
+
+
     private void GetItem()
     {
         RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);

@@ -96,11 +96,9 @@ public class Day_1 : MonoBehaviour
 
         if (DayTime >= LimitTime)
         {
-            DayEnd();
+            Result();
 
             Start_Flag = false;
-
-            DayTime = 90;
 
             Player.GetComponent<PlayerController>().enabled = false;
         }
@@ -185,27 +183,25 @@ public class Day_1 : MonoBehaviour
         DayTime += Time.deltaTime;
     }
 
-    public void DayEnd()
-    {
-        DayTime = 90;
-
-        Invoke("Result", 3f);
-    }
     public void Result()
     {
-        //if (ManaBottle < RiquiredManaBottle) //Fail
-        //{
-        //    Result_Flag = true;
 
-        //    Success_Flag = false;
-        //}
-        //else
-        //{
-        //    Result_Flag = true;
+        if (ManaBottle < RiquiredManaBottle) //Fail
+        {
+            Result_Flag = true;
 
-        //    Success_Flag = true;
-        //}
+            Success_Flag = false;
+        }
+        else
+        {
+            Result_Flag = true;
 
-        
+            Success_Flag = true;
+        }
+    }
+
+    public void ResultClose()
+    {
+        Result_Flag = false;
     }
 }

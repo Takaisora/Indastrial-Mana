@@ -59,5 +59,7 @@ public class Day_1_Start : MonoBehaviour
         DelayTime = 0;
 
         Day1();
+
+        DayManager.GetComponent<Day_1>().ResultClose();
     }
 }
