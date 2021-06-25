@@ -98,13 +98,25 @@ public class PlayerController : MonoBehaviour
         #region アニメーション
         if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
         {
-            //if (Tool == ToolState.None)
-            _Animator.SetInteger("PlayerState", 1);
-            //else 
+            if (Tool == ToolState.None)
+                _Animator.SetInteger("PlayerState", 1);
+            else if (Tool == ToolState.Shovel)
+                _Animator.SetInteger("PlayerState", 3);
+            else if (Tool == ToolState.Bucket)
+                _Animator.SetInteger("PlayerState", 5);
+            else if (Tool == ToolState.Bottle)
+                _Animator.SetInteger("PlayerState", 7);
         }
         else
         {
-            _Animator.SetInteger("PlayerState", 0);
+            if (Tool == ToolState.None)
+                _Animator.SetInteger("PlayerState", 0);
+            else if (Tool == ToolState.Shovel)
+                _Animator.SetInteger("PlayerState", 2);
+            else if (Tool == ToolState.Bucket)
+                _Animator.SetInteger("PlayerState", 4);
+            else if (Tool == ToolState.Bottle)
+                _Animator.SetInteger("PlayerState", 6);
         }
 
         //if (_MoveX != 0 || _MoveY != 0|| MoveVecter != Vector3.zero)

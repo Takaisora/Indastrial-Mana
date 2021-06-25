@@ -40,7 +40,7 @@ public class Day_1_Start : MonoBehaviour
     }
     void Day1()
     {
-        Day1Start.text = Day_1.Days + "“ú–Ú";
+        Day1Start.text = Day_1.Days + "Days";
     }
     void Start1()
     {

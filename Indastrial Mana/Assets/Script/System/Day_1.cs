@@ -55,6 +55,8 @@ public class Day_1 : MonoBehaviour
 
     public float LimitTime = 90;//§ŒÀŽžŠÔ
 
+    Touch touch;
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -87,11 +89,10 @@ public class Day_1 : MonoBehaviour
         if (Start_Flag == true)
         {
             DayStart();
-            //Time.timeScale = 1f;
         }
         else
         {
-            //Time.timeScale = 0f;
+
         }
 
         if (DayTime >= LimitTime)
@@ -107,7 +108,7 @@ public class Day_1 : MonoBehaviour
         {
             Day_Result.SetActive(true);
 
-            ResultDay.text = Days + "“ú–Ú";
+            ResultDay.text = Days + "Days";
 
             ResultMoney.text = "x" + PlayerController.Money;
 
@@ -139,7 +140,25 @@ public class Day_1 : MonoBehaviour
 #endif
 
 #if UNITY_IOS
+                if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+                }
 
+                if (touch.phase == TouchPhase.Began)
+                {
+                    DayTime = 0;
+
+                    Result_Flag = false;
+
+                    Days += 1;
+
+                    ManaBottle = 0;
+
+                    Day_Start.SetActive(true);
+
+                    Day_Start.GetComponent<Day_1_Start>().ReStart();
+                }
 #endif
             }
             else
@@ -154,11 +173,11 @@ public class Day_1 : MonoBehaviour
             Day_Result.SetActive(false);
         }
 
-        Day.text = Days +"“ú";
+        Day.text = Days +"Day";
 
-        Day1Money.text = "‚¨‹à" + " x " + PlayerController.Money;
+        Day1Money.text = "M" + " x " + PlayerController.Money;
 
-        Day1ManaBottle.text = "ƒ}ƒi•r" + ManaBottle + "/" + RiquiredManaBottle;
+        Day1ManaBottle.text = "MB" + ManaBottle + "/" + RiquiredManaBottle;
 
         Day1Time.text = time.ToString("F0");
 
@@ -166,7 +185,7 @@ public class Day_1 : MonoBehaviour
 
         if (time <= 0)
         {
-            Day1Time.text = "I—¹";
+            Day1Time.text = "End";
         }
 
 
