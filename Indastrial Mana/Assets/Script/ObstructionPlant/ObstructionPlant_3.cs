@@ -6,15 +6,22 @@ public class ObstructionPlant_3 : PlantBase
 {
 
     private int _RondamType = 0;
+    private int _RondamType2 = 0;
     private int _Rondamplusx = 0;
     private int _Rondamplusy = 0;
+    private int n = 0;
     protected float HandOffx = 0;
     protected float HandOffy = 0;
     protected float HandOffz = 0;
     public static bool start = false;
+    private bool Judge = false;
     Vector3 DebuffArea;
     [SerializeField] GameObject Debuff;
     [SerializeField] GameObject MapCanvas;
+    [SerializeField] Canvas parentCanvas;
+    [SerializeField] GameObject Test;
+    List<Vector3> _RondamList = new List<Vector3>();
+
     // Update is called once per frame
     private void Update()
     {
@@ -35,45 +42,85 @@ public class ObstructionPlant_3 : PlantBase
             }
             else if (!_IsCompleted)
             {
-                for (int m = 0; m < UnityEngine.Random.Range(4, 6); m++)
+                int noft = UnityEngine.Random.Range(4, 6);
+                for (int m = 0; m < noft; m++)
                 {
                     Vector3 PlantPlace = new Vector3(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
-                    _RondamType = UnityEngine.Random.Range(2, 4);
+
+                    _RondamType = UnityEngine.Random.Range(0, 3);
+                    _RondamType2 = UnityEngine.Random.Range(0, 3);
                     _Rondamplusx = UnityEngine.Random.Range(0, 2);
                     _Rondamplusy = UnityEngine.Random.Range(0, 2);
                     if (_Rondamplusx == 0)
                     {
-                        if(_Rondamplusy == 0)
-                        {
-                            DebuffArea = new Vector3(PlantPlace.x + _RondamType, PlantPlace.y + _RondamType);
-                        }
-                        else if(_Rondamplusy == 1)
-                        {
-                            DebuffArea = new Vector3(PlantPlace.x + _RondamType, PlantPlace.y - _RondamType);
-                        }
-                    }
-                    else if(_Rondamplusx == 1)
-                    {
                         if (_Rondamplusy == 0)
                         {
-                            DebuffArea = new Vector3(PlantPlace.x - _RondamType, PlantPlace.y + _RondamType);
+                            DebuffArea = new Vector3(PlantPlace.x + _RondamType, PlantPlace.y + _RondamType2);
                         }
                         else if (_Rondamplusy == 1)
                         {
-                             DebuffArea = new Vector3(PlantPlace.x - _RondamType, PlantPlace.y - _RondamType);
+                            DebuffArea = new Vector3(PlantPlace.x + _RondamType, PlantPlace.y - _RondamType2);
                         }
                     }
-                    //Debuff.gameObject.SetActive(true);
-                    //Debuff.transform.position = DebuffArea;
-                    GameObject Test = (GameObject)Resources.Load("Debuff");
-                    Debug.Log(DebuffArea);
-                    Debug.Log(PlantPlace);
-                    //HandOffx = DebuffArea.x;
-                    //HandOffy = DebuffArea.y;
-                    Instantiate(Test, DebuffArea,Quaternion.identity);
-                    Test.transform.SetParent(MapCanvas.transform, true);
-                    //DebuffAreaの座標を通ると狂気度が上がるようにする。DebuffArea2をDebuffAreaに移し替えて同じ作業を繰り返す。新しいデバフフィールドのプレハブを作る。
-                    //植物の座標取得と2,3のランダム取得、プラスかマイナスかのランダム変数を用意する。(ランダム変数が計二つ)
+                    else if (_Rondamplusx == 1)
+                    {
+                        if (_Rondamplusy == 0)
+                        {
+                            DebuffArea = new Vector3(PlantPlace.x - _RondamType, PlantPlace.y + _RondamType2);
+                        }
+                        else if (_Rondamplusy == 1)
+                        {
+                            DebuffArea = new Vector3(PlantPlace.x - _RondamType, PlantPlace.y - _RondamType2);
+                        }
+                    }
+                    _RondamList.Add(DebuffArea);
+                }
+                for(int a = 0; a< noft; a++)
+                {
+                    for (int b = 0; b< noft; b++)
+                    {
+                        if (a != b)
+                        {
+                            if (_RondamList[a] == _RondamList[b])
+                            {
+                                Vector3 PlantPlace = new Vector3(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
+
+                                _RondamType = UnityEngine.Random.Range(0, 3);
+                                _RondamType2 = UnityEngine.Random.Range(0, 3);
+                                _Rondamplusx = UnityEngine.Random.Range(0, 2);
+                                _Rondamplusy = UnityEngine.Random.Range(0, 2);
+                                if (_Rondamplusx == 0)
+                                {
+                                    if (_Rondamplusy == 0)
+                                    {
+                                        DebuffArea = new Vector3(PlantPlace.x + _RondamType, PlantPlace.y + _RondamType2);
+                                    }
+                                    else if (_Rondamplusy == 1)
+                                    {
+                                        DebuffArea = new Vector3(PlantPlace.x + _RondamType, PlantPlace.y - _RondamType2);
+                                    }
+                                }
+                                else if (_Rondamplusx == 1)
+                                {
+                                    if (_Rondamplusy == 0)
+                                    {
+                                        DebuffArea = new Vector3(PlantPlace.x - _RondamType, PlantPlace.y + _RondamType2);
+                                    }
+                                    else if (_Rondamplusy == 1)
+                                    {
+                                        DebuffArea = new Vector3(PlantPlace.x - _RondamType, PlantPlace.y - _RondamType2);
+                                    }
+                                }
+                                _RondamList[b] = DebuffArea;
+                            }
+                        }
+                    }
+                }
+                for(int i = 0; i < noft; i++)
+                {
+                    var temp = Instantiate(Test, _RondamList[i], Quaternion.identity);
+                    var t = temp.GetComponent<DebuffField>();
+                    temp.transform.parent = parentCanvas.gameObject.transform;
                 }
                 Withered();
             }

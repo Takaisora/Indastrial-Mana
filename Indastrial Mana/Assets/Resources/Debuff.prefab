@@ -115,21 +115,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1eb9491ccbd04449c643bede3beecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrowSpeed: 1
-  PlantsWater: 0
-  PlantsFert: 0
-  _GenerateTimeCount: 0
-  _WitherTimeCount: 0
-  MyGrowth: 0
-  _NumOfGenerate: 0
-  _DefaultWater: 0
-  _DefaultFert: 0
-  _WaterConsumption: 0
-  _FertConsumption: 0
-  _GenerateTime: 0
-  _WitherTime: 0
-  _IsOR: 0
-  Buff: 0
-  BuffTime: 0
-  GetBuff: 0
-  Debuff: {fileID: 5728597967949649881}
+  deleteTime: 3

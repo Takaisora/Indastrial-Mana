@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebuffField : ObstructionPlant_3
+public class DebuffField : MonoBehaviour
 {
-    private float _EffectTime = 3;//フィールドの表示時間
-    void Start()
-    {
-        _EffectTime = 3;
-    }
+    private float _EffectTime = 0;//フィールドの表示時間
+    [SerializeField] float deleteTime = 3;
 
 
     void Update()
     {
-        _EffectTime -= Time.deltaTime;
-        if(_EffectTime <= 0)
+        _EffectTime += Time.deltaTime;
+        if(deleteTime <= _EffectTime)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }
