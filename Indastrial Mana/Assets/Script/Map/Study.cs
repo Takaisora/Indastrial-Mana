@@ -24,7 +24,8 @@ public class Study : MonoBehaviour
     int Light = 50;         //軽度判別用（％）
     int Medium = 70;        //中度、重度判別用（％）
     int BaseMadness = 10;   //発狂抽選基本確率（％）
-    int MadnessLv = 0;      //0＝軽度、1＝中度、2＝重度 }
+    int MadnessLv = 0;      //0＝軽度、1＝中度、2＝重度 
+    int MadnessTime = 10;   //基本の発狂時間　MadnessLv*2を追加して使用。
 
     void Update()
     {
@@ -49,45 +50,65 @@ public class Study : MonoBehaviour
                 MySeed.transform.parent = MapCanvas.transform;
                 Debug.Log("タイプ" + SelectedSeed + "の種が生産された");
 
-                //Madness += AddMadness;                  //狂気度加算
-                ////狂気度は100％を超えない
-                //if (Madness > 100)
-                //{
-                //    Madness = 100;
-                //}
+                Madness += AddMadness;                  //狂気度加算
+                //狂気度は100％を超えない
+                if (Madness > 100)
+                {
+                    Madness = 100;
+                }
 
                 //発狂の抽選(モックでは使わないのでコメントアウト)
-                //if (Random.Range(1,101) <= Madness + BaseMadness )
-                //{
-                //    //狂気度の判定
-                //    if (Madness < Light)
-                //    {
-                //        MadnessLv = 0;  //軽度
-                //    }
-                //    else if (Madness <= Medium)
-                //    {
-                //        MadnessLv = 1;  //中度
-                //    }
-                //    else
-                //    {
-                //        MadnessLv = 2;  //重度
-                //    }
-                //    //狂気度にお応じたデバフの抽選
-                //    switch (MadnessLv)
-                //    {
-                //        case 0:
-                //            Craziness = Random.Range(1, 4);
-                //            break;
-                //        case 1:
-                //            Craziness = Random.Range(1, 4);
-                //            break;
-                //        case 2:
-                //            Craziness = Random.Range(1, 6);
-                //            break;
-                //        default:
-                //        break;
-                //    }
-                //    Debug.Log("受けたデバフは" + Craziness + "です。");
+                if (Random.Range(1,101) <= Madness + BaseMadness )
+                {
+                    //狂気度の判定
+                    if (Madness < Light)
+                    {
+                        MadnessLv = 0;  //軽度
+                    }
+                    else if (Madness <= Medium)
+                    {
+                        MadnessLv = 1;  //中度
+                    }
+                    else
+                    {
+                        MadnessLv = 2;  //重度
+                    }
+                    //狂気度に応じたデバフの抽選
+                    switch (MadnessLv)
+                    {
+                        case 0:
+                            Craziness = Random.Range(1, 4);
+                            break;
+                        case 1:
+                            Craziness = Random.Range(1, 4);
+                            break;
+                        case 2:
+                            Craziness = Random.Range(1, 6);
+                            break;
+                        default:
+                        break;
+                    }
+                    switch(Craziness)
+                    {
+                        case 1:
+                            PlayerController.MoveRatio = 0.5f;
+                            break;
+                        case 2:
+                            PlayerController.MoveRatio = 1.0f;
+                            break;
+                        case 3:
+
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        default:
+                        break;
+                    }
+                    Debug.Log("受けたデバフは" + Craziness + "です。");
 
                 //後々追加予定
                 //狂気度に応じてデバフを強化
@@ -98,7 +119,7 @@ public class Study : MonoBehaviour
                 //    default:
                 //        break;
                 //}
-                //}
+                }
             }
         }
     }
