@@ -16,4 +16,11 @@ public class DebuffField : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    private void OnTriggerStay2D(Collider2D collider)
+    {
+        if(collider.gameObject.tag == "Player")
+        {
+            Study.Madness += Study.AddMadness;
+        }
+    }
 }
