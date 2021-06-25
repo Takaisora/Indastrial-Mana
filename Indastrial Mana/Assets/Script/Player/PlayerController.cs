@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private Study _MyStudy = null;
     private Rigidbody2D rb = null;
 
+    public Joystick joystick;
+
     public enum ToolState : byte
     {
         None,
@@ -65,6 +67,25 @@ public class PlayerController : MonoBehaviour
         {
             _MoveY = -_DeltaMove;
         }
+
+        //JoyStick
+
+        Vector3 MoveVecter = (Vector3.right * joystick.Horizontal + Vector3.up * joystick.Vertical);
+
+        if(MoveVecter != Vector3.zero)
+        {
+            transform.Translate(MoveVecter * _MoveSpeed * Time.deltaTime, Space.World);
+        }
+
+        if(joystick.Horizontal <= 0)
+        {
+            transform.localScale = new Vector3(_PlayerScale.x, _PlayerScale.y);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
+        }
+
 #if UNITY_EDITOR
         transform.Translate(_MoveX, _MoveY, 0);// PCが重いのでこっち
 #endif
@@ -75,14 +96,25 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region アニメーション
-        if (_MoveX != 0 || _MoveY != 0)
+        if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
         {
+            //if (Tool == ToolState.None)
             _Animator.SetInteger("PlayerState", 1);
+            //else 
         }
         else
         {
             _Animator.SetInteger("PlayerState", 0);
         }
+
+        //if (_MoveX != 0 || _MoveY != 0|| MoveVecter != Vector3.zero)
+        //{
+        //    _Animator.SetInteger("PlayerState", 3);
+        //}
+        //else
+        //{
+        //    _Animator.SetInteger("PlayerState", 2);
+        //}
         #endregion
 
         #region アクションボタン
