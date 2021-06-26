@@ -7,6 +7,9 @@ public class PlantBase : MonoBehaviour
 {
     public float GrowSpeed = 1;// 植物の成長速度
 
+    //生産が終わっていいるかどうか
+    protected bool Grow = false;
+
     public float PlantsWater = 0;// 水蓄積値
     public float PlantsFert = 0;// 肥料蓄積値
     private const byte _MAXPLANTSWATER = 100;// 水蓄積上限値
@@ -52,6 +55,11 @@ public class PlantBase : MonoBehaviour
     // バフの効果時間を受け取るfloat変数
     [SerializeField, Header("バフ時間")]
     float GetBuff;
+
+
+    [SerializeField, Header("一回のマナ生産数")]
+    public float Mana;
+
 
 
 
@@ -171,6 +179,32 @@ public class PlantBase : MonoBehaviour
                 GetComponent<Randomu2>().GrowSpeed = GrowSpeed / GrowSpeed;
                 Debug.Log("成長速度が戻りました");
             }
+        }
+    }
+
+
+
+    public void GrowCheck()
+    {
+        _GenerateTimeCount += Time.deltaTime * GrowSpeed;
+
+        if (_GenerateTime <= _GenerateTimeCount)
+        {
+            Grow = true;
+        }
+    }
+
+
+    //フェアリーマナ処理
+    public void FairyGet()
+    {
+        if (Mana >= 1)
+        {
+            Debug.Log("マナを奪た");
+        }
+        else
+        {
+            Debug.Log("マナが奪われた");
         }
     }
 
