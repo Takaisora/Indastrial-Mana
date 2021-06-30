@@ -2127,9 +2127,9 @@ MonoBehaviour:
   _NumOfGenerate: 1
   _DefaultWater: 50
   _DefaultFert: 50
-  _WaterConsumption: 30
+  _WaterConsumption: 1
   _FertConsumption: 1
-  _GenerateTime: 1
+  _GenerateTime: 30
   _WitherTime: 5
   _IsOR: 1
   Buff: 1
@@ -2137,7 +2137,7 @@ MonoBehaviour:
   GetBuff: 5
   Mana: 1
   GrowRatio: 10
-  GrowRatioDecline: 10
+  GrowRatioDecline: 0.5
   MagicCount: 2
   MagicNumber: 2
 --- !u!1001 &2121767394

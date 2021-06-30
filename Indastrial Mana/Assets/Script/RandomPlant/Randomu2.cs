@@ -33,6 +33,8 @@ public class Randomu2 : PlantBase
 
     }
 
+
+
     // 2Dの場合のトリガー判定
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -52,13 +54,15 @@ public class Randomu2 : PlantBase
                         case 1:
                             Gardens.MyPlants.GetComponent<PlantBase>().GrowSpeed = GrowRatio;
                         MagicCount++;
+                        Debug.Log("成長速度上昇");
                         //割り算
                             break;
                         case 2:
                             Gardens.MyPlants.GetComponent<PlantBase>().GrowSpeed = GrowRatioDecline;
                         MagicCount++;
-                            //割り算
-                            break;
+                        Debug.Log("成長速度低下");
+                        //割り算
+                        break;
                     }
 
                 }
@@ -67,7 +71,32 @@ public class Randomu2 : PlantBase
 
      }
 
+    //収穫
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (base.MyGrowth == GrowthState.Seed)
+            return;
+
+        if (collision.gameObject.tag == "Player")
+        {
+            base.Player = collision.gameObject;
+            Vector3 CellPosition = new Vector3(Mathf.RoundToInt(Player.transform.position.x)
+                                 , Mathf.RoundToInt(Player.transform.position.y));
+
+            if (CellPosition == this.transform.position)
+            {
+                PlayerController PlayerController = Player.GetComponent<PlayerController>();
+
+                if (PlayerController.Tool == PlayerController.ToolState.Bucket && Bucket.IsWaterFilled)
+                    base.Watering();
+                else if (PlayerController.Tool == PlayerController.ToolState.Shovel && Shovel.IsFertFilled)
+                    base.Fertilizing();
+                else if (PlayerController.Tool == PlayerController.ToolState.Bottle)// ボトルが空かは関数で判断
+                    base.Harvest();
+            }
+        }
+    }
 }
 //効果範囲を変数で設定できるようにする（シリアライズ化）(優先度低)
 

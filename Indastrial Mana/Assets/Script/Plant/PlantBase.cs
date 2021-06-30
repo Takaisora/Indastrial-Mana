@@ -7,9 +7,6 @@ public class PlantBase : MonoBehaviour
 {
     public float GrowSpeed = 1;// 植物の成長速度
 
-    //生産が終わっていいるかどうか
-    protected bool Grow = false;
-
     public float PlantsWater = 0;// 水蓄積値
     public float PlantsFert = 0;// 肥料蓄積値
     private const byte _MAXPLANTSWATER = 100;// 水蓄積上限値
@@ -22,7 +19,7 @@ public class PlantBase : MonoBehaviour
     [SerializeField]
     protected GrowthState MyGrowth;// 植物の成長状態
     protected GameObject Player = null;
-    private byte _GeneratedCount = 0;// マナ生成毎にカウント
+    public byte _GeneratedCount = 0;// マナ生成毎にカウント
     protected bool _IsCompleted = false;// マナを全て生成しきったか
     private GameObject MyGarden = null;
     private Image _WaterGauge = null;
@@ -48,7 +45,7 @@ public class PlantBase : MonoBehaviour
 
     // バフがかかっているかを判別するbool変数
     [SerializeField, Header("バフが掛かるか")]
-    bool Buff;
+    bool Buff = false;
     // バフがかかっているなら時間をカウントするfloat変数
     [SerializeField, Header("バフ時間カウント")]
     float BuffTime;
@@ -56,12 +53,8 @@ public class PlantBase : MonoBehaviour
     [SerializeField, Header("バフ時間")]
     float GetBuff;
 
-
-    [SerializeField, Header("一回のマナ生産数")]
-    public float Mana;
-
-
-
+    //奪われたのか
+    protected bool Count = false;
 
     protected enum GrowthState : byte
     {
@@ -194,19 +187,7 @@ public class PlantBase : MonoBehaviour
         }
     }
 
-
-    //フェアリーマナ処理
-    public void FairyGet()
-    {
-        if (Mana >= 1)
-        {
-            Debug.Log("マナを奪た");
-        }
-        else
-        {
-            Debug.Log("マナが奪われた");
-        }
-    }
+    
 
 
     protected void Watering()
