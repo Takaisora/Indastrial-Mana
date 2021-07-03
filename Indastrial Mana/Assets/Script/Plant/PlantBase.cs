@@ -7,6 +7,9 @@ public class PlantBase : MonoBehaviour
 {
     public float GrowSpeed = 1;// 植物の成長速度
 
+    //生産が終わっていいるかどうか
+    protected bool Grow = false;
+
     public float PlantsWater = 0;// 水蓄積値
     public float PlantsFert = 0;// 肥料蓄積値
     private const byte _MAXPLANTSWATER = 100;// 水蓄積上限値
@@ -27,7 +30,7 @@ public class PlantBase : MonoBehaviour
 
     // レベルデザイン用
     [SerializeField, Header("マナ生成回数（回, 整数）"), Space, Space, Space]
-    byte _NumOfGenerate;
+    public byte _NumOfGenerate;
     [SerializeField, Header("水の初期量(上限100, 少数可)")]
     byte _DefaultWater;
     [SerializeField, Header("肥料の初期量(上限100, 少数可)")]

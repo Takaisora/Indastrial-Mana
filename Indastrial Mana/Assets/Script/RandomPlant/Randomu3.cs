@@ -5,16 +5,22 @@ using UnityEngine;
 public class Randomu3 : PlantBase
 {
     [SerializeField, Header("—d¸oŒ»ƒJƒEƒ“ƒg")]
-    float FairyTimeCount;
+    int _FairyTime = 0;
 
     //ƒtƒFƒAƒŠ[‚É‚æ‚éƒ}ƒi¶Y‚Ö‚Ì‰e‹¿
     [SerializeField, Header("‹­’D”")]
     float Robbery;
 
+    [SerializeField, Header("—d¸¶Y”")]
+    float production;
+
     //A•¨‚Ì”ƒJƒEƒ“ƒg—p
     protected int Plants = 0;
     //¶Y‚Æ’D‚¤”»’è
     int RobCreate = 0;
+
+    bool Fairy = false;     //—d¸ƒgƒŠƒK[
+    private float _FTimeCount = 0;        //ŠÔ
 
 
     private void Update()
@@ -30,22 +36,44 @@ public class Randomu3 : PlantBase
 
         if (base.MyGrowth == GrowthState.Withered)
             base.Withered();
-    }
 
-    //A•¨‚Ì”‚ğƒJƒEƒ“ƒg
-    int checkAreaPlant()
-    {
-        foreach(Transform child in transform)
+        //—d¸
+
+        if (Fairy)
         {
-            Plants += 1;
+            _FTimeCount += Time.deltaTime;
+            //—d¸ŒÄ‚Ño‚µ
+            if (_FTimeCount >= _FairyTime)
+            {
+                _FTimeCount = 0;
+                Fairy = false;
+                //¶YA’D‚¤ˆ—
+                RobCreate = Random.Range(1, 2);
+                switch (RobCreate)
+                {
+                    case 1: //¶Y
+                        Debug.Log("—d¸‚ªƒ}ƒi‚ğ¶Y‚µ‚Ü‚µ‚½");
+                        break;
+
+                    case 2: //’D‚¤
+                            //Gardens.MyPlants.GetComponent<PlantBase>()._GeneratedCount--;
+                        Debug.Log("ƒ}ƒi‚ª’D‚í‚ê‚½");
+                        if (Plants >= 2)
+                        {
+                            Debug.Log("—d¸‚ªƒ}ƒi‚ğ¶Y‚µ‚Ü‚µ‚½");
+                            Count = true;
+                        }
+                        break;
+                }
+            }
         }
-        return Plants;
+        
+
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        // •¨‘Ì‚ªƒgƒŠƒK[‚Æ—£‚ê‚½‚Æ‚«A‚P“x‚¾‚¯ŒÄ‚Î‚ê‚é
-        //A•¨
+        // •¨‘Ì‚ªƒgƒŠƒK[‚ÉÚG‚µ‚Æ‚«A‚P“x‚¾‚¯ŒÄ‚Î‚ê‚é
         //ÚG‚µ‚½‚Ì‚ÍƒK[ƒfƒ“‚¾‚Á‚½‚çÀs
         if (collision.gameObject.CompareTag("Garden"))
         {
@@ -53,39 +81,20 @@ public class Randomu3 : PlantBase
             //A•¨ŒŸ’m
             if (Gardens.MyPlants != null && base.MyGrowth == GrowthState.Planted)
             {
-                //—d¸‚Ìˆ—
-                FairyTimeCount += Time.deltaTime;
-                if (FairyTimeCount <= 0)
-                {
-                   
-                        RobCreate = Random.Range(1, 3);
-                    switch (RobCreate)
-                    {
-                        case 1: //¶Y
-                            Gardens.MyPlants.GetComponent<PlantBase>()._GeneratedCount++;
-                            Debug.Log("—d¸‚ªƒ}ƒi‚ğ¶Y‚µ‚Ü‚µ‚½");
-                            break;
-
-                        case 2: //’D‚¤
-                            //A•¨‚Ì””»’f
-                            if (Plants == 1)   //1ŒÂ‚È‚ç
-                            {
-                                Gardens.MyPlants.GetComponent<PlantBase>()._GeneratedCount--;
-
-                            }
-                            if (Plants == 2)    //2ŒÂ‚È‚ç
-                            {
-                                Gardens.MyPlants.GetComponent<PlantBase>()._GeneratedCount--;
-
-                            }
-                            break;
-                    }
-                    
-                }
-
+                Fairy = true;
             }
         }
 
+    }
+
+    //A•¨‚Ì”‚ğƒJƒEƒ“ƒg
+    int CheckAreaPlant()
+    {
+        foreach(Transform child in transform)
+        {
+            Plants ++;
+        }
+        return Plants;
     }
 
     //ûŠn
@@ -114,3 +123,11 @@ public class Randomu3 : PlantBase
         }
     }
 }
+
+
+//’D‚¤
+//A•¨ƒ}ƒi¶Y”-0.5
+//”ÍˆÍ“à‚ÌA•¨‚ª1–{‚È‚ç
+//+0.5
+//”ÍˆÍ“à‚ÌA•¨‚ª2–{‚È‚ç
+//+1
