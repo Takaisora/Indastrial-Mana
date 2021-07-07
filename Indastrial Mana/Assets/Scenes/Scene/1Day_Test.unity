@@ -506,7 +506,7 @@ PrefabInstance:
     - target: {fileID: 3348985964859805513, guid: 53228f97b662264488ad9f7d6a23270b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -3.99
+      value: -4.53
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: 53228f97b662264488ad9f7d6a23270b,
         type: 3}
@@ -564,7 +564,6 @@ MonoBehaviour:
   _GenerateTimeCount: 0
   _WitherTimeCount: 0
   MyGrowth: 0
-  _GeneratedCount: 0
   _NumOfGenerate: 1
   _DefaultWater: 50
   _DefaultFert: 50
@@ -576,9 +575,12 @@ MonoBehaviour:
   Buff: 1
   BuffTime: 5
   GetBuff: 10
-  _FairyTime: 5
+  Rob: 0
+  Create: 0
+  _FairyTime: 2
   Robbery: 0.5
   production: 1
+  FArea: 5
 --- !u!1001 &557615285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -590,6 +592,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Seed_Obs_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348985964859805512, guid: 53228f97b662264488ad9f7d6a23270b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: 53228f97b662264488ad9f7d6a23270b,
         type: 3}
@@ -1098,6 +1105,16 @@ PrefabInstance:
       propertyPath: PlayerController
       value: 
       objectReference: {fileID: 1963647869}
+    - target: {fileID: 7517613161574388233, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517613162308261597, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.09
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19b73f955af360e4287568ace395f0f0, type: 3}
 --- !u!1 &944371994 stripped
@@ -2062,12 +2079,12 @@ PrefabInstance:
     - target: {fileID: 3348985964859805513, guid: 53228f97b662264488ad9f7d6a23270b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.75
+      value: 2.03
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: 53228f97b662264488ad9f7d6a23270b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.32
+      value: -2.15
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: 53228f97b662264488ad9f7d6a23270b,
         type: 3}
@@ -2125,7 +2142,6 @@ MonoBehaviour:
   _GenerateTimeCount: 0
   _WitherTimeCount: 0
   MyGrowth: 0
-  _GeneratedCount: 0
   _NumOfGenerate: 1
   _DefaultWater: 50
   _DefaultFert: 50
@@ -2137,6 +2153,8 @@ MonoBehaviour:
   Buff: 1
   BuffTime: 5
   GetBuff: 5
+  Rob: 0
+  Create: 0
   GrowRatio: 10
   GrowRatioDecline: 0.5
   MagicCount: 2

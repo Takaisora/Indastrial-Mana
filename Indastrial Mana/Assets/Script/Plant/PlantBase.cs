@@ -22,7 +22,7 @@ public class PlantBase : MonoBehaviour
     [SerializeField]
     protected GrowthState MyGrowth;// 植物の成長状態
     protected GameObject Player = null;
-    public byte _GeneratedCount = 0;// マナ生成毎にカウント
+    private byte _GeneratedCount = 0;// マナ生成毎にカウント
     protected bool _IsCompleted = false;// マナを全て生成しきったか
     private GameObject MyGarden = null;
     private Image _WaterGauge = null;
@@ -30,7 +30,7 @@ public class PlantBase : MonoBehaviour
 
     // レベルデザイン用
     [SerializeField, Header("マナ生成回数（回, 整数）"), Space, Space, Space]
-    public byte _NumOfGenerate;
+    byte _NumOfGenerate;
     [SerializeField, Header("水の初期量(上限100, 少数可)")]
     byte _DefaultWater;
     [SerializeField, Header("肥料の初期量(上限100, 少数可)")]
@@ -46,9 +46,9 @@ public class PlantBase : MonoBehaviour
     [SerializeField, Header("水か肥料どちらかだけでも枯れる？")]
     bool _IsOR;
 
+    //ランダム型2
     // バフがかかっているかを判別するbool変数
-    [SerializeField, Header("バフが掛かるか")]
-    bool Buff = false;
+    public bool Buff = false;
     // バフがかかっているなら時間をカウントするfloat変数
     [SerializeField, Header("バフ時間カウント")]
     float BuffTime;
@@ -56,8 +56,14 @@ public class PlantBase : MonoBehaviour
     [SerializeField, Header("バフ時間")]
     float GetBuff;
 
-    //奪われたのか
-    protected bool Count = false;
+    //ランダム型3
+    //奪う
+    public bool Rob = false;
+    //生産
+    public bool Create = false;
+
+
+
 
     protected enum GrowthState : byte
     {
@@ -72,7 +78,7 @@ public class PlantBase : MonoBehaviour
     /// </summary>
     protected void DepletionCheck()
     {
-        if(MyGrowth == GrowthState.Planted)
+        if (MyGrowth == GrowthState.Planted)
         {
             // 水と肥料の消耗
             PlantsWater -= _WaterConsumption * Time.deltaTime;
@@ -121,7 +127,26 @@ public class PlantBase : MonoBehaviour
             Debug.Log("植物がマナを生成");
             // この生成で最後になるなら
             if (_NumOfGenerate <= _GeneratedCount)
+            {
                 _IsCompleted = true;
+
+                if(Create)
+                {
+                    _GeneratedCount++;
+                    Debug.Log("マナを" + _GeneratedCount + "本生産した");
+                }
+                else if (Rob)
+                {
+                    _GeneratedCount--;
+                    Debug.Log("マナを" + _GeneratedCount + "本生産した");
+                    if (Create)
+                    {
+                        _GeneratedCount++;
+                        Debug.Log("マナを" + _GeneratedCount + "本生産した");
+                    }
+
+                }
+            }
         }
     }
 
@@ -139,7 +164,7 @@ public class PlantBase : MonoBehaviour
     /// <param name="FGauge">植えた花壇の肥料ゲージUI</param>
     public void Plant(GameObject Garden)
     {
-        if(MyGrowth == GrowthState.Seed)
+        if (MyGrowth == GrowthState.Seed)
         {
             Garden Gardens = Garden.GetComponent<Garden>();
             // ゲージ起動
@@ -179,30 +204,16 @@ public class PlantBase : MonoBehaviour
     }
 
 
-
-    public void GrowCheck()
-    {
-        _GenerateTimeCount += Time.deltaTime * GrowSpeed;
-
-        if (_GenerateTime <= _GenerateTimeCount)
-        {
-            Grow = true;
-        }
-    }
-
-    
-
-
     protected void Watering()
     {
-        if(!_IsCompleted)
+        if (!_IsCompleted)
         {
             Bucket.IsWaterFilled = false;
             Debug.Log("水を与えた");
             PlantsWater = _MAXPLANTSWATER;
         }
     }
-    
+
     protected void Fertilizing()
     {
         if (!_IsCompleted)
@@ -212,13 +223,13 @@ public class PlantBase : MonoBehaviour
             PlantsFert = _MAXPLANTSFERT;
         }
     }
-    
+
     protected void Harvest()
     {
-        if(MyGrowth == GrowthState.Generated)
+        if (MyGrowth == GrowthState.Generated)
         {
             Bottle MyBottle = PlayerController.CarryItem.GetComponent<Bottle>();
-            if(MyBottle.IsManaFilled == false)
+            if (MyBottle.IsManaFilled == false)
             {
                 MyBottle.IsManaFilled = true;
                 Debug.Log("マナを収穫した");
@@ -238,4 +249,4 @@ public class PlantBase : MonoBehaviour
         Debug.Log("枯れてしまった..");
         Destroy(this.gameObject);
     }
-}   
+}
