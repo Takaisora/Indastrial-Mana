@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3348985964859805515}
   - component: {fileID: 805905064269510537}
   m_Layer: 5
-  m_Name: Seed_Random_1
+  m_Name: Seed_Random_3
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,5 +129,13 @@ MonoBehaviour:
   _GenerateTime: 10
   _WitherTime: 5
   _IsOR: 1
-  GrowRatio: 10
+  Buff: 0
+  BuffTime: 0
+  GetBuff: 0
+  Rob: 0
+  Create: 0
+  GrowStart: 0
+  GrowRatio: 0
+  GrowRatioDecline: 0
   MagicCount: 3
+  MagicNumber: 0

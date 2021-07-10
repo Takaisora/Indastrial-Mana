@@ -87,7 +87,7 @@ public class Randomu3 : PlantBase
                 _FTimeCount = 0;
                 Fairy = false;
                 //¶YA’D‚¤ˆ—
-                RobCreate = Random.Range(2, 3);
+                RobCreate = Random.Range(1, 3);
                 switch (RobCreate)
                 {
                     case 1: //¶Y
@@ -97,23 +97,15 @@ public class Randomu3 : PlantBase
                         Randomu3();
                         break;
                     case 2: //ŒÍ‚ç‚µ‚Ä‘‚â‚·
-                        RL = Random.Range(1, 3);
-                        switch (RL)
+                        Rob = true;
+                        Debug.Log("—d¸‚ªƒ}ƒi‚ğ’D‚Á‚½");
+                        if(Plants >= 2)
                         {
-                            case 1:
-                                Create = true;
-                                Debug.Log("—d¸‚ªƒ}ƒi‚ğ¶Y‚µ‚Ü‚µ‚½");
-                                GrowStart = false;
-                                Randomu3();
-                                break;
-                            case 2:
-                                Create = true;
-                                Debug.Log("—d¸‚ªƒ}ƒi‚ğ¶Y‚µ‚Ü‚µ‚½");
-                                GrowStart = false;
-                                Randomu3();
-                                break;
+                            Create = true;
+                            Debug.Log("—d¸‚ªƒ}ƒi‚Ì¶Y‚É¬Œ÷‚µ‚½");
                         }
-
+                        GrowStart = false;
+                        Randomu3();
 
                         break;
                 }
@@ -208,3 +200,22 @@ public class Randomu3 : PlantBase
         }
     }
 }
+
+
+//
+//RL = Random.Range(1, 3);
+//switch (RL)
+//{
+//    case 1:
+//        Create = true;
+//        Debug.Log("—d¸‚ªƒ}ƒi‚ğ¶Y‚µ‚Ü‚µ‚½");
+//        GrowStart = false;
+//        Randomu3();
+//        break;
+//    case 2:
+//        Create = true;
+//        Debug.Log("—d¸‚ªƒ}ƒi‚ğ¶Y‚µ‚Ü‚µ‚½");
+//        GrowStart = false;
+//        Randomu3();
+//        break;
+//}

@@ -1431,12 +1431,12 @@ PrefabInstance:
     - target: {fileID: 3348985964859805513, guid: 857484c1e7810f646a9ac44a3b54f693,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -3.13
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: 857484c1e7810f646a9ac44a3b54f693,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: 857484c1e7810f646a9ac44a3b54f693,
         type: 3}
@@ -1576,6 +1576,7 @@ MonoBehaviour:
   Buff: 1
   BuffTime: 5
   GetBuff: 5
+  Rob: 0
   Create: 0
   GrowStart: 0
   _FairyTime: 5

@@ -57,6 +57,8 @@ public class PlantBase : MonoBehaviour
     float GetBuff;
 
     //ƒ‰ƒ“ƒ_ƒ€Œ^3
+    //’D‚¤
+    public bool Rob = false;
     //¶Y
     public bool Create = false;
     //A‚¦‚ç‚ê‚½‚ç
@@ -128,7 +130,7 @@ public class PlantBase : MonoBehaviour
             _GeneratedCount++;
             _GenerateTimeCount = 0;
             MyGrowth = GrowthState.Generated;
-            Debug.Log("A•¨‚ªƒ}ƒi‚ğ"+ _GeneratedCount+"¶¬");
+            Debug.Log("A•¨‚ªƒ}ƒi‚ğ‡Œv"+ _GeneratedCount+"¶¬");
             // ‚±‚Ì¶¬‚ÅÅŒã‚É‚È‚é‚È‚ç
             if (_NumOfGenerate <= _GeneratedCount)
             {
@@ -197,6 +199,7 @@ public class PlantBase : MonoBehaviour
     {
         if (Create)
         {
+            _NumOfGenerate++;
             _GeneratedCount = 1;
             Debug.Log("—d¸‚Íƒ}ƒi‚ğ" + _GeneratedCount + "–{¶Y‚µ‚½");
         }
