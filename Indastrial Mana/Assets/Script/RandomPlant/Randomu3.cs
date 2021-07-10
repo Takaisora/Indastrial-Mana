@@ -25,7 +25,17 @@ public class Randomu3 : PlantBase
     //時間
     private float _FTimeCount = 0;
 
-    Garden Gardens;
+    //左右判定
+    int RL = 0;
+
+    //花壇の座標格納用
+    GameObject Hitr;
+    GameObject Hitl;
+
+    float X;
+    float Y;
+
+    //Garden Gardens;
 
 
 
@@ -43,16 +53,32 @@ public class Randomu3 : PlantBase
         if (base.MyGrowth == GrowthState.Withered)
             base.Withered();
 
+        Vector3 GardenPositionR = new Vector3(Mathf.RoundToInt(X)
+                                         , Mathf.RoundToInt(Y));
 
-        RaycastHit2D Hit = CheckPlant(transform.position.x, transform.position.y);
+        RaycastHit2D HitR = Physics2D.Raycast(GardenPositionR, new Vector3(2, 0, 0), 100);
 
-        if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Garden"))
+        if (HitR.collider != null && HitR.collider.gameObject.CompareTag("Garden"))
         {
-            GetPlants();
+            GetPlantsR();
+            Debug.Log(HitR.collider.gameObject.name);
+            Debug.Log(HitR.collider.gameObject.transform.position);
         }
 
+        Vector3 GardenPositionL = new Vector3(Mathf.RoundToInt(X)
+                                         , Mathf.RoundToInt(Y));
+
+        RaycastHit2D HitL = Physics2D.Raycast(GardenPositionL, new Vector3(-2, 0, 0), 100);
+        if (HitL.collider != null && HitL.collider.gameObject.CompareTag("Garden"))
+        {
+            GetPlantsL();
+            Debug.Log(HitL.collider.gameObject.name);
+            Debug.Log(HitL.collider.gameObject.transform.position);
+        }
+        
+
         //妖精
-        if (Fairy)
+        if (GrowStart)
         {
             _FTimeCount += Time.deltaTime;
             //妖精呼び出し
@@ -66,59 +92,93 @@ public class Randomu3 : PlantBase
                 {
                     case 1: //生産
                         Create = true;
-                        Debug.Log("妖精がマナを生産しました");
+                        Debug.Log("妖精がマナの生産に成功した");
+                        GrowStart = false;
+                        Randomu3();
                         break;
-                    case 2: //奪う
-                        Rob = true;
-                        Debug.Log("マナを奪た");
-                        Debug.Log("範囲内の植物は" + Plants);
-                        if (Plants == 1)
+                    case 2: //枯らして増やす
+                        RL = Random.Range(1, 3);
+                        switch (RL)
                         {
-                            Create = true;
-                            Debug.Log("妖精がマナを生産しました");
+                            case 1:
+                                Create = true;
+                                Debug.Log("妖精がマナを生産しました");
+                                GrowStart = false;
+                                Randomu3();
+                                break;
+                            case 2:
+                                Create = true;
+                                Debug.Log("妖精がマナを生産しました");
+                                GrowStart = false;
+                                Randomu3();
+                                break;
                         }
+
+
                         break;
                 }
             }
         }
     }
 
-    //植物の数チェック
+    ////植物の数チェック
     private RaycastHit2D CheckPlant(float X, float Y)
     {
+        Hitr = null;
+
         // 座標を四捨五入で整数に(偶数丸めなので不具合起こるかも？)
         Vector3 CellPosition = new Vector3(Mathf.RoundToInt(X)
                                          , Mathf.RoundToInt(Y));
         //植物あるかないか判定
-        RaycastHit2D Hit = Physics2D.Raycast(CellPosition, new Vector3(5, 0, 1), 100);
+        RaycastHit2D HitR = Physics2D.Raycast(CellPosition, new Vector3(2, 0, 1), 100);
 
-        return Hit;
-    }
+        Debug.Log(1);
 
-    void GetPlants()
-    {
-        //RaycastHit2D Hit = CheckPlant(transform.position.x, transform.position.y);
-
-            //植物検知
-            if (Gardens.MyPlants != null && base.MyGrowth == GrowthState.Planted)
-            {
-                Plants++;
-            }
-        
-    }
-
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        // 物体がトリガーに接触しとき、１度だけ呼ばれる
-        //接触したのはガーデンだったら実行
-        if (collision.gameObject.CompareTag("Garden"))
+        if (HitR)
         {
-            Gardens = collision.gameObject.GetComponent<Garden>();
-            //植物検知
-            if (Gardens.MyPlants != null && base.MyGrowth == GrowthState.Planted)
-            {
-                Fairy = true;
-            }
+            Hitr = HitR.transform.gameObject;
+        }
+        return HitR;
+    }
+
+    private RaycastHit2D CheckPlantL(float X, float Y)
+    {
+        Hitl = null;
+
+        // 座標を四捨五入で整数に(偶数丸めなので不具合起こるかも？)
+        Vector3 CellPosition = new Vector3(Mathf.RoundToInt(X)
+                                         , Mathf.RoundToInt(Y));
+        //植物あるかないか判定
+        RaycastHit2D HitL = Physics2D.Raycast(CellPosition, new Vector3(-2, 0, 1), 100);
+
+        Debug.Log(2);
+
+        if(HitL)
+        {
+            Hitl = HitL.transform.gameObject;
+        }
+
+        return HitL;
+    }
+
+    void GetPlantsR()
+    {
+        Debug.Log("R");
+        //植物検知
+        if (base.MyGrowth == GrowthState.Planted && Hitr.GetComponent<Garden>().IsPlanted != false)
+        {
+            Plants++;
+            Debug.Log(Plants);
+        }
+    }
+
+    void GetPlantsL()
+    {
+        Debug.Log("L");
+        if (base.MyGrowth == GrowthState.Planted && Hitl.GetComponent<Garden>().IsPlanted != false)
+        {
+            Plants++;
+            Debug.Log(Plants);
         }
     }
 
@@ -148,62 +208,3 @@ public class Randomu3 : PlantBase
         }
     }
 }
-
-
-//奪う
-//植物マナ生産数-0.5
-//範囲内の植物が1本なら
-//+0.5
-//範囲内の植物が2本なら
-//+1
-
-//メモ
-////植物の数をカウント
-//Plants++;
-//Debug.Log("範囲内の植物の数は" + Plants + "です");
-
-//                Check("Untagged");
-////数
-//void Check(string tagname)
-//{
-//    tagObjects = GameObject.FindGameObjectsWithTag(tagname);
-//    Debug.Log(tagObjects.Length);
-//}
-
-
-//RaycastHit2D CheckPlant(float X, float Y)
-//{
-//    // 座標を四捨五入で整数に(偶数丸めなので不具合起こるかも？)
-//    Vector3 CellPosition = new Vector3(Mathf.RoundToInt(X)
-//                                     , Mathf.RoundToInt(Y));
-//    //植物あるかないか判定
-//    RaycastHit2D Hit = Physics2D.Raycast(CellPosition, new Vector3(5, 5, 1), 100);
-
-//    return Hit;
-//}
-//void GetPlants()
-//{
-//    RaycastHit2D Hit = CheckPlant(transform.position.x, transform.position.y);
-
-//    if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Garden"))
-//    {
-//        Garden Gardens = gameObject.GetComponent<Garden>();
-//        //植物検知
-//        if (Gardens.MyPlants != null && base.MyGrowth == GrowthState.Planted)
-//        {
-//            Plants++;
-//        }
-//    }
-//}
-
-//
-//float laserLength = 50;
-//Vector2 startPosition = (Vector2)transform.position + new Vector2(0, 1);
-//int layerMask = LayerMask.GetMask("Garden");
-//RaycastHit2D hit = Physics2D.Raycast(startPosition, Vector2.right, laserLength, layerMask, 0);
-
-//if (hit.collider != null)
-//{
-//    Debug.Log("ヒット" + hit.collider.tag);
-//    Plants++;
-//}

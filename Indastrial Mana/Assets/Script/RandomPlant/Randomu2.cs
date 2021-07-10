@@ -29,8 +29,6 @@ public class Randomu2 : PlantBase
 
         if (base.MyGrowth == GrowthState.Withered)
             base.Withered();
-
-
     }
 
 
@@ -54,13 +52,17 @@ public class Randomu2 : PlantBase
                         case 1:
                             Gardens.MyPlants.GetComponent<PlantBase>().GrowSpeed = GrowRatio;
                         MagicCount++;
+                        Buff = true;
                         Debug.Log("ê¨í∑ë¨ìxè„è∏");
+                        MagicTime();
                         //äÑÇËéZ
                             break;
                         case 2:
                             Gardens.MyPlants.GetComponent<PlantBase>().GrowSpeed = GrowRatioDecline;
                         MagicCount++;
+                        Buff = true;
                         Debug.Log("ê¨í∑ë¨ìxí·â∫");
+                        MagicTime();
                         //äÑÇËéZ
                         break;
                     }

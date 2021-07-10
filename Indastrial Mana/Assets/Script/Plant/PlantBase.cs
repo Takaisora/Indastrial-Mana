@@ -57,10 +57,14 @@ public class PlantBase : MonoBehaviour
     float GetBuff;
 
     //ランダム型3
-    //奪う
-    public bool Rob = false;
     //生産
     public bool Create = false;
+    //植えられたら
+    public bool GrowStart = false;
+    //複数収穫用
+    bool Last = false;
+    //収穫回数
+    float M = 0;
 
 
 
@@ -124,28 +128,11 @@ public class PlantBase : MonoBehaviour
             _GeneratedCount++;
             _GenerateTimeCount = 0;
             MyGrowth = GrowthState.Generated;
-            Debug.Log("植物がマナを生成");
+            Debug.Log("植物がマナを"+ _GeneratedCount+"生成");
             // この生成で最後になるなら
             if (_NumOfGenerate <= _GeneratedCount)
             {
                 _IsCompleted = true;
-
-                if(Create)
-                {
-                    _GeneratedCount++;
-                    Debug.Log("マナを" + _GeneratedCount + "本生産した");
-                }
-                else if (Rob)
-                {
-                    _GeneratedCount--;
-                    Debug.Log("マナを" + _GeneratedCount + "本生産した");
-                    if (Create)
-                    {
-                        _GeneratedCount++;
-                        Debug.Log("マナを" + _GeneratedCount + "本生産した");
-                    }
-
-                }
             }
         }
     }
@@ -185,6 +172,8 @@ public class PlantBase : MonoBehaviour
             PlantsFert = _DefaultFert;
             MyGrowth = GrowthState.Planted;
             Debug.Log("種を植えた");
+            //植えたら
+            GrowStart = true;
         }
     }
 
@@ -200,6 +189,16 @@ public class PlantBase : MonoBehaviour
                 GetComponent<Randomu2>().GrowSpeed = GrowSpeed / GrowSpeed;
                 Debug.Log("成長速度が戻りました");
             }
+        }
+    }
+
+    //ランダム型3のマナ処理
+    public void Randomu3()
+    {
+        if (Create)
+        {
+            _GeneratedCount = 1;
+            Debug.Log("妖精はマナを" + _GeneratedCount + "本生産した");
         }
     }
 
@@ -233,10 +232,19 @@ public class PlantBase : MonoBehaviour
             {
                 MyBottle.IsManaFilled = true;
                 Debug.Log("マナを収穫した");
-                MyGrowth = GrowthState.Planted;
-                // 全て生成済なら枯れる
-                if (_IsCompleted)
-                    MyGrowth = GrowthState.Withered;
+                M++;
+                if (M >= _GeneratedCount)
+                {
+                    Last = true;
+
+                    MyGrowth = GrowthState.Planted;
+                    // 全て生成済なら枯れる
+                    if (_IsCompleted && Last)
+                    {
+                        MyGrowth = GrowthState.Withered;
+                    }
+                }
+                
             }
         }
     }
