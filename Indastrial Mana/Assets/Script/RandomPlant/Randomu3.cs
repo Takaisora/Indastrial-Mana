@@ -78,7 +78,7 @@ public class Randomu3 : PlantBase
         
 
         //—d¸
-        if (GrowStart)
+        if (GrowS)
         {
             _FTimeCount += Time.deltaTime;
             //—d¸ŒÄ‚Ño‚µ
@@ -87,13 +87,13 @@ public class Randomu3 : PlantBase
                 _FTimeCount = 0;
                 Fairy = false;
                 //¶YA’D‚¤ˆ—
-                RobCreate = Random.Range(1, 3);
+                RobCreate = Random.Range(1, 2);
                 switch (RobCreate)
                 {
                     case 1: //¶Y
                         Create = true;
                         Debug.Log("—d¸‚ªƒ}ƒi‚Ì¶Y‚É¬Œ÷‚µ‚½");
-                        GrowStart = false;
+                        GrowS = false;
                         Randomu3();
                         break;
                     case 2: //ŒÍ‚ç‚µ‚Ä‘‚â‚·
@@ -104,9 +104,8 @@ public class Randomu3 : PlantBase
                             Create = true;
                             Debug.Log("—d¸‚ªƒ}ƒi‚Ì¶Y‚É¬Œ÷‚µ‚½");
                         }
-                        GrowStart = false;
+                        GrowS = false;
                         Randomu3();
-
                         break;
                 }
             }

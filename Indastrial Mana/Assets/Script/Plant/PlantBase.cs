@@ -62,7 +62,7 @@ public class PlantBase : MonoBehaviour
     //¶Y
     public bool Create = false;
     //A‚¦‚ç‚ê‚½‚ç
-    public bool GrowStart = false;
+    public bool GrowS = false;
     //•¡”ûŠn—p
     bool Last = false;
     //ûŠn‰ñ”
@@ -175,7 +175,7 @@ public class PlantBase : MonoBehaviour
             MyGrowth = GrowthState.Planted;
             Debug.Log("í‚ğA‚¦‚½");
             //A‚¦‚½‚ç
-            GrowStart = true;
+            GrowS = true;
         }
     }
 
@@ -199,9 +199,18 @@ public class PlantBase : MonoBehaviour
     {
         if (Create)
         {
-            _NumOfGenerate++;
             _GeneratedCount = 1;
             Debug.Log("—d¸‚Íƒ}ƒi‚ğ" + _GeneratedCount + "–{¶Y‚µ‚½");
+        }
+        if(Rob)
+        {
+            _GeneratedCount--;
+            Debug.Log("—d¸‚Íƒ}ƒi‚ğ’D‚Á‚½");
+            if (Create)
+            {
+                _GeneratedCount = 1;
+                Debug.Log("—d¸‚Íƒ}ƒi‚ğ" + _GeneratedCount + "–{¶Y‚µ‚½");
+            }
         }
     }
 
@@ -245,6 +254,7 @@ public class PlantBase : MonoBehaviour
                     if (_IsCompleted && Last)
                     {
                         MyGrowth = GrowthState.Withered;
+                        M = 0;
                     }
                 }
                 

@@ -1570,7 +1570,7 @@ MonoBehaviour:
   _DefaultFert: 50
   _WaterConsumption: 1
   _FertConsumption: 1
-  _GenerateTime: 5
+  _GenerateTime: 10
   _WitherTime: 5
   _IsOR: 1
   Buff: 1
@@ -1578,7 +1578,7 @@ MonoBehaviour:
   GetBuff: 5
   Rob: 0
   Create: 0
-  GrowStart: 0
+  GrowS: 0
   _FairyTime: 5
   Robbery: 1
   production: 1
