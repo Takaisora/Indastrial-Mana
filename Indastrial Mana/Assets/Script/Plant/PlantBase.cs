@@ -68,8 +68,6 @@ public class PlantBase : MonoBehaviour
     //ûŠn‰ñ”
     float M = 0;
 
-    public bool GrowStart = false;
-
 
 
 

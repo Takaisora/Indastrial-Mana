@@ -73,30 +73,20 @@ public class Randomu3 : PlantBase
                         Randomu3();
                         break;
                     case 2: //åÕÇÁÇµÇƒëùÇ‚Ç∑
-                            RL = Random.Range(1, 3);
-                            switch (RL)
-                            {
-                                case 1:
-                                    Create = true;
-                                    Debug.Log("ódê∏Ç™É}ÉiÇê∂éYÇµÇ‹ÇµÇΩ");
-                                    GrowS = false;
-
-                                RaycastHit2D HitR = CheckPlantR(transform.position.x, transform.position.y);
+                            RL = Random.Range(1, 2);
+                        switch (RL)
+                        {
+                            case 1:
+                                Debug.Log("ódê∏Ç™É}ÉiÇê∂éYÇµÇ‹ÇµÇΩ");
                                 GetPlantsR();
-
-                                Randomu3();
-                                    break;
-                                case 2:
-                                    Create = true;
-                                    Debug.Log("ódê∏Ç™É}ÉiÇê∂éYÇµÇ‹ÇµÇΩ");
-                                    GrowS = false;
-
-                                RaycastHit2D HitL = CheckPlantL(transform.position.x, transform.position.y);
+                                GrowS = false;
+                                break;
+                            case 2:
+                                Debug.Log("ódê∏Ç™É}ÉiÇê∂éYÇµÇ‹ÇµÇΩ");
                                 GetPlantsL();
-
-                                Randomu3();
-                                    break;
-                            }
+                                GrowS = false;
+                                break;
+                        }
                         break;
 
                 }
@@ -115,6 +105,10 @@ public class Randomu3 : PlantBase
         //êAï®Ç†ÇÈÇ©Ç»Ç¢Ç©îªíË
         RaycastHit2D HitR = Physics2D.Raycast(CellPosition, new Vector3(2, 0, 1), 100);
 
+        if (HitR)
+        {
+            Hitr = HitR.transform.gameObject;
+        }
         return HitR;
     }
 
@@ -128,6 +122,10 @@ public class Randomu3 : PlantBase
         //êAï®Ç†ÇÈÇ©Ç»Ç¢Ç©îªíË
         RaycastHit2D HitL = Physics2D.Raycast(CellPosition, new Vector3(-2, 0, 1), 100);
 
+        if (HitL)
+        {
+            Hitl = HitL.transform.gameObject;
+        }
         return HitL;
     }
 
@@ -138,13 +136,8 @@ public class Randomu3 : PlantBase
         //êAï®åüím
         if (HitR.collider != null && HitR.collider.gameObject.CompareTag("Garden"))
         {
-            if (base.MyGrowth == GrowthState.Planted && Hitr.GetComponent<Garden>().IsPlanted != false)
-            {
-                Hitr = HitR.collider.gameObject;
-                string Plantnemu = Hitr.gameObject.name;
-                string[] Pname = Plantnemu.Split('_');
-
-            }
+            Create = true;
+            this.Randomu3();
         }
     }
 
@@ -152,13 +145,17 @@ public class Randomu3 : PlantBase
     void GetPlantsL()
     {
         RaycastHit2D HitL = CheckPlantL(transform.position.x, transform.position.y);
+
         if (HitL.collider != null && HitL.collider.gameObject.CompareTag("Garden"))
         {
-            if (base.MyGrowth == GrowthState.Planted && Hitl.GetComponent<Garden>().IsPlanted != false)
-            {
-                Hitl = HitL.collider.gameObject;
-            }
+            Create = true;
+            this.Randomu3();
         }
+        else
+        {
+            return;
+        }
+         
     }
 
     //é˚än

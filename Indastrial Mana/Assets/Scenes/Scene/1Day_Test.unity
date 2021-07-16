@@ -130,6 +130,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 944371998}
     m_Modifications:
+    - target: {fileID: 1404681127627116142, guid: 2de0e3d1166c46846b8f8a19a68ed8a9,
+        type: 3}
+      propertyPath: _Canvas
+      value: 
+      objectReference: {fileID: 944371994}
     - target: {fileID: 2790033708968921247, guid: 2de0e3d1166c46846b8f8a19a68ed8a9,
         type: 3}
       propertyPath: m_Name
@@ -761,8 +766,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _DefaultPlants
       value: 
-      objectReference: {fileID: 3348985964859805512, guid: bc30d55cb60573645b5fbe2187f8f757,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2393162444052359908, guid: 19b73f955af360e4287568ace395f0f0,
         type: 3}
       propertyPath: _Canvas
@@ -1565,6 +1569,7 @@ MonoBehaviour:
   _GenerateTimeCount: 0
   _WitherTimeCount: 0
   MyGrowth: 0
+  _GeneratedCount: 0
   _NumOfGenerate: 1
   _DefaultWater: 50
   _DefaultFert: 50
@@ -1996,6 +2001,7 @@ MonoBehaviour:
   Day1Time: {fileID: 590956173}
   time: 0
   LimitTime: 90
+  CrazyTime: 0
 --- !u!1001 &1993162191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2132,6 +2138,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 944371998}
     m_Modifications:
+    - target: {fileID: 1404681127627116142, guid: 2de0e3d1166c46846b8f8a19a68ed8a9,
+        type: 3}
+      propertyPath: _Canvas
+      value: 
+      objectReference: {fileID: 944371994}
+    - target: {fileID: 1404681127627116142, guid: 2de0e3d1166c46846b8f8a19a68ed8a9,
+        type: 3}
+      propertyPath: _DefaultPlants
+      value: 
+      objectReference: {fileID: 3348985964859805512, guid: af93aeda0584f21408317c26abb0eceb,
+        type: 3}
     - target: {fileID: 2790033708968921247, guid: 2de0e3d1166c46846b8f8a19a68ed8a9,
         type: 3}
       propertyPath: m_Name
