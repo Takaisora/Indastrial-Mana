@@ -18,26 +18,20 @@ public class Study : MonoBehaviour
     private float _TimeCount = 0;        //時間
     private bool _IsStudying = false;    //研究中判定
     private int SelectedSeed = 0;   //抽選された種
-    int Madness = 90;        //狂気度
-    int AddMadness = 5;     //1度の研究で加算される狂気度
+    public static int Madness = 0;        //狂気度
+    public static int AddMadness = 5;     //1度の研究で加算される狂気度
     int Craziness = 0;      //発狂種類
     int Light = 50;         //軽度判別用（％）
     int Medium = 70;        //中度、重度判別用（％）
     int BaseMadness = 10;   //発狂抽選基本確率（％）
-    int MadnessLv = 0;      //0＝軽度、1＝中度、2＝重度 
-    int MadnessTime = 10;   //基本の発狂時間　MadnessLv*2を追加して使用。
-    float CrazyTime = 0;    //発狂時間計測
-    public static bool Madness_Flag = false;//狂気フラグ1
-    public static bool Madnesslv1 = false;
-    public static bool Madnesslv2 = false;
-    public bool Madnesslv5 = false;
-    public bool Madnesslv6 = false;
+    int MadnessLv = 0;      //0＝軽度、1＝中度、2＝重度 }
+
     private void Start()
     {
-        Madness_Flag = false;
-        Madnesslv1 = false;
-        Madnesslv2 = false;
+        Madness = 0;
+        AddMadness = 5;
     }
+
     void Update()
     {
         //研究中なら
@@ -69,7 +63,7 @@ public class Study : MonoBehaviour
                 }
 
                 //発狂の抽選(モックでは使わないのでコメントアウト)
-                if (Random.Range(1,101) <= Madness + BaseMadness )
+                if (Random.Range(1, 101) <= Madness + BaseMadness)
                 {
                     //狂気度の判定
                     if (Madness < Light)
@@ -84,7 +78,7 @@ public class Study : MonoBehaviour
                     {
                         MadnessLv = 2;  //重度
                     }
-                    //狂気度に応じたデバフの抽選
+                    //狂気度にお応じたデバフの抽選
                     switch (MadnessLv)
                     {
                         case 0:
@@ -97,63 +91,26 @@ public class Study : MonoBehaviour
                             Craziness = Random.Range(1, 6);
                             break;
                         default:
-                        break;
-                    }
-                    switch(Craziness)
-                    {
-                        case 1:
-                            /*PlayerController.MoveRatio = 0.5f;
-                            CrazyTime += Time.deltaTime;
-                            if(CrazyTime >= MadnessTime)
-                            {
-                                PlayerController.MoveRatio = 1.0f;
-                                CrazyTime = 0;
-                            }*/
-                            Madnesslv1 = true;
                             break;
-                        case 2:
-                            /*PlayerController.MoveRatio = 0.0f;
-                            CrazyTime += Time.deltaTime;
-                            if (CrazyTime >= MadnessTime)
-                            {
-                                PlayerController.MoveRatio = 1.0f;
-                                CrazyTime = 0;
-                            }*/
-                            Madnesslv2 = true;
-                            break;
-                        case 3:
-                            Day_1.Crazy_Flag = true;
-                            break;
-                        case 4:
-                            Madness_Flag = true;//それぞれ種のスクリプトでフラグ成立時にマナ生成タイムをリセットする。
-                            break;
-                        case 5:
-                            Madnesslv5 = true;
-                            break;
-                        case 6:
-                            Madnesslv6 = true;
-                            break;
-                        default:
-                        break;
                     }
                     Debug.Log("受けたデバフは" + Craziness + "です。");
 
-                //後々追加予定
-                //狂気度に応じてデバフを強化
-                //switch (Craziness)
-                //{
-                //    case 0:
-                //        break;
-                //    default:
-                //        break;
-                //}
+                    //後々追加予定
+                    //狂気度に応じてデバフを強化
+                    //switch (Craziness)
+                    //{
+                    //    case 0:
+                    //        break;
+                    //    default:
+                    //        break;
+                    //}
                 }
             }
         }
     }
 
     public void Studying()
-    { 
+    {
         //研究中でなければ
         if (!_IsStudying)
         {
