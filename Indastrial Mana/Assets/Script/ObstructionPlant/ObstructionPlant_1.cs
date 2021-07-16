@@ -44,6 +44,11 @@ public class ObstructionPlant_1 : PlantBase
         if (base.MyGrowth == GrowthState.Withered)
             base.Withered();
 
+        if (Study.Madnesslv4)
+        {
+            _GeneratedCount = 0;
+            Study.Madnesslv4 = false;
+        }
 
     }
     private void OnTriggerStay2D(Collider2D collision)

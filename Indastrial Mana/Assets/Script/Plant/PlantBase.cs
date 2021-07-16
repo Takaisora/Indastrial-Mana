@@ -22,7 +22,7 @@ public class PlantBase : MonoBehaviour
     [SerializeField]
     protected GrowthState MyGrowth;// 植物の成長状態
     protected GameObject Player = null;
-    private byte _GeneratedCount = 0;// マナ生成毎にカウント
+    public byte _GeneratedCount = 0;// マナ生成毎にカウント
     protected bool _IsCompleted = false;// マナを全て生成しきったか
     private GameObject MyGarden = null;
     private Image _WaterGauge = null;
