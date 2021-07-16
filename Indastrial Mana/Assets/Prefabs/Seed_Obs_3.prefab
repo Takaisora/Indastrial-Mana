@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3348985964859805509}
   - component: {fileID: 3348985964859805508}
   - component: {fileID: 3348985964859805515}
+  - component: {fileID: 4772284569443343184}
   m_Layer: 5
   m_Name: Seed_Obs_3
   m_TagString: Item
@@ -102,3 +103,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4772284569443343184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3348985964859805512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70319c6b09aaa8e4b92291490ed802a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrowSpeed: 1
+  PlantsWater: 0
+  PlantsFert: 0
+  _GenerateTimeCount: 0
+  _WitherTimeCount: 0
+  MyGrowth: 0
+  _NumOfGenerate: 0
+  _DefaultWater: 0
+  _DefaultFert: 0
+  _WaterConsumption: 0
+  _FertConsumption: 0
+  _GenerateTime: 0
+  _WitherTime: 0
+  _IsOR: 0
+  Buff: 0
+  BuffTime: 0
+  GetBuff: 0
+  Rob: 0
+  Create: 0
+  GrowS: 0
+  Debuff: {fileID: 0}
+  MapCanvas: {fileID: 0}
+  parentCanvas: {fileID: 0}
+  Test: {fileID: 0}
