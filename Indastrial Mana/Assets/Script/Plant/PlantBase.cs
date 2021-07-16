@@ -68,6 +68,8 @@ public class PlantBase : MonoBehaviour
     //ûŠn‰ñ”
     float M = 0;
 
+    public bool GrowStart = false;
+
 
 
 
@@ -201,16 +203,6 @@ public class PlantBase : MonoBehaviour
         {
             _GeneratedCount = 1;
             Debug.Log("—d¸‚Íƒ}ƒi‚ğ" + _GeneratedCount + "–{¶Y‚µ‚½");
-        }
-        if(Rob)
-        {
-            _GeneratedCount--;
-            Debug.Log("—d¸‚Íƒ}ƒi‚ğ’D‚Á‚½");
-            if (Create)
-            {
-                _GeneratedCount = 1;
-                Debug.Log("—d¸‚Íƒ}ƒi‚ğ" + _GeneratedCount + "–{¶Y‚µ‚½");
-            }
         }
     }
 

@@ -20,8 +20,6 @@ public class Randomu3 : PlantBase
     protected int Plants = 0;
     //ê∂éYÇ∆íDÇ§îªíË
     int RobCreate = 0;
-    //ódê∏ÉgÉäÉKÅ[
-    bool Fairy = false;
     //éûä‘
     private float _FTimeCount = 0;
 
@@ -53,28 +51,7 @@ public class Randomu3 : PlantBase
         if (base.MyGrowth == GrowthState.Withered)
             base.Withered();
 
-        Vector3 GardenPositionR = new Vector3(Mathf.RoundToInt(X)
-                                         , Mathf.RoundToInt(Y));
 
-        RaycastHit2D HitR = Physics2D.Raycast(GardenPositionR, new Vector3(2, 0, 0), 100);
-
-        if (HitR.collider != null && HitR.collider.gameObject.CompareTag("Garden"))
-        {
-            GetPlantsR();
-            Debug.Log(HitR.collider.gameObject.name);
-            Debug.Log(HitR.collider.gameObject.transform.position);
-        }
-
-        Vector3 GardenPositionL = new Vector3(Mathf.RoundToInt(X)
-                                         , Mathf.RoundToInt(Y));
-
-        RaycastHit2D HitL = Physics2D.Raycast(GardenPositionL, new Vector3(-2, 0, 0), 100);
-        if (HitL.collider != null && HitL.collider.gameObject.CompareTag("Garden"))
-        {
-            GetPlantsL();
-            Debug.Log(HitL.collider.gameObject.name);
-            Debug.Log(HitL.collider.gameObject.transform.position);
-        }
         
 
         //ódê∏
@@ -85,9 +62,8 @@ public class Randomu3 : PlantBase
             if (_FTimeCount >= _FairyTime)
             {
                 _FTimeCount = 0;
-                Fairy = false;
                 //ê∂éYÅAíDÇ§èàóù
-                RobCreate = Random.Range(1, 2);
+                RobCreate = Random.Range(2, 3);
                 switch (RobCreate)
                 {
                     case 1: //ê∂éY
@@ -97,23 +73,39 @@ public class Randomu3 : PlantBase
                         Randomu3();
                         break;
                     case 2: //åÕÇÁÇµÇƒëùÇ‚Ç∑
-                        Rob = true;
-                        Debug.Log("ódê∏Ç™É}ÉiÇíDÇ¡ÇΩ");
-                        if(Plants >= 2)
-                        {
-                            Create = true;
-                            Debug.Log("ódê∏Ç™É}ÉiÇÃê∂éYÇ…ê¨å˜ÇµÇΩ");
-                        }
-                        GrowS = false;
-                        Randomu3();
+                            RL = Random.Range(1, 3);
+                            switch (RL)
+                            {
+                                case 1:
+                                    Create = true;
+                                    Debug.Log("ódê∏Ç™É}ÉiÇê∂éYÇµÇ‹ÇµÇΩ");
+                                    GrowS = false;
+
+                                RaycastHit2D HitR = CheckPlantR(transform.position.x, transform.position.y);
+                                GetPlantsR();
+
+                                Randomu3();
+                                    break;
+                                case 2:
+                                    Create = true;
+                                    Debug.Log("ódê∏Ç™É}ÉiÇê∂éYÇµÇ‹ÇµÇΩ");
+                                    GrowS = false;
+
+                                RaycastHit2D HitL = CheckPlantL(transform.position.x, transform.position.y);
+                                GetPlantsL();
+
+                                Randomu3();
+                                    break;
+                            }
                         break;
+
                 }
             }
         }
     }
 
     ////êAï®ÇÃêîÉ`ÉFÉbÉN
-    private RaycastHit2D CheckPlant(float X, float Y)
+    private RaycastHit2D CheckPlantR(float X, float Y)
     {
         Hitr = null;
 
@@ -123,12 +115,6 @@ public class Randomu3 : PlantBase
         //êAï®Ç†ÇÈÇ©Ç»Ç¢Ç©îªíË
         RaycastHit2D HitR = Physics2D.Raycast(CellPosition, new Vector3(2, 0, 1), 100);
 
-        Debug.Log(1);
-
-        if (HitR)
-        {
-            Hitr = HitR.transform.gameObject;
-        }
         return HitR;
     }
 
@@ -142,34 +128,36 @@ public class Randomu3 : PlantBase
         //êAï®Ç†ÇÈÇ©Ç»Ç¢Ç©îªíË
         RaycastHit2D HitL = Physics2D.Raycast(CellPosition, new Vector3(-2, 0, 1), 100);
 
-        Debug.Log(2);
-
-        if(HitL)
-        {
-            Hitl = HitL.transform.gameObject;
-        }
-
         return HitL;
     }
 
+    //âE
     void GetPlantsR()
     {
-        Debug.Log("R");
+        RaycastHit2D HitR = CheckPlantR(transform.position.x, transform.position.y);
         //êAï®åüím
-        if (base.MyGrowth == GrowthState.Planted && Hitr.GetComponent<Garden>().IsPlanted != false)
+        if (HitR.collider != null && HitR.collider.gameObject.CompareTag("Garden"))
         {
-            Plants++;
-            Debug.Log(Plants);
+            if (base.MyGrowth == GrowthState.Planted && Hitr.GetComponent<Garden>().IsPlanted != false)
+            {
+                Hitr = HitR.collider.gameObject;
+                string Plantnemu = Hitr.gameObject.name;
+                string[] Pname = Plantnemu.Split('_');
+
+            }
         }
     }
 
+    //ç∂
     void GetPlantsL()
     {
-        Debug.Log("L");
-        if (base.MyGrowth == GrowthState.Planted && Hitl.GetComponent<Garden>().IsPlanted != false)
+        RaycastHit2D HitL = CheckPlantL(transform.position.x, transform.position.y);
+        if (HitL.collider != null && HitL.collider.gameObject.CompareTag("Garden"))
         {
-            Plants++;
-            Debug.Log(Plants);
+            if (base.MyGrowth == GrowthState.Planted && Hitl.GetComponent<Garden>().IsPlanted != false)
+            {
+                Hitl = HitL.collider.gameObject;
+            }
         }
     }
 
@@ -201,20 +189,17 @@ public class Randomu3 : PlantBase
 }
 
 
-//
-//RL = Random.Range(1, 3);
-//switch (RL)
+//ÉâÉìÉ_ÉÄå^3ÇÃèCê≥å„édólâº
+
+
+////                        Rob = true;
+//Debug.Log("ódê∏Ç™É}ÉiÇíDÇ¡ÇΩ");
+//if (Plants >= 2)
 //{
-//    case 1:
-//        Create = true;
-//        Debug.Log("ódê∏Ç™É}ÉiÇê∂éYÇµÇ‹ÇµÇΩ");
-//        GrowStart = false;
-//        Randomu3();
-//        break;
-//    case 2:
-//        Create = true;
-//        Debug.Log("ódê∏Ç™É}ÉiÇê∂éYÇµÇ‹ÇµÇΩ");
-//        GrowStart = false;
-//        Randomu3();
-//        break;
+//    Create = true;
+//    Debug.Log("ódê∏Ç™É}ÉiÇÃê∂éYÇ…ê¨å˜ÇµÇΩ");
 //}
+//GrowS = false;
+//Randomu3();
+//break;
+////

@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b560cb4ec950e5438b9e5f0e0c3d580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GrowSpeed: 1
   PlantsWater: 0
   PlantsFert: 0
   _GenerateTimeCount: 0
@@ -128,3 +129,10 @@ MonoBehaviour:
   _GenerateTime: 30
   _WitherTime: 5
   _IsOR: 0
+  Buff: 0
+  BuffTime: 0
+  GetBuff: 0
+  Rob: 0
+  Create: 0
+  GrowS: 0
+  GrowStart: 0
