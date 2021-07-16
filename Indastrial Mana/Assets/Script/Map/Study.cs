@@ -25,6 +25,9 @@ public class Study : MonoBehaviour
     int Medium = 70;        //中度、重度判別用（％）
     int BaseMadness = 10;   //発狂抽選基本確率（％）
     int MadnessLv = 0;      //0＝軽度、1＝中度、2＝重度 }
+    public static bool Madnesslv5 = false;
+    public static bool Madnesslv6 = false;
+
 
     private void Start()
     {
