@@ -115,3 +115,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b16553c866a96942be608e472820489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _MoneyCost: 0
+  _TimeRequired: 0
+  PlantsType:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  SetPosition: {fileID: 0}
+  MapCanvas: {fileID: 0}
+  Madnesslv5: 0
+  Madnesslv6: 0
+  Mad: {fileID: 5728597967949649881}
+  parentCanvas: {fileID: 0}
