@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 _PlayerScale = Vector3.zero;
     private Study _MyStudy = null;
     private Rigidbody2D rb = null;
+    float Madnesslv1_Time = 0;
+    float Madnesslv2_Time = 0;
 
     public enum ToolState : byte
     {
@@ -46,6 +48,29 @@ public class PlayerController : MonoBehaviour
         _MoveX = 0;
         _MoveY = 0;
         _DeltaMove = _MoveSpeed * MoveRatio * Time.deltaTime;
+
+        if (Study.Madnesslv1)
+        {
+            MoveRatio = 0.5f;
+            Madnesslv1_Time += Time.deltaTime;
+            if(Madnesslv1_Time >= 10)
+            {
+                MoveRatio = 1.0f;
+                Madnesslv1_Time = 0;
+                Study.Madnesslv1 = false;
+            }
+        } 
+        if (Study.Madnesslv2)
+        {
+            MoveRatio = 0.0f;
+            Madnesslv2_Time += Time.deltaTime;
+            if (Madnesslv2_Time >= 10)
+            {
+                MoveRatio = 1.0f;
+                Madnesslv2_Time = 0;
+                Study.Madnesslv2 = false;
+            }
+        }
 
         if (Input.GetKey(KeyCode.A))
         {
