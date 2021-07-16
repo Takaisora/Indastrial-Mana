@@ -110,9 +110,9 @@ public class Day_1 : MonoBehaviour
 
             ResultDay.text = Days + "Days";
 
-            ResultMoney.text = "x" + PlayerController.Money;
+            ResultMoney.text = " x " + PlayerController.Money;
 
-            ResultManaBottle.text = ManaBottle + "/" + RiquiredManaBottle;
+            ResultManaBottle.text = " x " + ManaBottle + " / " + RiquiredManaBottle;
 
             if(Success_Flag == true)
             {
@@ -139,28 +139,29 @@ public class Day_1 : MonoBehaviour
 
 #endif
 
-#if UNITY_IOS
-                if (Input.touchCount > 0)
-                {
-                    Touch touch = Input.GetTouch(0);
-                }
+//#if UNITY_IOS
+//                if (Input.touchCount > 0)
+//                {
+//                    Touch touch = Input.GetTouch(0);
+//                }
 
-                if (touch.phase == TouchPhase.Began)
-                {
-                    DayTime = 0;
+//                if (touch.phase == TouchPhase.Began)
+//                {
+//                    DayTime = 0;
 
-                    Result_Flag = false;
+//                    Result_Flag = false;
 
-                    Days += 1;
+//                    Days += 1;
 
-                    ManaBottle = 0;
+//                    ManaBottle = 0;
 
-                    Day_Start.SetActive(true);
+//                    Day_Start.SetActive(true);
 
-                    Day_Start.GetComponent<Day_1_Start>().ReStart();
-                }
-#endif
+//                    Day_Start.GetComponent<Day_1_Start>().ReStart();
+//                }
+//#endif
             }
+
             else
             {
                 ResultSuccess.text = "Fail";
@@ -175,9 +176,9 @@ public class Day_1 : MonoBehaviour
 
         Day.text = Days +"Day";
 
-        Day1Money.text = "M" + " x " + PlayerController.Money;
+        Day1Money.text =" x " + PlayerController.Money;
 
-        Day1ManaBottle.text = "MB" + ManaBottle + "/" + RiquiredManaBottle;
+        Day1ManaBottle.text = " x " +ManaBottle + " / " + RiquiredManaBottle;
 
         Day1Time.text = time.ToString("F0");
 

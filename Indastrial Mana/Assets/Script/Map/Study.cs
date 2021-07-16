@@ -26,6 +26,14 @@ public class Study : MonoBehaviour
     int BaseMadness = 10;   //発狂抽選基本確率（％）
     int MadnessLv = 0;      //0＝軽度、1＝中度、2＝重度 }
 
+    private Animator animator;
+
+    private const string _Study_Anim = "Study_Anim";
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
         //研究中なら
@@ -33,9 +41,12 @@ public class Study : MonoBehaviour
         {
             _TimeCount += Time.deltaTime;                 //時間加算
 
+            animator.SetBool(_Study_Anim, true);
+
             //3秒経ったら種生産
             if (_TimeCount >= _TimeRequired)
             {
+                animator.SetBool(_Study_Anim, false);
                 _IsStudying = false;
                 _TimeCount = 0;
                 PlayerController.MoveRatio = 1;// 元に戻す

@@ -87,11 +87,13 @@ public class PlayerController : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        transform.Translate(_MoveX, _MoveY, 0);// PCが重いのでこっち
-#endif
-#if UNITY_IOS
+        //transform.Translate(_MoveX, _MoveY, 0);// PCが重いのでこっち
         Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
         rb.velocity = move;
+#endif
+#if UNITY_IOS
+        //Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
+        //rb.velocity = move;
 #endif
         #endregion
 
@@ -100,23 +102,42 @@ public class PlayerController : MonoBehaviour
         {
             if (Tool == ToolState.None)
                 _Animator.SetInteger("PlayerState", 1);
+            else if (Tool == ToolState.Shovel && Shovel.IsFertFilled == true)
+                _Animator.SetInteger("PlayerState", 11);
+            else if (Tool == ToolState.Bucket && Bucket.IsWaterFilled == true)
+                _Animator.SetInteger("PlayerState", 13);
+            else if (Tool == ToolState.Bottle && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
+                _Animator.SetInteger("PlayerState", 15);
             else if (Tool == ToolState.Shovel)
                 _Animator.SetInteger("PlayerState", 3);
             else if (Tool == ToolState.Bucket)
                 _Animator.SetInteger("PlayerState", 5);
             else if (Tool == ToolState.Bottle)
                 _Animator.SetInteger("PlayerState", 7);
+            else if (Tool == ToolState.Seed)
+                _Animator.SetInteger("PlayerState", 9);
+            
         }
         else
         {
             if (Tool == ToolState.None)
                 _Animator.SetInteger("PlayerState", 0);
+            else if (Tool == ToolState.Shovel && Shovel.IsFertFilled == true)
+                _Animator.SetInteger("PlayerState", 10);
+            else if (Tool == ToolState.Bucket && Bucket.IsWaterFilled == true)
+                _Animator.SetInteger("PlayerState", 12);
+            else if (Tool == ToolState.Bottle && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
+                _Animator.SetInteger("PlayerState", 14);
             else if (Tool == ToolState.Shovel)
                 _Animator.SetInteger("PlayerState", 2);
             else if (Tool == ToolState.Bucket)
                 _Animator.SetInteger("PlayerState", 4);
             else if (Tool == ToolState.Bottle)
                 _Animator.SetInteger("PlayerState", 6);
+            else if (Tool == ToolState.Seed)
+                _Animator.SetInteger("PlayerState", 8);
+            
+
         }
 
         //if (_MoveX != 0 || _MoveY != 0|| MoveVecter != Vector3.zero)
