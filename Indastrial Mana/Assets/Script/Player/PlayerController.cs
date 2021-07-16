@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 _PlayerScale = Vector3.zero;
     private Study _MyStudy = null;
     private Rigidbody2D rb = null;
-    public static bool Buff = false;
-    public static float BuffTime = 0;
+    float Madnesslv1_Time = 0;
+    float Madnesslv2_Time = 0;
 
     public enum ToolState : byte
     {
@@ -37,8 +37,6 @@ public class PlayerController : MonoBehaviour
         GameObject Study = GameObject.Find("StudyArea");
         _MyStudy = Study.GetComponent<Study>();
         rb = GetComponent<Rigidbody2D>();
-        Buff = false;
-        BuffTime = 0;
     }
 
     void Update()
@@ -51,13 +49,26 @@ public class PlayerController : MonoBehaviour
         _MoveY = 0;
         _DeltaMove = _MoveSpeed * MoveRatio * Time.deltaTime;
 
-        if (Buff)
+        if (Study.Madnesslv1)
         {
-            BuffTime -= Time.deltaTime;
-            if(BuffTime <= 0)
+            MoveRatio = 0.5f;
+            Madnesslv1_Time += Time.deltaTime;
+            if(Madnesslv1_Time >= 10)
             {
-                MoveRatio = 1;
-                Buff = false;
+                MoveRatio = 1.0f;
+                Madnesslv1_Time = 0;
+                Study.Madnesslv1 = false;
+            }
+        } 
+        if (Study.Madnesslv2)
+        {
+            MoveRatio = 0.0f;
+            Madnesslv2_Time += Time.deltaTime;
+            if (Madnesslv2_Time >= 10)
+            {
+                MoveRatio = 1.0f;
+                Madnesslv2_Time = 0;
+                Study.Madnesslv2 = false;
             }
         }
 

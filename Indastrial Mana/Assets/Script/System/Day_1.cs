@@ -14,6 +14,8 @@ public class Day_1 : MonoBehaviour
 
     public bool Result_Flag = false;//クリア判定
 
+    public static bool Crazy_Flag = false;//ボトル数が見えなくなる判定
+
     [SerializeField]
     int RiquiredManaBottle1 = 3;//1日目の目標数
 
@@ -39,10 +41,13 @@ public class Day_1 : MonoBehaviour
 
     public float LimitTime = 90;//制限時間
 
+    public float CrazyTime = 0;//狂気時間計測
+
     // Start is called before the first frame update
     public void Start()
     {
         RiquiredManaBottle = RiquiredManaBottle1;//目標数設定
+        Crazy_Flag = false;//判定のリセット
     }
 
     // Update is called once per frame
@@ -79,7 +84,19 @@ public class Day_1 : MonoBehaviour
 
         Day1Money.text = "お金" + " x " + PlayerController.Money;
 
-        Day1ManaBottle.text = "マナ瓶" + ManaBottle + "/" + RiquiredManaBottle;
+        if (!Crazy_Flag)
+        {
+            Day1ManaBottle.text = "マナ瓶" + ManaBottle + "/" + RiquiredManaBottle;
+        }else if (Crazy_Flag)
+        {
+            Day1ManaBottle.text = ".@:]/,<>.+;[@[@]/..[";
+            CrazyTime += Time.deltaTime;
+            if(CrazyTime >= 10)
+            {
+                Crazy_Flag = false;
+                CrazyTime = 0;
+            }
+        }
 
         Day1Time.text = time.ToString("F0");
 
