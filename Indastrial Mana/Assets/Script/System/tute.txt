@@ -36,31 +36,31 @@ public class Tutorial_Text : MonoBehaviour
 
         if(Delivery == true)
         {
-            TutorialText.text = ("”[•i‚µ‚æ‚¤I");
+            TutorialText.text = ("ç´å“ã—ã‚ˆã†ï¼");
         }
         else if(Bottle == true)
         {
-            TutorialText.text = ("•r‚ğ‚Á‚Ä‚«‚Ä\n‹l‚ß‚æ‚¤");
+            TutorialText.text = ("ç“¶ã‚’æŒã£ã¦ãã¦\nè©°ã‚ã‚ˆã†");
         }
         else if(Mana == true)
         {
-            TutorialText.text = ("ƒ}ƒi‚ª¶Y‚³‚ê‚½‚Ë");
+            TutorialText.text = ("ãƒãƒŠãŒç”Ÿç”£ã•ã‚ŒãŸã­");
         }
         else if(Water == true)
         {
-            TutorialText.text = ("¬’·‚·‚é‚Ü‚Å‘Ò‚Æ‚¤");
+            TutorialText.text = ("æˆé•·ã™ã‚‹ã¾ã§å¾…ã¨ã†");
         }
         else if(Fert == true)
         {
-            TutorialText.text = ("…‚ğ‚ ‚°‚æ‚¤");
+            TutorialText.text = ("æ°´ã‚’ã‚ã’ã‚ˆã†");
         }
         else if(Planted == true)
         {
-            TutorialText.text = ("”ì—¿‚ğ‚ ‚°‚æ‚¤");
+            TutorialText.text = ("è‚¥æ–™ã‚’ã‚ã’ã‚ˆã†");
         }
         else if(Stady == true)
         {
-            TutorialText.text = ("í‚ğA‚¦‚æ‚¤");
+            TutorialText.text = ("ç¨®ã‚’æ¤ãˆã‚ˆã†");
         }
     }
 }

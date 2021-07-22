@@ -55,6 +55,8 @@ public class Day_1 : MonoBehaviour
 
     public float LimitTime = 90;//êßå¿éûä‘
 
+    public bool BottonDown;
+
     Touch touch;
 
     // Start is called before the first frame update
@@ -120,34 +122,15 @@ public class Day_1 : MonoBehaviour
             {
                 ResultSuccess.text = "Success";
 
-
-#if UNITY_EDITOR
-
-                if (Input.GetMouseButtonDown(0))
+                if (BottonDown)
                 {
-                    DayTime = 0;
+                    SceneManager.LoadScene("Result");
 
-                    Result_Flag = false;
-
-                    Days += 1;
-
-                    ManaBottle = 0;
-
-                    Day_Start.SetActive(true);
-
-                    Day_Start.GetComponent<Day_1_Start>().ReStart();
-                    
                 }
 
-#endif
+//#if UNITY_EDITOR
 
-//#if UNITY_IOS
-//                if (Input.touchCount > 0)
-//                {
-//                    Touch touch = Input.GetTouch(0);
-//                }
-
-//                if (touch.phase == TouchPhase.Began)
+//                if (Input.GetMouseButtonDown(0))
 //                {
 //                    DayTime = 0;
 
@@ -160,8 +143,32 @@ public class Day_1 : MonoBehaviour
 //                    Day_Start.SetActive(true);
 
 //                    Day_Start.GetComponent<Day_1_Start>().ReStart();
+                    
 //                }
+
 //#endif
+
+////#if UNITY_IOS
+////                if (Input.touchCount > 0)
+////                {
+////                    Touch touch = Input.GetTouch(0);
+////                }
+
+////                if (touch.phase == TouchPhase.Began)
+////                {
+////                    DayTime = 0;
+
+////                    Result_Flag = false;
+
+////                    Days += 1;
+
+////                    ManaBottle = 0;
+
+////                    Day_Start.SetActive(true);
+
+////                    Day_Start.GetComponent<Day_1_Start>().ReStart();
+////                }
+////#endif
             }
 
             else
@@ -225,5 +232,15 @@ public class Day_1 : MonoBehaviour
     public void ResultClose()
     {
         Result_Flag = false;
+    }
+
+    public void buttont()
+    {
+        BottonDown = true;
+    }
+
+    public void buttonf()
+    {
+        BottonDown = false;
     }
 }

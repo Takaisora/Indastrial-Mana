@@ -30,6 +30,8 @@ public class StandardPlant : PlantBase
         }
         if (base.MyGrowth == GrowthState.Generated)
             animator.SetBool(_Generat, true);
+        else
+            animator.SetBool(_Generat, false);
 
         if (base.MyGrowth == GrowthState.Withered)
             base.Withered();

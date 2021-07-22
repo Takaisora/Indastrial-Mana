@@ -277,9 +277,9 @@ MonoBehaviour:
   _NumOfGenerate: 2
   _DefaultWater: 100
   _DefaultFert: 100
-  _WaterConsumption: 5
-  _FertConsumption: 5
-  _GenerateTime: 5
+  _WaterConsumption: 30
+  _FertConsumption: 30
+  _GenerateTime: 10
   _WitherTime: 30
   _IsOR: 0
 --- !u!95 &5737107006602571575

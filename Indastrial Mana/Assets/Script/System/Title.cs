@@ -29,12 +29,13 @@ public class Title : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                SceneManager.LoadScene("Tutorial");
+            }
         }
 
-        if (touch.phase == TouchPhase.Began)
-        {
-            SceneManager.LoadScene("Tutorial");
-        }
+        
 #endif
     }
 }
