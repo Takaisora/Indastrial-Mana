@@ -60,6 +60,8 @@ public class Day_1 : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
+        ManaBottle = 0;
+
         RiquiredManaBottle = RiquiredManaBottle1;//–Ú•W”İ’è
 
         Day_1_Start script = Day_Start.GetComponent<Day_1_Start>();

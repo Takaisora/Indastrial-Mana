@@ -6,27 +6,12 @@ public class Tutorial : MonoBehaviour
 {
     public int Tu = 0;
 
-    public GameObject TutorialBack;
-
     public GameObject TutorialUI;
-
-    public GameObject TutorialStick;
 
     public GameObject TutorialBotton;
 
-    public GameObject TutorialStady;
-
-    public GameObject TutorialWater;
-
-    public GameObject TutorialFilr;
-
-    public GameObject TutorialTextUI;
-
-    public GameObject TutorialBottle;
-
-    public GameObject TutorialDeryvery;
-
     public Text Tutorial_Text;
+
 
     public static int Days = 1;
 
@@ -43,7 +28,7 @@ public class Tutorial : MonoBehaviour
     public bool Success_Flag = false;//クリア判定
 
     [SerializeField]
-    int RiquiredManaBottle1 = 3;//1日目の目標数
+    int RiquiredManaBottle1 = 1;//1日目の目標数
 
     public GameObject Day_Start;//オブジェクト仮置き
 
@@ -79,6 +64,8 @@ public class Tutorial : MonoBehaviour
 
     public float LimitTime = 90;//制限時間
 
+    bool ButtonDown = false;
+
     Touch touch;
 
     // Start is called before the first frame update
@@ -87,6 +74,8 @@ public class Tutorial : MonoBehaviour
         RiquiredManaBottle = RiquiredManaBottle1;//目標数設定
 
         Day_1_Start script = Day_Start.GetComponent<Day_1_Start>();
+
+        TutorialBotton.SetActive(true);
     }
 
     // Update is called once per frame
@@ -109,14 +98,39 @@ public class Tutorial : MonoBehaviour
             ManaBottle -= 1;
         }
         #endregion
-        
 
 
+        if (ManaBottle >= RiquiredManaBottle)
+        {
+            time += Time.deltaTime;
+            if (time >= 3)
+            {
+                Day_Result.SetActive(true);
 
+                ResultDay.text = "0Days";
+
+                ResultMoney.text = " x " + PlayerController.Money;
+
+                ResultManaBottle.text = " x " + ManaBottle + " / " + RiquiredManaBottle;
+
+                ResultSuccess.text = "Success";
+
+                Player.GetComponent<PlayerController>().enabled = false;
+
+                if (ButtonDown)
+                {
+                    SceneManager.LoadScene("Day");
+
+                }
+
+
+            }
+
+        }
 
         if (Start_Flag == true)
         {
-            DayStart();
+            TutorialBotton.SetActive(false);
         }
         else
         {
@@ -132,48 +146,24 @@ public class Tutorial : MonoBehaviour
             Player.GetComponent<PlayerController>().enabled = false;
         }
 
-        if(Result_Flag == true)
-        {
-            Day_Result.SetActive(true);
+//        if(Result_Flag == true)
+//        {
+//            Day_Result.SetActive(true);
 
-            ResultDay.text = Days + "Days";
+//            ResultDay.text = "0Days";
 
-            ResultMoney.text = " x " + PlayerController.Money;
+//            ResultMoney.text = " x " + PlayerController.Money;
 
-            ResultManaBottle.text = " x " + ManaBottle + " / " + RiquiredManaBottle;
+//            ResultManaBottle.text = " x " + ManaBottle + " / " + RiquiredManaBottle;
 
-            if(Success_Flag == true)
-            {
-                ResultSuccess.text = "Success";
+//            if(Success_Flag == true)
+//            {
+//                ResultSuccess.text = "Success";
 
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 
-                if (Input.GetMouseButtonDown(0))
-                {
-                    DayTime = 0;
-
-                    Result_Flag = false;
-
-                    Days += 1;
-
-                    ManaBottle = 0;
-
-                    Day_Start.SetActive(true);
-
-                    Day_Start.GetComponent<Day_1_Start>().ReStart();
-                    
-                }
-
-#endif
-
-//#if UNITY_IOS
-//                if (Input.touchCount > 0)
-//                {
-//                    Touch touch = Input.GetTouch(0);
-//                }
-
-//                if (touch.phase == TouchPhase.Began)
+//                if (Input.GetMouseButtonDown(0))
 //                {
 //                    DayTime = 0;
 
@@ -186,36 +176,53 @@ public class Tutorial : MonoBehaviour
 //                    Day_Start.SetActive(true);
 
 //                    Day_Start.GetComponent<Day_1_Start>().ReStart();
+                    
 //                }
+
 //#endif
-            }
 
-            else
-            {
-                ResultSuccess.text = "Fail";
-            }
+////#if UNITY_IOS
+////                if (Input.touchCount > 0)
+////                {
+////                    Touch touch = Input.GetTouch(0);
+////                }
+
+////                if (touch.phase == TouchPhase.Began)
+////                {
+////                    DayTime = 0;
+
+////                    Result_Flag = false;
+
+////                    Days += 1;
+
+////                    ManaBottle = 0;
+
+////                    Day_Start.SetActive(true);
+
+////                    Day_Start.GetComponent<Day_1_Start>().ReStart();
+////                }
+////#endif
+//            }
+
+//            else
+//            {
+//                ResultSuccess.text = "Fail";
+//            }
 
 
-        }
-        else
-        {
-            Day_Result.SetActive(false);
-        }
+//        }
+//        else
+//        {
+//            Day_Result.SetActive(false);
+//        }
 
-        Day.text = Days +"Day";
+        Day.text = "0Day";
 
         Day1Money.text =" x " + PlayerController.Money;
 
         Day1ManaBottle.text = " x " +ManaBottle + " / " + RiquiredManaBottle;
 
-        Day1Time.text = time.ToString("F0");
-
-        time = LimitTime - DayTime;
-
-        if (time <= 0)
-        {
-            Day1Time.text = "End";
-        }
+        Day1Time.text = "Tuto";//time.ToString("F0");
 
 
     }
@@ -251,5 +258,15 @@ public class Tutorial : MonoBehaviour
     public void ResultClose()
     {
         Result_Flag = false;
+    }
+
+    public void buttont()
+    {
+        ButtonDown = true;
+    }
+
+    public void buttonf()
+    {
+        ButtonDown = false;
     }
 }

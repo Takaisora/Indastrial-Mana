@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
         if(MoveVecter != Vector3.zero)
         {
-            transform.Translate(MoveVecter * _MoveSpeed * Time.deltaTime, Space.World);
+            transform.Translate(MoveVecter * _DeltaMove, Space.World);
         }
 
         if(joystick.Horizontal <= 0)
@@ -185,6 +185,7 @@ public class PlayerController : MonoBehaviour
                     CarryItem.GetComponent<PlantBase>().Plant(Gardens.WaterGauge, Gardens.FertGauge);
                     CarryItem = null;
                     Tool = ToolState.None;
+                    Tutorial_Text.Planted = true;
                 }
             }
         }
@@ -219,7 +220,10 @@ public class PlayerController : MonoBehaviour
         if (Tool == ToolState.None)
         {
             if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
+            {
                 _MyStudy.Studying();
+                Tutorial_Text.Stady = true;
+            }
             else
                 GetItem();
         }

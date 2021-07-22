@@ -13,6 +13,7 @@ public class WaterStrage : MonoBehaviour
             {
                 Bucket.IsWaterFilled = true;
                 Debug.Log("…‚ğ‹‚‚ñ‚¾");
+                
             }
         }
     }

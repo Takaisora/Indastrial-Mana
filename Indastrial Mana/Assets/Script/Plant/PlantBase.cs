@@ -101,6 +101,7 @@ public class PlantBase : MonoBehaviour
             _GenerateTimeCount = 0;
             MyGrowth = GrowthState.Generated;
             Debug.Log("A•¨‚ªƒ}ƒi‚ğ¶¬");
+            Tutorial_Text.Mana = true;
             // ‚±‚Ì¶¬‚ÅÅŒã‚É‚È‚é‚È‚ç
             if (_NumOfGenerate <= _GeneratedCount)
                 _IsCompleted = true;
@@ -146,6 +147,7 @@ public class PlantBase : MonoBehaviour
             Bucket.IsWaterFilled = false;
             Debug.Log("…‚ğ—^‚¦‚½");
             PlantsWater = _MAXPLANTSWATER;
+            Tutorial_Text.Water = true;
         }
     }
     
@@ -156,6 +158,7 @@ public class PlantBase : MonoBehaviour
             Shovel.IsFertFilled = false;
             Debug.Log("”ì—¿‚ğ—^‚¦‚½");
             PlantsFert = _MAXPLANTSFERT;
+            Tutorial_Text.Fert = true;
         }
     }
     
@@ -170,6 +173,7 @@ public class PlantBase : MonoBehaviour
                 MyBottle.IsManaFilled = true;
                 Debug.Log("ƒ}ƒi‚ğûŠn‚µ‚½");
                 MyGrowth = GrowthState.Planted;
+                Tutorial_Text.Delivery = true;
                 // ‘S‚Ä¶¬Ï‚È‚çŒÍ‚ê‚é
                 if (_IsCompleted)
                     MyGrowth = GrowthState.Withered;
