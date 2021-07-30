@@ -20,7 +20,7 @@ public class BottoleStrage : MonoBehaviour
     {
         _PlayerController = Player.GetComponent<PlayerController>();
 
-        for(int i = 0; i < MaxBottle; i++)
+        for (int i = 0; i < MaxBottle; i++)
         {
             GameObject MyBottle = Instantiate(Bottle, new Vector3(999, 999), Quaternion.identity);
             MyBottle.name = "Bottle_" + i.ToString();

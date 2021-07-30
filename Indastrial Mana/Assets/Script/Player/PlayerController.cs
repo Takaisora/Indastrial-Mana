@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private Study _MyStudy = null;
     private Rigidbody2D rb = null;
 
+    public Joystick joystick;
+
     public enum ToolState : byte
     {
         None,
@@ -65,48 +67,111 @@ public class PlayerController : MonoBehaviour
         {
             _MoveY = -_DeltaMove;
         }
+
+        //JoyStick
+
+        Vector3 MoveVecter = (Vector3.right * joystick.Horizontal + Vector3.up * joystick.Vertical);
+
+        if(MoveVecter != Vector3.zero)
+        {
+            transform.Translate(MoveVecter * _DeltaMove, Space.World);
+        }
+
+        if(joystick.Horizontal <= 0)
+        {
+            transform.localScale = new Vector3(_PlayerScale.x, _PlayerScale.y);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
+        }
+
 #if UNITY_EDITOR
-        transform.Translate(_MoveX, _MoveY, 0);// PCが重いのでこっち
-#endif
-#if UNITY_IOS
+        //transform.Translate(_MoveX, _MoveY, 0);// PCが重いのでこっち
         Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
         rb.velocity = move;
+#endif
+#if UNITY_IOS
+        //Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
+        //rb.velocity = move;
 #endif
         #endregion
 
         #region アニメーション
-        if (_MoveX != 0 || _MoveY != 0)
+        if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
         {
-            _Animator.SetInteger("PlayerState", 1);
+            if (Tool == ToolState.None)
+                _Animator.SetInteger("PlayerState", 1);
+            else if (Tool == ToolState.Shovel && Shovel.IsFertFilled == true)
+                _Animator.SetInteger("PlayerState", 11);
+            else if (Tool == ToolState.Bucket && Bucket.IsWaterFilled == true)
+                _Animator.SetInteger("PlayerState", 13);
+            else if (Tool == ToolState.Bottle && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
+                _Animator.SetInteger("PlayerState", 15);
+            else if (Tool == ToolState.Shovel)
+                _Animator.SetInteger("PlayerState", 3);
+            else if (Tool == ToolState.Bucket)
+                _Animator.SetInteger("PlayerState", 5);
+            else if (Tool == ToolState.Bottle)
+                _Animator.SetInteger("PlayerState", 7);
+            else if (Tool == ToolState.Seed)
+                _Animator.SetInteger("PlayerState", 9);
+            
         }
         else
         {
-            _Animator.SetInteger("PlayerState", 0);
+            if (Tool == ToolState.None)
+                _Animator.SetInteger("PlayerState", 0);
+            else if (Tool == ToolState.Shovel && Shovel.IsFertFilled == true)
+                _Animator.SetInteger("PlayerState", 10);
+            else if (Tool == ToolState.Bucket && Bucket.IsWaterFilled == true)
+                _Animator.SetInteger("PlayerState", 12);
+            else if (Tool == ToolState.Bottle && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
+                _Animator.SetInteger("PlayerState", 14);
+            else if (Tool == ToolState.Shovel)
+                _Animator.SetInteger("PlayerState", 2);
+            else if (Tool == ToolState.Bucket)
+                _Animator.SetInteger("PlayerState", 4);
+            else if (Tool == ToolState.Bottle)
+                _Animator.SetInteger("PlayerState", 6);
+            else if (Tool == ToolState.Seed)
+                _Animator.SetInteger("PlayerState", 8);
+            
+
         }
+
+        //if (_MoveX != 0 || _MoveY != 0|| MoveVecter != Vector3.zero)
+        //{
+        //    _Animator.SetInteger("PlayerState", 3);
+        //}
+        //else
+        //{
+        //    _Animator.SetInteger("PlayerState", 2);
+        //}
         #endregion
 
         #region アクションボタン
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
-            // アイテムを持っていないなら
-            if (Tool == ToolState.None)
-            {
-                if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
-                    _MyStudy.Studying();
-                else
-                    GetItem();
-            }
-            else
-                RemoveItem(transform.position.x, transform.position.y);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
+        //    // アイテムを持っていないなら
+        //    if (Tool == ToolState.None)
+        //    {
+        //        if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
+        //            _MyStudy.Studying();
+        //        else
+        //            GetItem();
+        //    }
+        //    else
+        //        RemoveItem(transform.position.x, transform.position.y);
+        //}
         #endregion
 
         #region 種を植える処理
         if (Tool == ToolState.Seed)
         {
             RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
-            if(Hit.collider != null && Hit.collider.gameObject.CompareTag("Garden"))
+            if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Garden"))
             {
                 GameObject Garden = Hit.collider.gameObject;
                 Garden Gardens = Garden.GetComponent<Garden>();
@@ -120,6 +185,7 @@ public class PlayerController : MonoBehaviour
                     CarryItem.GetComponent<PlantBase>().Plant(Gardens.WaterGauge, Gardens.FertGauge);
                     CarryItem = null;
                     Tool = ToolState.None;
+                    Tutorial_Text.Planted = true;
                 }
             }
         }
@@ -146,6 +212,26 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// プレイヤーのマスにアイテムがあれば拾います
     /// </summary>
+
+    public void ActionBotton()
+    {
+        RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
+        // アイテムを持っていないなら
+        if (Tool == ToolState.None)
+        {
+            if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
+            {
+                _MyStudy.Studying();
+                Tutorial_Text.Stady = true;
+            }
+            else
+                GetItem();
+        }
+        else
+            RemoveItem(transform.position.x, transform.position.y);
+    }
+
+
     private void GetItem()
     {
         RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);

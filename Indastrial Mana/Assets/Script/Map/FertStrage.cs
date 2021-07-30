@@ -13,6 +13,7 @@ public class FertStrage : MonoBehaviour
             {
                 Shovel.IsFertFilled = true;
                 Debug.Log("”ì—¿‚ð‹d‚Á‚½");
+                
             }
         }
     }
