@@ -584,7 +584,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3623241124993657087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -779,7 +779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa5d37efcc2cbc24280e373276a739ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 0}
 --- !u!1 &3623241125191624441
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f2fa3421f793c459279c59bf317a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsWaterFilled: 0
   image: {fileID: 0}
 --- !u!1 &3623241125597042137
 GameObject:
@@ -1153,7 +1153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277f077348e0e0a419c1aa39488820fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  IsFertFilled: 0
 --- !u!1 &3623241125744969979
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,10 +1269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb7d0cea6850c742b432aae065281da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  MapCanvas: {fileID: 3623241124993657072}
-  Bottle: {fileID: 5728597967949649881, guid: f3542d907616f8c46bfd02da3937a76a, type: 3}
-  MaxBottle: 5
+  _MapCanvas: {fileID: 0}
+  _Bottle: {fileID: 0}
+  _MaxBottle: 5
 --- !u!1 &3623241125858309221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,7 +1551,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9a2e6893be14e4883fbaada9357754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 0}
 --- !u!1 &3623241126048717905
 GameObject:
   m_ObjectHideFlags: 0

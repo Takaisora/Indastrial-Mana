@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Study : MonoBehaviour
+public class Study : SingletonMonoBehaviour<Study>
 {
     [SerializeField, Header("Œ¤‹†‚É•K—v‚ÈŽ‘‹à")]
     int _MoneyCost = 0;
@@ -34,6 +34,7 @@ public class Study : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
+
     void Update()
     {
         //Œ¤‹†’†‚È‚ç

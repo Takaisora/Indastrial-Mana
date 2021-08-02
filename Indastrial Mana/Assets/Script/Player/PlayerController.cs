@@ -1,6 +1,7 @@
+using UnityEditor;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : SingletonMonoBehaviour<PlayerController>
 {
     [SerializeField]
     private Animator _Animator = null;
@@ -15,7 +16,6 @@ public class PlayerController : MonoBehaviour
     private float _MoveX = 0;//左右移動の為の変数
     private float _MoveY = 0;//前後移動の為の変数
     private Vector3 _PlayerScale = Vector3.zero;
-    private Study _MyStudy = null;
     private Rigidbody2D rb = null;
 
     public Joystick joystick;
@@ -23,18 +23,19 @@ public class PlayerController : MonoBehaviour
     public enum ToolState : byte
     {
         None,
-        Shovel,
-        Bucket,
+        ShovelEmpty,
+        ShovelFilled,
+        BucketEmpty,
+        BucketFilled,
+        BottleEmpty,
+        BottleFilled,
         Seed,
-        Bottle
     }
 
     private void Start()
     {
         MoveRatio = 1;
         _PlayerScale = transform.localScale;
-        GameObject Study = GameObject.Find("StudyArea");
-        _MyStudy = Study.GetComponent<Study>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -48,25 +49,25 @@ public class PlayerController : MonoBehaviour
         _MoveY = 0;
         _DeltaMove = _MoveSpeed * MoveRatio * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            _MoveX = -_DeltaMove;
-            transform.localScale = new Vector3(_PlayerScale.x, _PlayerScale.y);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            _MoveX = _DeltaMove;
-            transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
-        }
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    _MoveX = -_DeltaMove;
+        //    transform.localScale = new Vector3(_PlayerScale.x, _PlayerScale.y);
+        //}
+        //else if (Input.GetKey(KeyCode.D))
+        //{
+        //    _MoveX = _DeltaMove;
+        //    transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
+        //}
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            _MoveY = _DeltaMove;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            _MoveY = -_DeltaMove;
-        }
+        //if (Input.GetKey(KeyCode.W))
+        //{
+        //    _MoveY = _DeltaMove;
+        //}
+        //else if (Input.GetKey(KeyCode.S))
+        //{
+        //    _MoveY = -_DeltaMove;
+        //}
 
         //JoyStick
 
@@ -98,55 +99,49 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region アニメーション
+        int AddState = 0;
         if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
-        {
-            if (Tool == ToolState.None)
-                _Animator.SetInteger("PlayerState", 1);
-            else if (Tool == ToolState.Shovel && Shovel.IsFertFilled == true)
-                _Animator.SetInteger("PlayerState", 11);
-            else if (Tool == ToolState.Bucket && Bucket.IsWaterFilled == true)
-                _Animator.SetInteger("PlayerState", 13);
-            else if (Tool == ToolState.Bottle && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
-                _Animator.SetInteger("PlayerState", 15);
-            else if (Tool == ToolState.Shovel)
-                _Animator.SetInteger("PlayerState", 3);
-            else if (Tool == ToolState.Bucket)
-                _Animator.SetInteger("PlayerState", 5);
-            else if (Tool == ToolState.Bottle)
-                _Animator.SetInteger("PlayerState", 7);
-            else if (Tool == ToolState.Seed)
-                _Animator.SetInteger("PlayerState", 9);
-            
-        }
-        else
-        {
-            if (Tool == ToolState.None)
-                _Animator.SetInteger("PlayerState", 0);
-            else if (Tool == ToolState.Shovel && Shovel.IsFertFilled == true)
-                _Animator.SetInteger("PlayerState", 10);
-            else if (Tool == ToolState.Bucket && Bucket.IsWaterFilled == true)
-                _Animator.SetInteger("PlayerState", 12);
-            else if (Tool == ToolState.Bottle && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
-                _Animator.SetInteger("PlayerState", 14);
-            else if (Tool == ToolState.Shovel)
-                _Animator.SetInteger("PlayerState", 2);
-            else if (Tool == ToolState.Bucket)
-                _Animator.SetInteger("PlayerState", 4);
-            else if (Tool == ToolState.Bottle)
-                _Animator.SetInteger("PlayerState", 6);
-            else if (Tool == ToolState.Seed)
-                _Animator.SetInteger("PlayerState", 8);
-            
+            AddState = 1;
+        _Animator.SetInteger("PlayerState", (int)Tool + AddState);
 
-        }
-
-        //if (_MoveX != 0 || _MoveY != 0|| MoveVecter != Vector3.zero)
+        //if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
         //{
-        //    _Animator.SetInteger("PlayerState", 3);
+        //    if (Tool == ToolState.None)
+        //        _Animator.SetInteger("PlayerState", i);
+        //    else if (Tool == ToolState.ShovelEmpty && Shovel.IsFertFilled == true)
+        //        _Animator.SetInteger("PlayerState", 11);
+        //    else if (Tool == ToolState.BucketEmpty && Bucket.IsWaterFilled == true)
+        //        _Animator.SetInteger("PlayerState", 13);
+        //    else if (Tool == ToolState.BottleFilled && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
+        //        _Animator.SetInteger("PlayerState", 15);
+        //    else if (Tool == ToolState.ShovelEmpty)
+        //        _Animator.SetInteger("PlayerState", 3);
+        //    else if (Tool == ToolState.BucketEmpty)
+        //        _Animator.SetInteger("PlayerState", 5);
+        //    else if (Tool == ToolState.BottleFilled)
+        //        _Animator.SetInteger("PlayerState", 7);
+        //    else if (Tool == ToolState.Seed)
+        //        _Animator.SetInteger("PlayerState", 9);
+            
         //}
         //else
         //{
-        //    _Animator.SetInteger("PlayerState", 2);
+        //    if (Tool == ToolState.None)
+        //        _Animator.SetInteger("PlayerState", 0);
+        //    else if (Tool == ToolState.ShovelEmpty && Shovel.IsFertFilled == true)
+        //        _Animator.SetInteger("PlayerState", 10);
+        //    else if (Tool == ToolState.BucketEmpty && Bucket.IsWaterFilled == true)
+        //        _Animator.SetInteger("PlayerState", 12);
+        //    else if (Tool == ToolState.BottleFilled && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
+        //        _Animator.SetInteger("PlayerState", 14);
+        //    else if (Tool == ToolState.ShovelEmpty)
+        //        _Animator.SetInteger("PlayerState", 2);
+        //    else if (Tool == ToolState.BucketEmpty)
+        //        _Animator.SetInteger("PlayerState", 4);
+        //    else if (Tool == ToolState.BottleFilled)
+        //        _Animator.SetInteger("PlayerState", 6);
+        //    else if (Tool == ToolState.Seed)
+        //        _Animator.SetInteger("PlayerState", 8);
         //}
         #endregion
 
@@ -221,7 +216,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
             {
-                _MyStudy.Studying();
+                Study.Instance.Studying();
                 Tutorial_Text.Stady = true;
             }
             else
@@ -247,11 +242,11 @@ public class PlayerController : MonoBehaviour
             switch (ItemType[0])
             {
                 case "Bucket":
-                    Tool = ToolState.Bucket;
+                    Tool = ToolState.BucketEmpty;
                     Debug.Log("バケツを持った");
                     break;
                 case "Shovel":
-                    Tool = ToolState.Shovel;
+                    Tool = ToolState.ShovelEmpty;
                     Debug.Log("シャベルを持った");
                     break;
                 case "Seed":
@@ -259,7 +254,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("種を持った");
                     break;
                 case "Bottle":
-                    Tool = ToolState.Bottle;
+                    Tool = ToolState.BottleFilled;
                     Debug.Log("ビンを持った");
                     break;
                 default:
@@ -321,16 +316,16 @@ public class PlayerController : MonoBehaviour
 
                 switch (Tool)
                 {
-                    case ToolState.Bucket:
+                    case ToolState.BucketEmpty:
                         Debug.Log("バケツを置いた");
                         break;
-                    case ToolState.Shovel:
+                    case ToolState.ShovelEmpty:
                         Debug.Log("シャベルを置いた");
                         break;
                     case ToolState.Seed:
                         Debug.Log("種を置いた");
                         break;
-                    case ToolState.Bottle:
+                    case ToolState.BottleFilled:
                         Debug.Log("ビンを置いた");
                         break;
                     default:

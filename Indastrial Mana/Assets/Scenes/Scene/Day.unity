@@ -322,6 +322,11 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 272370850935588894, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 279803699189726199, guid: 19b73f955af360e4287568ace395f0f0,
         type: 3}
       propertyPath: PlayerController
@@ -347,6 +352,17 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 243432359}
+    - target: {fileID: 1337913595575230291, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: _Bottle
+      value: 
+      objectReference: {fileID: 5728597967949649881, guid: f3542d907616f8c46bfd02da3937a76a,
+        type: 3}
+    - target: {fileID: 1337913595575230291, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: _MapCanvas
+      value: 
+      objectReference: {fileID: 2064212046}
     - target: {fileID: 1575991532657739023, guid: 19b73f955af360e4287568ace395f0f0,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -897,6 +913,16 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3686601902633397108, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3686601902633397108, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 5807722432852262773, guid: 19b73f955af360e4287568ace395f0f0,
         type: 3}
       propertyPath: m_IsActive
@@ -1140,6 +1166,11 @@ PrefabInstance:
       propertyPath: DayManager
       value: 
       objectReference: {fileID: 1986383232}
+    - target: {fileID: 4709969239120082020, guid: fc1bcd4a2a9881c4284aa92392df8c06,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4709969239120082041, guid: fc1bcd4a2a9881c4284aa92392df8c06,
         type: 3}
       propertyPath: m_Name
@@ -1376,6 +1407,11 @@ PrefabInstance:
       value: 0.54509807
       objectReference: {fileID: 0}
     - target: {fileID: 4709969239828585158, guid: fc1bcd4a2a9881c4284aa92392df8c06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709969240035710388, guid: fc1bcd4a2a9881c4284aa92392df8c06,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1667,6 +1703,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b38b4d539600d242bd70c8fd9d1a58e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2064212046 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2337145008851335855, guid: 19b73f955af360e4287568ace395f0f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 727692486}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2144879273 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4709969239828585158, guid: fc1bcd4a2a9881c4284aa92392df8c06,

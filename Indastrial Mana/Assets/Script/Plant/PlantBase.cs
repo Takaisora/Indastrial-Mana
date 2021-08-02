@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,7 @@ public class PlantBase : MonoBehaviour
     [SerializeField]
     private float _WitherTimeCount = 0;// 枯渇時間カウント
     [SerializeField]
-    protected GrowthState MyGrowth;// 植物の成長状態
+    protected GrowthState MyGrowth = GrowthState.Seed;// 植物の成長状態
     protected GameObject Player = null;
     private byte _GeneratedCount = 0;// マナ生成毎にカウント
     private bool _IsCompleted = false;// マナを全て生成しきったか
@@ -144,7 +145,8 @@ public class PlantBase : MonoBehaviour
     {
         if(!_IsCompleted)
         {
-            Bucket.IsWaterFilled = false;
+            Bucket.Instance.IsWaterFilled = false;
+            PlayerController.Instance.Tool = PlayerController.ToolState.BucketEmpty;
             Debug.Log("水を与えた");
             PlantsWater = _MAXPLANTSWATER;
             Tutorial_Text.Water = true;
@@ -155,7 +157,8 @@ public class PlantBase : MonoBehaviour
     {
         if (!_IsCompleted)
         {
-            Shovel.IsFertFilled = false;
+            Shovel.Instance.IsFertFilled = false;
+            PlayerController.Instance.Tool = PlayerController.ToolState.ShovelEmpty;
             Debug.Log("肥料を与えた");
             PlantsFert = _MAXPLANTSFERT;
             Tutorial_Text.Fert = true;
@@ -166,8 +169,7 @@ public class PlantBase : MonoBehaviour
     {
         if(MyGrowth == GrowthState.Generated)
         {
-            GameObject MyPlayer = GameObject.Find("Player");
-            Bottle MyBottle = MyPlayer.GetComponent<PlayerController>().CarryItem.GetComponent<Bottle>();
+            Bottle MyBottle = PlayerController.Instance.CarryItem.GetComponent<Bottle>();
             if(MyBottle.IsManaFilled == false)
             {
                 MyBottle.IsManaFilled = true;
