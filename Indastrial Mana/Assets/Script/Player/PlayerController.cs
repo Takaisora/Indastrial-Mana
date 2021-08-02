@@ -101,7 +101,8 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         #region アニメーション
         int AddState = 0;
         if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
-            AddState = 1;
+            AddState = 1;// 移動中なら1
+        // アニメーションをブランチなしで制御したい
         _Animator.SetInteger("PlayerState", (int)Tool + AddState);
 
         //if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
