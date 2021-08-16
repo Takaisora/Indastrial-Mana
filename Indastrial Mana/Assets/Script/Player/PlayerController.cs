@@ -93,51 +93,12 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         #endregion
 
         #region アニメーション
-        int AddState = 0;
+        // enum = StandAnimationState
+        // enum + 100 = RunningAnimationState 
+        byte AnimationState = (byte)Tool;
         if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
-            AddState = 1;// 移動中なら1
-        // アニメーションをブランチなしで制御したい
-        _Animator.SetInteger("PlayerState", (int)Tool + AddState);
-
-        //if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
-        //{
-        //    if (Tool == ToolState.None)
-        //        _Animator.SetInteger("PlayerState", i);
-        //    else if (Tool == ToolState.ShovelEmpty && Shovel.IsFertFilled == true)
-        //        _Animator.SetInteger("PlayerState", 11);
-        //    else if (Tool == ToolState.BucketEmpty && Bucket.IsWaterFilled == true)
-        //        _Animator.SetInteger("PlayerState", 13);
-        //    else if (Tool == ToolState.BottleFilled && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
-        //        _Animator.SetInteger("PlayerState", 15);
-        //    else if (Tool == ToolState.ShovelEmpty)
-        //        _Animator.SetInteger("PlayerState", 3);
-        //    else if (Tool == ToolState.BucketEmpty)
-        //        _Animator.SetInteger("PlayerState", 5);
-        //    else if (Tool == ToolState.BottleFilled)
-        //        _Animator.SetInteger("PlayerState", 7);
-        //    else if (Tool == ToolState.Seed)
-        //        _Animator.SetInteger("PlayerState", 9);
-            
-        //}
-        //else
-        //{
-        //    if (Tool == ToolState.None)
-        //        _Animator.SetInteger("PlayerState", 0);
-        //    else if (Tool == ToolState.ShovelEmpty && Shovel.IsFertFilled == true)
-        //        _Animator.SetInteger("PlayerState", 10);
-        //    else if (Tool == ToolState.BucketEmpty && Bucket.IsWaterFilled == true)
-        //        _Animator.SetInteger("PlayerState", 12);
-        //    else if (Tool == ToolState.BottleFilled && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
-        //        _Animator.SetInteger("PlayerState", 14);
-        //    else if (Tool == ToolState.ShovelEmpty)
-        //        _Animator.SetInteger("PlayerState", 2);
-        //    else if (Tool == ToolState.BucketEmpty)
-        //        _Animator.SetInteger("PlayerState", 4);
-        //    else if (Tool == ToolState.BottleFilled)
-        //        _Animator.SetInteger("PlayerState", 6);
-        //    else if (Tool == ToolState.Seed)
-        //        _Animator.SetInteger("PlayerState", 8);
-        //}
+            AnimationState += 100;// 動いているなら+100
+        _Animator.SetInteger("PlayerState", AnimationState);
         #endregion
 
         #region 種を植える処理
@@ -222,11 +183,17 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
             switch (ItemType[0])
             {
                 case "Bucket":
-                    Tool = ToolState.BucketEmpty;
+                    if (Bucket.Instance.IsWaterFilled)
+                        Tool = ToolState.BucketFilled;
+                    else
+                        Tool = ToolState.BucketEmpty;
                     Debug.Log("バケツを持った");
                     break;
                 case "Shovel":
-                    Tool = ToolState.ShovelEmpty;
+                    if (Shovel.Instance.IsFertFilled)
+                        Tool = ToolState.ShovelFilled;
+                    else
+                        Tool = ToolState.ShovelEmpty;
                     Debug.Log("シャベルを持った");
                     break;
                 case "Seed":
@@ -234,7 +201,10 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                     Debug.Log("種を持った");
                     break;
                 case "Bottle":
-                    Tool = ToolState.BottleFilled;
+                    if (CarryItem.GetComponent<Bottle>().IsManaFilled)
+                        Tool = ToolState.BottleFilled;
+                    else
+                        Tool = ToolState.BottleEmpty;
                     Debug.Log("ビンを持った");
                     break;
                 default:

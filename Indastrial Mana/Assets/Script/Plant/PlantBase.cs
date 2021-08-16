@@ -173,6 +173,7 @@ public class PlantBase : MonoBehaviour
             if(MyBottle.IsManaFilled == false)
             {
                 MyBottle.IsManaFilled = true;
+                PlayerController.Instance.Tool = PlayerController.ToolState.BottleFilled;
                 Debug.Log("ƒ}ƒi‚ðŽûŠn‚µ‚½");
                 MyGrowth = GrowthState.Planted;
                 Tutorial_Text.Delivery = true;
