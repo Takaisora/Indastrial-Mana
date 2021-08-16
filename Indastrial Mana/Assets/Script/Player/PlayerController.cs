@@ -39,7 +39,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
         #region 移動処理
 #if UNITY_EDITOR
@@ -49,25 +49,28 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         _MoveY = 0;
         _DeltaMove = _MoveSpeed * MoveRatio * Time.deltaTime;
 
-        //if (Input.GetKey(KeyCode.A))
-        //{
-        //    _MoveX = -_DeltaMove;
-        //    transform.localScale = new Vector3(_PlayerScale.x, _PlayerScale.y);
-        //}
-        //else if (Input.GetKey(KeyCode.D))
-        //{
-        //    _MoveX = _DeltaMove;
-        //    transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
-        //}
+        /*
+        if (Input.GetKey(KeyCode.A))
+        {
+            _MoveX = -_DeltaMove;
+            transform.localScale = new Vector3(_PlayerScale.x, _PlayerScale.y);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            _MoveX = _DeltaMove;
+            transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
+        }
 
-        //if (Input.GetKey(KeyCode.W))
-        //{
-        //    _MoveY = _DeltaMove;
-        //}
-        //else if (Input.GetKey(KeyCode.S))
-        //{
-        //    _MoveY = -_DeltaMove;
-        //}
+        if (Input.GetKey(KeyCode.W))
+        {
+            _MoveY = _DeltaMove;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            _MoveY = -_DeltaMove;
+        }
+        */
+
 
         //JoyStick
 
@@ -87,15 +90,6 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
             transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
         }
 
-#if UNITY_EDITOR
-        //transform.Translate(_MoveX, _MoveY, 0);// PCが重いのでこっち
-        Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
-        rb.velocity = move;
-#endif
-#if UNITY_IOS
-        //Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
-        //rb.velocity = move;
-#endif
         #endregion
 
         #region アニメーション
@@ -146,23 +140,6 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         //}
         #endregion
 
-        #region アクションボタン
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
-        //    // アイテムを持っていないなら
-        //    if (Tool == ToolState.None)
-        //    {
-        //        if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
-        //            _MyStudy.Studying();
-        //        else
-        //            GetItem();
-        //    }
-        //    else
-        //        RemoveItem(transform.position.x, transform.position.y);
-        //}
-        #endregion
-
         #region 種を植える処理
         if (Tool == ToolState.Seed)
         {
@@ -208,7 +185,6 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     /// <summary>
     /// プレイヤーのマスにアイテムがあれば拾います
     /// </summary>
-
     public void ActionBotton()
     {
         RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
@@ -220,13 +196,16 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 Study.Instance.Studying();
                 Tutorial_Text.Stady = true;
             }
+            else if(Hit.collider != null && Hit.collider.gameObject.CompareTag("BottleStrage"))
+            {
+                BottleStrage.Instance.GetBottle();
+            }
             else
                 GetItem();
         }
         else
             RemoveItem(transform.position.x, transform.position.y);
     }
-
 
     private void GetItem()
     {
