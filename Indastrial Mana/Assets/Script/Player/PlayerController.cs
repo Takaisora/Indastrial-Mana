@@ -168,7 +168,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
             HitItems.Remove(collision.gameObject);
             collision.gameObject.GetComponent<OutlineController>().IsHit = false;
 
-            if(HitItems.Count > 0)
+            if (HitItems.Count > 0)
                 HitItems[0].GetComponent<OutlineController>().IsHit = true;
         }
         else if (collision.gameObject.CompareTag("BottleStrage"))
