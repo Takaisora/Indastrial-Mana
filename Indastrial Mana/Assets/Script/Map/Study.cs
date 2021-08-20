@@ -50,7 +50,7 @@ public class Study : SingletonMonoBehaviour<Study>
                 animator.SetBool(_Study_Anim, false);
                 _IsStudying = false;
                 _TimeCount = 0;
-                PlayerController.MoveRatio = 1;// 元に戻す
+                PlayerController.Instance.MoveRatio = 1;// 元に戻す
 
                 //種抽選
                 SelectedSeed = Random.Range(0, PlantsType.Length);     // 0から配列のサイズまでの乱数
@@ -125,7 +125,7 @@ public class Study : SingletonMonoBehaviour<Study>
             {
                 _IsStudying = true;
                 PlayerController.Money -= (ushort)_MoneyCost;     //資金
-                PlayerController.MoveRatio = 0;// プレイヤーの移動を制限
+                PlayerController.Instance.MoveRatio = 0;// プレイヤーの移動を制限
                 Debug.Log("研究開始!\n資金残り" + PlayerController.Money);
             }
             else

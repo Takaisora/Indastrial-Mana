@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerController : SingletonMonoBehaviour<PlayerController>
 {
@@ -9,14 +10,16 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     public static ushort Money = 500;// (日数またいで引き継ぐ)
     [SerializeField, Header("移動の速さ")]
     private float _MoveSpeed = 0;//移動量の為の変数
-    public static float MoveRatio = 1;// デバフなどに使用
+    public float MoveRatio = 1;// デバフなどに使用
     public GameObject CarryItem = null;// 今持ち運んでいるアイテム
     public ToolState Tool = ToolState.None;// 今持ち運んでいるアイテムの種類を表す状態
     private float _DeltaMove = 0;// MoveSpeed * MoveRatio * Time.DeltaTime;
     private float _MoveX = 0;//左右移動の為の変数
     private float _MoveY = 0;//前後移動の為の変数
     private Vector3 _PlayerScale = Vector3.zero;
-    private Rigidbody2D rb = null;
+    private Rigidbody2D _RB = null;
+    public GameObject HitItem = null;// 接触しているアイテム（複数あるなら自身のマスにあるもの）
+    private List<GameObject> _HitItems = new List<GameObject>();// 複数のアイテムに接触した場合用
 
     public Joystick joystick;
 
@@ -34,13 +37,19 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private void Start()
     {
-        MoveRatio = 1;
         _PlayerScale = transform.localScale;
-        rb = GetComponent<Rigidbody2D>();
+        _RB = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
+        if(_HitItems.Count > 1)
+        {
+            //RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
+            //HitItem = Hit.collider.gameObject;
+        }            
+
+
         #region 移動処理
 #if UNITY_EDITOR
         _MoveSpeed = 5;
@@ -141,6 +150,21 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         RaycastHit2D Hit = Physics2D.Raycast(CellPosition, new Vector3(0, 0, 1), 100);
 
         return Hit;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            _HitItems.Add(collision.gameObject);
+            Debug.Log(_HitItems[0]);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Item"))
+            _HitItems.Remove(collision.gameObject);
     }
 
     /// <summary>
