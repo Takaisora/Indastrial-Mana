@@ -1435,7 +1435,7 @@ PrefabInstance:
     - target: {fileID: 3348985964859805513, guid: 857484c1e7810f646a9ac44a3b54f693,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -4
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: 857484c1e7810f646a9ac44a3b54f693,
         type: 3}
@@ -1564,6 +1564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GrowSpeed: 1
+  GrowS: 0
   PlantsWater: 0
   PlantsFert: 0
   _GenerateTimeCount: 0
@@ -1578,12 +1579,8 @@ MonoBehaviour:
   _GenerateTime: 10
   _WitherTime: 5
   _IsOR: 1
-  Buff: 1
-  BuffTime: 5
-  GetBuff: 5
   Rob: 0
   Create: 0
-  GrowS: 0
   _FairyTime: 5
   Robbery: 1
   production: 1
@@ -2009,6 +2006,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 944371998}
     m_Modifications:
+    - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
+        type: 3}
+      propertyPath: GetBuff
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
+        type: 3}
+      propertyPath: BuffTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
+        type: 3}
+      propertyPath: GrowRatio
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
+        type: 3}
+      propertyPath: MagicCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
+        type: 3}
+      propertyPath: MagicNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
+        type: 3}
+      propertyPath: GrowRatioDecline
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805512, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
       propertyPath: m_Name
@@ -2097,12 +2124,12 @@ PrefabInstance:
     - target: {fileID: 3348985964859805513, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.14
+      value: 2.15
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.62
+      value: -2.03
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
@@ -2127,6 +2154,11 @@ PrefabInstance:
     - target: {fileID: 3348985964859805515, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
       propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348985964859805515, guid: b97b7a77d863a5d409b2af0c4079797b,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

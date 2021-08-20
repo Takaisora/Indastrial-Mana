@@ -51,9 +51,6 @@ public class Randomu3 : PlantBase
         if (base.MyGrowth == GrowthState.Withered)
             base.Withered();
 
-
-        
-
         //—d¸
         if (GrowS)
         {
@@ -88,7 +85,6 @@ public class Randomu3 : PlantBase
                                 break;
                         }
                         break;
-
                 }
             }
         }
@@ -134,8 +130,9 @@ public class Randomu3 : PlantBase
     {
         RaycastHit2D HitR = CheckPlantR(transform.position.x, transform.position.y);
         //A•¨ŒŸ’m
-        if (HitR.collider != null && HitR.collider.gameObject.CompareTag("Garden"))
+        if (HitR.collider != null && HitR.collider.gameObject.CompareTag("Untagged"))
         {
+
             Create = true;
             this.Randomu3();
         }
@@ -184,19 +181,3 @@ public class Randomu3 : PlantBase
         }
     }
 }
-
-
-//ƒ‰ƒ“ƒ_ƒ€Œ^3‚ÌC³Œãd—l‰¼
-
-
-////                        Rob = true;
-//Debug.Log("—d¸‚ªƒ}ƒi‚ğ’D‚Á‚½");
-//if (Plants >= 2)
-//{
-//    Create = true;
-//    Debug.Log("—d¸‚ªƒ}ƒi‚Ì¶Y‚É¬Œ÷‚µ‚½");
-//}
-//GrowS = false;
-//Randomu3();
-//break;
-////

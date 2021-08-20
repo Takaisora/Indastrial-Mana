@@ -9,6 +9,8 @@ public class PlantBase : MonoBehaviour
 
     //生産が終わっていいるかどうか
     protected bool Grow = false;
+    //植えられたら
+    public bool GrowS = false;
 
     public float PlantsWater = 0;// 水蓄積値
     public float PlantsFert = 0;// 肥料蓄積値
@@ -46,23 +48,23 @@ public class PlantBase : MonoBehaviour
     [SerializeField, Header("水か肥料どちらかだけでも枯れる？")]
     bool _IsOR;
 
+
+
     //ランダム型2
     // バフがかかっているかを判別するbool変数
     public bool Buff = false;
     // バフがかかっているなら時間をカウントするfloat変数
-    [SerializeField, Header("バフ時間カウント")]
-    float BuffTime;
+    [SerializeField, Header("バフ掛かるまで")]
+    public float BuffTime;
     // バフの効果時間を受け取るfloat変数
     [SerializeField, Header("バフ時間")]
-    float GetBuff;
+    public float GetBuff;
 
     //ランダム型3
     //奪う
     public bool Rob = false;
     //生産
     public bool Create = false;
-    //植えられたら
-    public bool GrowS = false;
     //複数収穫用
     bool Last = false;
     //収穫回数
@@ -179,20 +181,6 @@ public class PlantBase : MonoBehaviour
         }
     }
 
-    //魔法時間、効果
-    public void MagicTime()
-    {
-        if (Buff)
-        {
-            //魔法効果打消し
-            BuffTime += Time.deltaTime;
-            if (BuffTime <= 0)
-            {
-                GetComponent<Randomu2>().GrowSpeed = GrowSpeed / GrowSpeed;
-                Debug.Log("成長速度が戻りました");
-            }
-        }
-    }
 
     //ランダム型3のマナ処理
     public void Randomu3()
