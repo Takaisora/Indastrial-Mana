@@ -239,6 +239,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8942386610491904421, guid: 7a3b7bb3d68a37543b1966652acee3d1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a3b7bb3d68a37543b1966652acee3d1, type: 3}
 --- !u!1 &470027589 stripped
@@ -372,6 +377,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -9.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641429339874450435, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Facility
       objectReference: {fileID: 0}
     - target: {fileID: 2431165232101556543, guid: 19b73f955af360e4287568ace395f0f0,
         type: 3}
@@ -1092,6 +1102,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115544915291084430, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Facility
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19b73f955af360e4287568ace395f0f0, type: 3}

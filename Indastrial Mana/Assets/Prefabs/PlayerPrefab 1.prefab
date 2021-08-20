@@ -134,7 +134,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6222857777895105202}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -167,7 +167,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Animator: {fileID: 6222857777895105203}
   _MoveSpeed: 5
+  MoveRatio: 1
+  CarryItem: {fileID: 0}
   Tool: 0
+  HitItem: {fileID: 0}
+  joystick: {fileID: 0}
 --- !u!61 &2211913723447945473
 BoxCollider2D:
   m_ObjectHideFlags: 0

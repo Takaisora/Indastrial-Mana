@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3561343740793216413}
   - component: {fileID: 1273323967715329120}
   - component: {fileID: 7488138832462414257}
+  - component: {fileID: 7931029304104757475}
   m_Layer: 0
   m_Name: bucket
   m_TagString: Item
@@ -132,3 +133,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsWaterFilled: 0
+--- !u!114 &7931029304104757475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6792124769095408555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26df457e24abd184db67ceeadf4dfb20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsHit: 0
+  Type: 1

@@ -8,6 +8,7 @@ TagManager:
   - Item
   - Study
   - BottleStrage
+  - Facility
   layers:
   - Default
   - TransparentFX

@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 2601210274305271503}
   - component: {fileID: 350987012228808498}
   - component: {fileID: 8678407167915202232}
+  - component: {fileID: 8143634557044603498}
   m_Layer: 0
-  m_Name: bottle
+  m_Name: Bottle
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +59,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.4}
     oldSize: {x: 5, y: 5}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
@@ -132,3 +133,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsManaFilled: 0
+--- !u!114 &8143634557044603498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5419885101780951289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26df457e24abd184db67ceeadf4dfb20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsHit: 0
+  Type: 1
