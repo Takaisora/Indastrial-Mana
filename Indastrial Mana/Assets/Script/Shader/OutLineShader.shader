@@ -3,7 +3,7 @@ Shader "UnityCommunity/Sprites/Outline"
     Properties
     {
         _MainTex ("Base (RGB)", 2D) = "white" {}
-        _OutLineSpread ("Outline Spread", Range(0,0.01)) = 0.007
+        _OutLineSpread ("Outline Spread", Range(0,0.02)) = 0.015
         _Color ("Tint", Color) = (1,1,1,1)
         _ColorX ("Tint", Color) = (1,1,1,1)
         _Alpha ("Alpha", Range (0,1)) = 1.0

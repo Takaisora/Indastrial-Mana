@@ -25,7 +25,7 @@ public class OutlineController : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerController.Instance.Tool != PlayerController.ToolState.None)
+        if (PlayerController.Instance.Tool != PlayerController.ToolState.None || Study.Instance.IsStudying)
         {
             _Renderer.material.shader = _DefaultShader;
             return;

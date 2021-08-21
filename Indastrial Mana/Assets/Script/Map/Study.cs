@@ -16,7 +16,7 @@ public class Study : SingletonMonoBehaviour<Study>
     [SerializeField, Header("種が属する親オブジェクト")]
     GameObject MapCanvas = null;
     private float _TimeCount = 0;        //時間
-    private bool _IsStudying = false;    //研究中判定
+    public bool IsStudying = false;    //研究中判定
     private int SelectedSeed = 0;   //抽選された種
     int Madness = 0;        //狂気度
     int AddMadness = 5;     //1度の研究で加算される狂気度
@@ -38,7 +38,7 @@ public class Study : SingletonMonoBehaviour<Study>
     void Update()
     {
         //研究中なら
-        if (_IsStudying)
+        if (IsStudying)
         {
             _TimeCount += Time.deltaTime;                 //時間加算
 
@@ -48,7 +48,7 @@ public class Study : SingletonMonoBehaviour<Study>
             if (_TimeCount >= _TimeRequired)
             {
                 animator.SetBool(_Study_Anim, false);
-                _IsStudying = false;
+                IsStudying = false;
                 _TimeCount = 0;
                 PlayerController.Instance.MoveRatio = 1;// 元に戻す
 
@@ -118,12 +118,12 @@ public class Study : SingletonMonoBehaviour<Study>
     public void Studying()
     { 
         //研究中でなければ
-        if (!_IsStudying)
+        if (!IsStudying)
         {
             //左クリックで資金が足りていれば研究開始
             if (PlayerController.Money >= _MoneyCost)
             {
-                _IsStudying = true;
+                IsStudying = true;
                 PlayerController.Money -= (ushort)_MoneyCost;     //資金
                 PlayerController.Instance.MoveRatio = 0;// プレイヤーの移動を制限
                 Debug.Log("研究開始!\n資金残り" + PlayerController.Money);
