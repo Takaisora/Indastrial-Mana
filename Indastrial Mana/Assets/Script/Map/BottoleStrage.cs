@@ -21,7 +21,7 @@ public class BottoleStrage : MonoBehaviour
         {
             GameObject MyBottle = Instantiate(Bottle, new Vector3(999, 999), Quaternion.identity);
             MyBottle.name = "Bottle_" + i.ToString();
-            MyBottle.transform.parent = MapCanvas.transform;
+            MyBottle.transform.SetParent(MapCanvas.transform);
             _BottleList.Add(MyBottle);
         }
     }

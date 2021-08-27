@@ -98,13 +98,13 @@ public class Study : SingletonMonoBehaviour<Study>
                     switch (MadnessLv)
                     {
                         case 0:
-                            Craziness = Random.Range(1, 4);
+                            Craziness = Random.Range(1, 5);
                             break;
                         case 1:
-                            Craziness = Random.Range(1, 4);
+                            Craziness = Random.Range(1, 5);
                             break;
                         case 2:
-                            Craziness = Random.Range(1, 6);
+                            Craziness = Random.Range(1, 7);
                             break;
                         default:
                             break;

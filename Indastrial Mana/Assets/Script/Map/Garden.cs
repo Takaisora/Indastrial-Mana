@@ -8,7 +8,7 @@ public class Garden : MonoBehaviour
     [SerializeField]
     public GameObject FertGauge;
     [SerializeField]
-    private GameObject _Canvas = null;
+    private GameObject _Canvas;
     [SerializeField]
     private GameObject _DefaultPlants = null;
     
@@ -23,7 +23,7 @@ public class Garden : MonoBehaviour
         if (_DefaultPlants != null && _Canvas != null)
         {
             MyPlants = Instantiate(_DefaultPlants, transform.position, Quaternion.identity);
-            MyPlants.transform.parent = _Canvas.transform;
+            MyPlants.transform.SetParent(_Canvas.transform);
             MyPlants.GetComponent<PlantBase>().Plant(gameObject);
         }
     }

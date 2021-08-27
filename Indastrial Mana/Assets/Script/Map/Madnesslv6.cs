@@ -7,11 +7,13 @@ public class Madnesslv6 : Study
     int positionX = 0;
     int positionY = 0;
     float MadTime = 0;
+    [SerializeField] GameObject Mad;
+    Canvas parentCanvas;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(false);
+        parentCanvas.transform.parent = UIManager.Instace.GetParentCanvas.transform;
     }
 
     // Update is called once per frame
@@ -22,14 +24,14 @@ public class Madnesslv6 : Study
             positionX = Random.Range(1, 12);
             positionY = Random.Range(1, 9);
             Vector3 SetPostion = new Vector3(Mathf.RoundToInt(positionX), Mathf.RoundToInt(positionY));
-            gameObject.SetActive(true);
-            transform.Translate(SetPostion);
+            var temp = Instantiate(Mad, SetPostion, Quaternion.identity);
+            temp.transform.parent = parentCanvas.gameObject.transform;
             MadTime += Time.deltaTime;
             if (MadTime >= 14)
             {
                 MadTime = 0;
                 Madnesslv6 = false;
-                gameObject.SetActive(false);
+                Destroy(this.gameObject);
             }
         }
     }
