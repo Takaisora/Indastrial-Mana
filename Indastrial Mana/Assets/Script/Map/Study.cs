@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Study : MonoBehaviour
+public class Study : SingletonMonoBehaviour<Study>
 {
     [SerializeField, Header("研究に必要な資金")]
     int _MoneyCost = 0;
@@ -16,7 +16,7 @@ public class Study : MonoBehaviour
     [SerializeField, Header("種が属する親オブジェクト")]
     GameObject MapCanvas = null;
     private float _TimeCount = 0;        //時間
-    private bool _IsStudying = false;    //研究中判定
+    public bool IsStudying = false;    //研究中判定
     private int SelectedSeed = 0;   //抽選された種
     int Madness = 0;        //狂気度
     int AddMadness = 5;     //1度の研究で加算される狂気度
@@ -34,10 +34,11 @@ public class Study : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
+
     void Update()
     {
         //研究中なら
-        if (_IsStudying)
+        if (IsStudying)
         {
             _TimeCount += Time.deltaTime;                 //時間加算
 
@@ -47,9 +48,9 @@ public class Study : MonoBehaviour
             if (_TimeCount >= _TimeRequired)
             {
                 animator.SetBool(_Study_Anim, false);
-                _IsStudying = false;
+                IsStudying = false;
                 _TimeCount = 0;
-                PlayerController.MoveRatio = 1;// 元に戻す
+                PlayerController.Instance.MoveRatio = 1;// 元に戻す
 
                 //種抽選
                 SelectedSeed = Random.Range(0, PlantsType.Length);     // 0から配列のサイズまでの乱数
@@ -117,14 +118,14 @@ public class Study : MonoBehaviour
     public void Studying()
     { 
         //研究中でなければ
-        if (!_IsStudying)
+        if (!IsStudying)
         {
             //左クリックで資金が足りていれば研究開始
             if (PlayerController.Money >= _MoneyCost)
             {
-                _IsStudying = true;
+                IsStudying = true;
                 PlayerController.Money -= (ushort)_MoneyCost;     //資金
-                PlayerController.MoveRatio = 0;// プレイヤーの移動を制限
+                PlayerController.Instance.MoveRatio = 0;// プレイヤーの移動を制限
                 Debug.Log("研究開始!\n資金残り" + PlayerController.Money);
             }
             else

@@ -1,6 +1,8 @@
+using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : SingletonMonoBehaviour<PlayerController>
 {
     [SerializeField]
     private Animator _Animator = null;
@@ -8,37 +10,39 @@ public class PlayerController : MonoBehaviour
     public static ushort Money = 500;// (日数またいで引き継ぐ)
     [SerializeField, Header("移動の速さ")]
     private float _MoveSpeed = 0;//移動量の為の変数
-    public static float MoveRatio = 1;// デバフなどに使用
+    public float MoveRatio = 1;// デバフなどに使用
     public GameObject CarryItem = null;// 今持ち運んでいるアイテム
     public ToolState Tool = ToolState.None;// 今持ち運んでいるアイテムの種類を表す状態
     private float _DeltaMove = 0;// MoveSpeed * MoveRatio * Time.DeltaTime;
     private float _MoveX = 0;//左右移動の為の変数
     private float _MoveY = 0;//前後移動の為の変数
     private Vector3 _PlayerScale = Vector3.zero;
-    private Study _MyStudy = null;
-    private Rigidbody2D rb = null;
+    private Rigidbody2D _RB = null;
+    public List<GameObject> HitItems = new List<GameObject>();// 接触しているアイテム
+    public bool IsEnterBottleStrage = false;
+    public bool IsEnterStudyArea = false;
 
     public Joystick joystick;
 
     public enum ToolState : byte
     {
         None,
-        Shovel,
-        Bucket,
+        ShovelEmpty,
+        ShovelFilled,
+        BucketEmpty,
+        BucketFilled,
+        BottleEmpty,
+        BottleFilled,
         Seed,
-        Bottle
     }
 
     private void Start()
     {
-        MoveRatio = 1;
         _PlayerScale = transform.localScale;
-        GameObject Study = GameObject.Find("StudyArea");
-        _MyStudy = Study.GetComponent<Study>();
-        rb = GetComponent<Rigidbody2D>();
+        _RB = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
         #region 移動処理
 #if UNITY_EDITOR
@@ -48,6 +52,7 @@ public class PlayerController : MonoBehaviour
         _MoveY = 0;
         _DeltaMove = _MoveSpeed * MoveRatio * Time.deltaTime;
 
+        /*
         if (Input.GetKey(KeyCode.A))
         {
             _MoveX = -_DeltaMove;
@@ -67,6 +72,8 @@ public class PlayerController : MonoBehaviour
         {
             _MoveY = -_DeltaMove;
         }
+        */
+
 
         //JoyStick
 
@@ -86,85 +93,13 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
         }
 
-#if UNITY_EDITOR
-        //transform.Translate(_MoveX, _MoveY, 0);// PCが重いのでこっち
-        Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
-        rb.velocity = move;
-#endif
-#if UNITY_IOS
-        //Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
-        //rb.velocity = move;
-#endif
         #endregion
 
         #region アニメーション
+        byte AnimationState = (byte)Tool;
         if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
-        {
-            if (Tool == ToolState.None)
-                _Animator.SetInteger("PlayerState", 1);
-            else if (Tool == ToolState.Shovel && Shovel.IsFertFilled == true)
-                _Animator.SetInteger("PlayerState", 11);
-            else if (Tool == ToolState.Bucket && Bucket.IsWaterFilled == true)
-                _Animator.SetInteger("PlayerState", 13);
-            else if (Tool == ToolState.Bottle && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
-                _Animator.SetInteger("PlayerState", 15);
-            else if (Tool == ToolState.Shovel)
-                _Animator.SetInteger("PlayerState", 3);
-            else if (Tool == ToolState.Bucket)
-                _Animator.SetInteger("PlayerState", 5);
-            else if (Tool == ToolState.Bottle)
-                _Animator.SetInteger("PlayerState", 7);
-            else if (Tool == ToolState.Seed)
-                _Animator.SetInteger("PlayerState", 9);
-            
-        }
-        else
-        {
-            if (Tool == ToolState.None)
-                _Animator.SetInteger("PlayerState", 0);
-            else if (Tool == ToolState.Shovel && Shovel.IsFertFilled == true)
-                _Animator.SetInteger("PlayerState", 10);
-            else if (Tool == ToolState.Bucket && Bucket.IsWaterFilled == true)
-                _Animator.SetInteger("PlayerState", 12);
-            else if (Tool == ToolState.Bottle && CarryItem.GetComponent<Bottle>().IsManaFilled == true)
-                _Animator.SetInteger("PlayerState", 14);
-            else if (Tool == ToolState.Shovel)
-                _Animator.SetInteger("PlayerState", 2);
-            else if (Tool == ToolState.Bucket)
-                _Animator.SetInteger("PlayerState", 4);
-            else if (Tool == ToolState.Bottle)
-                _Animator.SetInteger("PlayerState", 6);
-            else if (Tool == ToolState.Seed)
-                _Animator.SetInteger("PlayerState", 8);
-            
-
-        }
-
-        //if (_MoveX != 0 || _MoveY != 0|| MoveVecter != Vector3.zero)
-        //{
-        //    _Animator.SetInteger("PlayerState", 3);
-        //}
-        //else
-        //{
-        //    _Animator.SetInteger("PlayerState", 2);
-        //}
-        #endregion
-
-        #region アクションボタン
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
-        //    // アイテムを持っていないなら
-        //    if (Tool == ToolState.None)
-        //    {
-        //        if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
-        //            _MyStudy.Studying();
-        //        else
-        //            GetItem();
-        //    }
-        //    else
-        //        RemoveItem(transform.position.x, transform.position.y);
-        //}
+            AnimationState += 100;// 動いているなら+100
+        _Animator.SetInteger("PlayerState", AnimationState);
         #endregion
 
         #region 種を植える処理
@@ -209,62 +144,98 @@ public class PlayerController : MonoBehaviour
         return Hit;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            HitItems.Add(collision.gameObject);
+            HitItems[0].GetComponent<OutlineController>().IsHit = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("BottleStrage"))
+            IsEnterBottleStrage = true;
+        else if(collision.gameObject.CompareTag("Study"))
+            IsEnterStudyArea = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            HitItems.Remove(collision.gameObject);
+            collision.gameObject.GetComponent<OutlineController>().IsHit = false;
+
+            if (HitItems.Count > 0)
+                HitItems[0].GetComponent<OutlineController>().IsHit = true;
+        }
+        else if (collision.gameObject.CompareTag("BottleStrage"))
+            IsEnterBottleStrage = false;
+        else if (collision.gameObject.CompareTag("Study"))
+            IsEnterStudyArea = false;
+    }
+
     /// <summary>
     /// プレイヤーのマスにアイテムがあれば拾います
     /// </summary>
-
     public void ActionBotton()
     {
-        RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
         // アイテムを持っていないなら
         if (Tool == ToolState.None)
         {
-            if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Study"))
+            if (HitItems.Count > 0)
+                GetItem();
+            else if (IsEnterStudyArea)
             {
-                _MyStudy.Studying();
+                Study.Instance.Studying();
                 Tutorial_Text.Stady = true;
             }
-            else
-                GetItem();
+            else if (IsEnterBottleStrage)
+                BottleStrage.Instance.GetBottle();
         }
         else
             RemoveItem(transform.position.x, transform.position.y);
     }
 
-
     private void GetItem()
     {
-        RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
+        CarryItem = HitItems[0];
+        CarryItem.transform.position = new Vector3(999, 999);
+        string ItemName = CarryItem.gameObject.name;
+        // アイテムが複製された場合用
+        string[] ItemType = ItemName.Split('_');
 
-        if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Item"))
+        switch (ItemType[0])
         {
-            CarryItem = Hit.collider.gameObject;
-            CarryItem.transform.position = new Vector3(999, 999);
-            string ItemName = CarryItem.gameObject.name;
-            // アイテムが複製された場合用
-            string[] ItemType = ItemName.Split('_');
-
-            switch (ItemType[0])
-            {
-                case "Bucket":
-                    Tool = ToolState.Bucket;
-                    Debug.Log("バケツを持った");
-                    break;
-                case "Shovel":
-                    Tool = ToolState.Shovel;
-                    Debug.Log("シャベルを持った");
-                    break;
-                case "Seed":
-                    Tool = ToolState.Seed;
-                    Debug.Log("種を持った");
-                    break;
-                case "Bottle":
-                    Tool = ToolState.Bottle;
-                    Debug.Log("ビンを持った");
-                    break;
-                default:
-                    break;
-            }
+            case "Bucket":
+                if (Bucket.Instance.IsWaterFilled)
+                    Tool = ToolState.BucketFilled;
+                else
+                    Tool = ToolState.BucketEmpty;
+                Debug.Log("バケツを持った");
+                break;
+            case "Shovel":
+                if (Shovel.Instance.IsFertFilled)
+                    Tool = ToolState.ShovelFilled;
+                else
+                    Tool = ToolState.ShovelEmpty;
+                Debug.Log("シャベルを持った");
+                break;
+            case "Seed":
+                Tool = ToolState.Seed;
+                Debug.Log("種を持った");
+                break;
+            case "Bottle":
+                if (CarryItem.GetComponent<Bottle>().IsManaFilled)
+                    Tool = ToolState.BottleFilled;
+                else
+                    Tool = ToolState.BottleEmpty;
+                Debug.Log("ビンを持った");
+                break;
+            default:
+                break;
         }
     }
 
@@ -321,16 +292,16 @@ public class PlayerController : MonoBehaviour
 
                 switch (Tool)
                 {
-                    case ToolState.Bucket:
+                    case ToolState.BucketEmpty:
                         Debug.Log("バケツを置いた");
                         break;
-                    case ToolState.Shovel:
+                    case ToolState.ShovelEmpty:
                         Debug.Log("シャベルを置いた");
                         break;
                     case ToolState.Seed:
                         Debug.Log("種を置いた");
                         break;
-                    case ToolState.Bottle:
+                    case ToolState.BottleFilled:
                         Debug.Log("ビンを置いた");
                         break;
                     default:

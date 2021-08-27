@@ -1,33 +1,24 @@
 using UnityEngine;
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
-
-public class Bucket : MonoBehaviour
+public class Bucket : SingletonMonoBehaviour<Bucket>
 {
-    public static bool IsWaterFilled = false;
-
-    public Image image;
-    private Sprite sprite;
-    private Sprite sprite2;
+    public bool IsWaterFilled = false;
+    private SpriteRenderer _SR = null;
+    private Sprite _BucketEmpty = null;
+    private Sprite _BucketFilled = null;
 
     private void Start()
     {
-        IsWaterFilled = false;
-        image = this.GetComponent<Image>();
-        sprite = Resources.Load<Sprite>("05_000_bucket");
-        sprite2 = Resources.Load<Sprite>("05_100_water_bucket");
+        _SR = GetComponent<SpriteRenderer>();
+        _BucketEmpty = Resources.Load<Sprite>("05_000_bucket");
+        _BucketFilled = Resources.Load<Sprite>("05_100_water_bucket");
     }
-private void Update()
-{
-    if (IsWaterFilled == false)
+
+    private void Update()
     {
-        image.sprite = sprite;
+        if (IsWaterFilled)
+            _SR.sprite = _BucketFilled;
+        else
+            _SR.sprite = _BucketEmpty;
     }
-    else
-    {
-        image.sprite = sprite2;
-    }
-}
 }

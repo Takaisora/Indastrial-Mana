@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Delivery : MonoBehaviour
+public class Delivery : SingletonMonoBehaviour<Delivery>
 {
     [SerializeField]
     PlayerController _PlayerController;
@@ -19,7 +19,7 @@ public class Delivery : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && _PlayerController.Tool == PlayerController.ToolState.Bottle)
+        if (collision.gameObject.tag == "Player" && _PlayerController.Tool == PlayerController.ToolState.BottleFilled)
         {
             if(_PlayerController.CarryItem.GetComponent<Bottle>().IsManaFilled)
             {

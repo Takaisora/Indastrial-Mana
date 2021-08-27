@@ -1,33 +1,24 @@
 using UnityEngine;
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
-
-public class Shovel : MonoBehaviour
+public class Shovel : SingletonMonoBehaviour<Shovel>
 {
-    public static bool IsFertFilled = false;
-
-    public Image image;
-    private Sprite sprite;
-    private Sprite sprite2;
+    public bool IsFertFilled = false;
+    private SpriteRenderer _SR = null;
+    private Sprite _ShovelEmpty = null;
+    private Sprite _ShovelFilled = null;
 
     private void Start()
     {
-        IsFertFilled = false;
-        image = this.GetComponent<Image>();
-        sprite = Resources.Load<Sprite>("05_200_shovel");
-        sprite2 = Resources.Load<Sprite>("05_300_fertilizer_shovel");
+        _SR = GetComponent<SpriteRenderer>();
+        _ShovelEmpty = Resources.Load<Sprite>("05_200_shovel");
+        _ShovelFilled = Resources.Load<Sprite>("05_300_fertilizer_shovel");
     }
+
     private void Update()
     {
-        if(IsFertFilled == false)
-        {
-            image.sprite = sprite;
-        }
+        if (IsFertFilled)
+            _SR.sprite = _ShovelFilled;
         else
-        {
-            image.sprite = sprite2;
-        }
+            _SR.sprite = _ShovelEmpty;
     }
 }

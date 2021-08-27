@@ -40,9 +40,7 @@ public class StandardPlant : PlantBase
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (base.MyGrowth == GrowthState.Seed)
-        {
             return;
-        }
 
         if(collision.gameObject.tag == "Player")
         {
@@ -52,14 +50,20 @@ public class StandardPlant : PlantBase
 
             if(CellPosition == this.transform.position)
             {
-                PlayerController PlayerController = Player.GetComponent<PlayerController>();
-
-                if (PlayerController.Tool == PlayerController.ToolState.Bucket && Bucket.IsWaterFilled)
-                    base.Watering();
-                else if (PlayerController.Tool == PlayerController.ToolState.Shovel && Shovel.IsFertFilled)
-                    base.Fertilizing();
-                else if (PlayerController.Tool == PlayerController.ToolState.Bottle)// É{ÉgÉãÇ™ãÛÇ©ÇÕä÷êîÇ≈îªíf
-                    base.Harvest();
+                switch (PlayerController.Instance.Tool)
+                {
+                    case PlayerController.ToolState.BucketFilled:
+                        base.Watering();
+                        break;
+                    case PlayerController.ToolState.ShovelFilled:
+                        base.Fertilizing();
+                        break;
+                    case PlayerController.ToolState.BottleEmpty:
+                        base.Harvest();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

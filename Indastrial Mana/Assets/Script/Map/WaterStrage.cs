@@ -1,20 +1,14 @@
 using UnityEngine;
 
-public class WaterStrage : MonoBehaviour
+public class WaterStrage : SingletonMonoBehaviour<WaterStrage>
 {
-    [SerializeField]
-    PlayerController PlayerController;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && PlayerController.Tool == PlayerController.ToolState.Bucket)
+        if (collision.gameObject.tag == "Player" && PlayerController.Instance.Tool == PlayerController.ToolState.BucketEmpty)
         {
-            if(!Bucket.IsWaterFilled)
-            {
-                Bucket.IsWaterFilled = true;
-                Debug.Log("êÖÇãÇÇÒÇæ");
-                
-            }
+            PlayerController.Instance.Tool = PlayerController.ToolState.BucketFilled;
+            Bucket.Instance.IsWaterFilled = true;
+            Debug.Log("êÖÇãÇÇÒÇæ");
         }
     }
 }
