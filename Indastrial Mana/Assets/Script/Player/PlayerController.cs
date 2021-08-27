@@ -113,9 +113,10 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
             transform.Translate(MoveVecter * _DeltaMove, Space.World);
         }
 
-        if(joystick.Horizontal <= 0)
+        if(joystick.Horizontal < 0)
         {
             transform.localScale = new Vector3(_PlayerScale.x, _PlayerScale.y);
+            //SoundManager.Instance.PlayerMoveSound();
         }
         else
         {
@@ -216,6 +217,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
             if (HitItems.Count > 0)
             {
                 GetItem();
+                SoundManager.Instance.ItemCarrySound();
             }
             else if (IsEnterStudyArea)
             {
@@ -223,7 +225,10 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 Tutorial_Text.Stady = true;
             }
             else if (IsEnterBottleStrage)
+            {
+                SoundManager.Instance.ItemCarrySound();
                 BottleStrage.Instance.GetBottle();
+            }
         }
         else
             RemoveItem(transform.position.x, transform.position.y);

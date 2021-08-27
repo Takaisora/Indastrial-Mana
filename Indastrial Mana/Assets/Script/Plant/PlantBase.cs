@@ -204,6 +204,7 @@ public class PlantBase : MonoBehaviour
             Debug.Log("…‚ğ—^‚¦‚½");
             PlantsWater = _MAXPLANTSWATER;
             Tutorial_Text.Water = true;
+            SoundManager.Instance.WaterSound();
         }
     }
 
@@ -216,6 +217,7 @@ public class PlantBase : MonoBehaviour
             Debug.Log("”ì—¿‚ğ—^‚¦‚½");
             PlantsFert = _MAXPLANTSFERT;
             Tutorial_Text.Fert = true;
+            SoundManager.Instance.fertilizerSound();
         }
     }
 

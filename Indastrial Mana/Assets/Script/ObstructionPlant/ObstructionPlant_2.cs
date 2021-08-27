@@ -36,7 +36,8 @@ public class ObstructionPlant_2 : PlantBase
         }
 
         if (base.MyGrowth == GrowthState.Withered)
-            base.Withered();
+        SoundManager.Instance.WitherSound();
+        base.Withered();
     }
 
     private void OnTriggerStay2D(Collider2D collision)

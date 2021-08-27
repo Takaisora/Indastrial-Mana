@@ -15,6 +15,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     public AudioClip fertilizer;//îÏóøÇè„Ç∞ÇΩéû
     public AudioClip Wither;//êAï®Ç™åÕÇÍÇΩéû
 
+
     AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
@@ -31,5 +32,45 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     public void MoneySound()
     {
         audioSource.PlayOneShot(Money);
+    }
+
+    public void PlayerMoveSound()
+    {
+        audioSource.PlayOneShot(PlayerMove);
+    }
+
+    public void ManaSound()
+    {
+        audioSource.PlayOneShot(Mana);
+    }
+
+    public void WaterSound()
+    {
+        audioSource.PlayOneShot(Water);
+    }
+
+    public void EndSound()
+    {
+        audioSource.PlayOneShot(End);
+    }
+
+    public void LoseSound()
+    {
+        audioSource.PlayOneShot(Lose);
+    }
+
+    public void WinSound()
+    {
+        audioSource.PlayOneShot(Win);
+    }
+
+    public void fertilizerSound()
+    {
+        audioSource.PlayOneShot(fertilizer);
+    }
+
+    public void WitherSound()
+    {
+        audioSource.PlayOneShot(Wither);
     }
 }

@@ -55,7 +55,10 @@ public class ObstructionPlant_1 : PlantBase
             animator.SetBool(_Generat, false);
 
         if (base.MyGrowth == GrowthState.Withered)
+        {
+            SoundManager.Instance.WitherSound();
             base.Withered();
+        }
 
         if (Study.Madnesslv4)
         {

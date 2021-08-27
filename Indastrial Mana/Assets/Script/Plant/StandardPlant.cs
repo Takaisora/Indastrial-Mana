@@ -34,7 +34,10 @@ public class StandardPlant : PlantBase
             animator.SetBool(_Generat, false);
 
         if (base.MyGrowth == GrowthState.Withered)
+        {
+            SoundManager.Instance.WitherSound();
             base.Withered();
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

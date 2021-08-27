@@ -38,6 +38,7 @@ public class ObstructionPlant_3 : PlantBase
         {
             if (_IsCompleted)
             {
+                SoundManager.Instance.WitherSound();
                 base.Withered();
             }
             else if (!_IsCompleted)
@@ -123,6 +124,7 @@ public class ObstructionPlant_3 : PlantBase
                     MapCanvas = GameObject.Find("MapCanvas");
                     temp.transform.parent = MapCanvas.transform;
                 }
+                SoundManager.Instance.WitherSound();
                 Withered();
             }
         }
