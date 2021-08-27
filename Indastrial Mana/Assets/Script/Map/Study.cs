@@ -164,6 +164,7 @@ public class Study : SingletonMonoBehaviour<Study>
                 PlayerController.Money -= (ushort)_MoneyCost;     //資金
                 PlayerController.Instance.MoveRatio = 0;// プレイヤーの移動を制限
                 Debug.Log("研究開始!\n資金残り" + PlayerController.Money);
+                SoundManager.Instance.MoneySound();
             }
             else
                 Debug.Log("資金が足りません");

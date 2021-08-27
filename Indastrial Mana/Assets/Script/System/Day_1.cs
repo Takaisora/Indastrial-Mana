@@ -233,7 +233,7 @@ public class Day_1 : MonoBehaviour
     public void DayEnd()
     {
         DayTime = 90;
-
+        SoundManager.Instance.EndSound();
         Invoke("Result", 3f);
     }
     public void Result()
@@ -244,12 +244,15 @@ public class Day_1 : MonoBehaviour
             Result_Flag = true;
 
             Success_Flag = false;
+            SoundManager.Instance.LoseSound();
         }
         else
         {
             Result_Flag = true;
 
             Success_Flag = true;
+            SoundManager.Instance.WinSound();
+
         }
     }
 

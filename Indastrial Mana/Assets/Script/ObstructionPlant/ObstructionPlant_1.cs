@@ -42,7 +42,10 @@ public class ObstructionPlant_1 : PlantBase
         }
 
         if (base.MyGrowth == GrowthState.Withered)
+        {
+            SoundManager.Instance.WitherSound();
             base.Withered();
+        }
 
         if (Study.Madnesslv4)
         {

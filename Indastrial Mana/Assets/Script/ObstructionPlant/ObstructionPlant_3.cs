@@ -38,6 +38,7 @@ public class ObstructionPlant_3 : PlantBase
         {
             if (_IsCompleted)
             {
+                SoundManager.Instance.WitherSound();
                 base.Withered();
             }
             else if (!_IsCompleted)
@@ -122,6 +123,7 @@ public class ObstructionPlant_3 : PlantBase
                     var t = temp.GetComponent<DebuffField>();
                     temp.transform.parent = parentCanvas.gameObject.transform;
                 }
+                SoundManager.Instance.WitherSound();
                 Withered();
             }
         }

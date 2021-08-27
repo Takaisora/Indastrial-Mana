@@ -337,6 +337,130 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 889385170}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &568668619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8878274792399836716, guid: 19b73f955af360e4287568ace395f0f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 727692486}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &568668621
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568668619}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fb08774b554bbf0458ae0edc5c4d2bd0, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &568668622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568668619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad4985c7311d6e49b21e318cffc5a3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemCarry: {fileID: 8300000, guid: 0dde31f5ba5a1914f9ac137df3f28dc2, type: 3}
+  Money: {fileID: 8300000, guid: b576a5886daa2ba4ab347e54102d261e, type: 3}
+  PlayerMove: {fileID: 8300000, guid: 18d9f962eb269a4498107b18e1f966d7, type: 3}
+  Mana: {fileID: 8300000, guid: 7c96dac4fe1dba04dbc0deb9423b95ba, type: 3}
+  Water: {fileID: 8300000, guid: c4bb7100d5169f744a83cb4a75cd1551, type: 3}
+  End: {fileID: 8300000, guid: e11d1cb2e4472614d803c45521b78a85, type: 3}
+  Lose: {fileID: 8300000, guid: c79578c3f24fa2f408890db6c776ed33, type: 3}
+  Win: {fileID: 8300000, guid: f8ca95787c92b86479c5c02f36c0b421, type: 3}
+  fertilizer: {fileID: 8300000, guid: 6c0854aece1344141bb7e1a374b427ae, type: 3}
+  Wither: {fileID: 8300000, guid: 6eea76e8bbf122244b582639795635a0, type: 3}
 --- !u!1 &657367961 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4709969240148261756, guid: fc1bcd4a2a9881c4284aa92392df8c06,
@@ -1303,6 +1427,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.83101
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484889369302471537, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9115544914464239759, guid: 19b73f955af360e4287568ace395f0f0,
         type: 3}

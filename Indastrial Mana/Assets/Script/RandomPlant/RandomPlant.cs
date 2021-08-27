@@ -49,6 +49,7 @@ public class RandomPlant : PlantBase
         if (MyGrowth == GrowthState.Withered)
         {
             Debug.Log("ŒÍ‚ê‚Ü‚µ‚½...");
+            SoundManager.Instance.WitherSound();
             Destroy(this.gameObject);
         }
         else if (base.MyGrowth != GrowthState.Seed)
