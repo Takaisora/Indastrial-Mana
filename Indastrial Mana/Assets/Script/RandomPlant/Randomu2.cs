@@ -41,6 +41,7 @@ public class Randomu2 : PlantBase
         if (base.MyGrowth == GrowthState.Withered)
             base.Withered();
 
+        //�͈͕ύX
         if (GrowS)
         {
             BoxCollider2D collider = GetComponent<BoxCollider2D>();

@@ -1467,6 +1467,11 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3348985964859805515, guid: 857484c1e7810f646a9ac44a3b54f693,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 805905064269510537, guid: 857484c1e7810f646a9ac44a3b54f693, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 857484c1e7810f646a9ac44a3b54f693, type: 3}
@@ -1579,6 +1584,9 @@ MonoBehaviour:
   _GenerateTime: 10
   _WitherTime: 5
   _IsOR: 1
+  Buff: 0
+  BuffTime: 0
+  GetBuff: 0
   Rob: 0
   Create: 0
   _FairyTime: 5
@@ -2009,17 +2017,17 @@ PrefabInstance:
     - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
       propertyPath: GetBuff
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
       propertyPath: BuffTime
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
       propertyPath: GrowRatio
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
@@ -2033,8 +2041,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
+      propertyPath: _GenerateTime
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
+        type: 3}
       propertyPath: GrowRatioDecline
-      value: 10
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
+        type: 3}
+      propertyPath: _FertConsumption
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 805905064269510537, guid: b97b7a77d863a5d409b2af0c4079797b,
+        type: 3}
+      propertyPath: _WaterConsumption
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805512, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
@@ -2124,12 +2147,12 @@ PrefabInstance:
     - target: {fileID: 3348985964859805513, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2.15
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3348985964859805513, guid: b97b7a77d863a5d409b2af0c4079797b,
         type: 3}

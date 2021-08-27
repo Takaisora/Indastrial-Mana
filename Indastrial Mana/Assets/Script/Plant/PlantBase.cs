@@ -240,7 +240,7 @@ public class PlantBase : MonoBehaviour
         }
     }
 
-    protected void Withered()
+    public void Withered()
     {
         MyGarden.GetComponent<Garden>().IsPlanted = false;
         _WaterGauge.GetComponent<CanvasGroup>().alpha = 0;
