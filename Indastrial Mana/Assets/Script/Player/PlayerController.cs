@@ -26,6 +26,9 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     public static bool Buff = false;
     public static float BuffTime = 0;
 
+    public AudioClip ItemCarry;
+    AudioSource audioSource;
+
     public Joystick joystick;
 
     public enum ToolState : byte
@@ -50,6 +53,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         rb = GetComponent<Rigidbody2D>();
         Buff = false;
         BuffTime = 0;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -210,7 +214,9 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         if (Tool == ToolState.None)
         {
             if (HitItems.Count > 0)
+            {
                 GetItem();
+            }
             else if (IsEnterStudyArea)
             {
                 Study.Instance.Studying();
@@ -234,6 +240,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         switch (ItemType[0])
         {
             case "Bucket":
+                audioSource.PlayOneShot(ItemCarry);
                 if (Bucket.Instance.IsWaterFilled)
                     Tool = ToolState.BucketFilled;
                 else
