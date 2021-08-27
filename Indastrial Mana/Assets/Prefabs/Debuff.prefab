@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5728597967949649877}
   - component: {fileID: 5728597967949649882}
   - component: {fileID: 4423292274564721357}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Debuff
   m_TagString: Debuff
   m_Icon: {fileID: 0}

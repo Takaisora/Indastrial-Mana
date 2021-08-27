@@ -18,8 +18,8 @@ public class ObstructionPlant_3 : PlantBase
     Vector3 DebuffArea;
     [SerializeField] GameObject Debuff;
     [SerializeField] GameObject MapCanvas;
-    [SerializeField] Canvas parentCanvas;
-    [SerializeField] GameObject Test;
+   // [SerializeField] Canvas parentCanvas;
+   // [SerializeField] GameObject Test;
     List<Vector3> _RondamList = new List<Vector3>();
 
     // Update is called once per frame
@@ -118,9 +118,10 @@ public class ObstructionPlant_3 : PlantBase
                 }
                 for(int i = 0; i < noft; i++)
                 {
-                    var temp = Instantiate(Test, _RondamList[i], Quaternion.identity);
-                    var t = temp.GetComponent<DebuffField>();
-                    temp.transform.parent = parentCanvas.gameObject.transform;
+                    var temp = Instantiate(Debuff, _RondamList[i], Quaternion.identity);
+                    // var t = temp.GetComponent<DebuffField>();
+                    MapCanvas = GameObject.Find("MapCanvas");
+                    temp.transform.parent = MapCanvas.transform;
                 }
                 Withered();
             }

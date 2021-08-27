@@ -8,6 +8,11 @@ public class DebuffField : MonoBehaviour
     [SerializeField] float deleteTime = 3;
 
 
+    private void Start()
+    {
+        _EffectTime = 0;
+    }
+
     void Update()
     {
         _EffectTime += Time.deltaTime;
@@ -20,7 +25,8 @@ public class DebuffField : MonoBehaviour
     {
         if(collider.gameObject.tag == "Player")
         {
-            Study.Madness += Study.AddMadness;
+            Study.Instance.AddMad();
+            //Debug.Log(Study.Madness);
         }
     }
 }

@@ -71,12 +71,7 @@ public class Study : SingletonMonoBehaviour<Study>
                 MySeed.transform.parent = MapCanvas.transform;
                 Debug.Log("タイプ" + SelectedSeed + "の種が生産された");
 
-                Madness += AddMadness;                  //狂気度加算
-                //狂気度は100％を超えない
-                if (Madness > 100)
-                {
-                    Madness = 100;
-                }
+                
 
                 //発狂の抽選(モックでは使わないのでコメントアウト)
                 if (Random.Range(1, 101) <= Madness + BaseMadness)
@@ -167,6 +162,16 @@ public class Study : SingletonMonoBehaviour<Study>
             }
             else
                 Debug.Log("資金が足りません");
+        }
+    }
+
+    public void AddMad()
+    {
+        Madness += AddMadness;                  //狂気度加算
+                                                //狂気度は100％を超えない
+        if (Madness > 100)
+        {
+            Madness = 100;
         }
     }
 }
