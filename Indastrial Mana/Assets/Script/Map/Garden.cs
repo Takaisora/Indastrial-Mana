@@ -36,11 +36,11 @@ public class Garden : MonoBehaviour
         Vector3 CellPosition = new Vector3(Mathf.RoundToInt(_Player.transform.position.x)
                                     , Mathf.RoundToInt(_Player.transform.position.y));
         // 種を持ったプレイヤーがこの花壇に重なったら
-        if (CellPosition == transform.position && PlayerController.Tool == PlayerController.ToolState.Seed)
+        if (CellPosition == transform.position && PlayerController.Instance.Tool == PlayerController.ToolState.Seed)
         {
-            PlayerController.CarryItem.transform.position = transform.position;
-            PlayerController.CarryItem.GetComponent<PlantBase>().Plant(gameObject);
-            MyPlants = PlayerController.CarryItem;
+            PlayerController.Instance.CarryItem.transform.position = transform.position;
+            PlayerController.Instance.CarryItem.GetComponent<PlantBase>().Plant(gameObject);
+            MyPlants = PlayerController.Instance.CarryItem;
         }
     }
 }

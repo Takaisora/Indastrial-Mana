@@ -38,7 +38,7 @@ public class BottoleStrage : MonoBehaviour
             if (BottleCount > MaxBottle - 1)
                 BottleCount = 0;
 
-            PlayerController.Instance.Tool = PlayerController.ToolState.Bottle;
+            PlayerController.Instance.Tool = PlayerController.ToolState.BottleFilled;
             Debug.Log("ƒrƒ“‚ðŽè‚É“ü‚ê‚½");
         }
     }

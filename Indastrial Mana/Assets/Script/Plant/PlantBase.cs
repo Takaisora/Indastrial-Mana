@@ -134,7 +134,7 @@ public class PlantBase : MonoBehaviour
             _GenerateTimeCount = 0;
             MyGrowth = GrowthState.Generated;
             Tutorial_Text.Mana = true;
-            Debug.Log("植物がマナを合計"+ _GeneratedCount+"生成");
+            Debug.Log("植物がマナを合計" + _GeneratedCount + "生成");
             // この生成で最後になるなら
             if (_NumOfGenerate <= _GeneratedCount)
             {
@@ -224,42 +224,42 @@ public class PlantBase : MonoBehaviour
         if (MyGrowth == GrowthState.Generated)
         {
             Bottle MyBottle = PlayerController.Instance.CarryItem.GetComponent<Bottle>();
-            if(MyBottle.IsManaFilled == false)
-            if(MyBottle.IsManaFilled == false)
-            if(MyBottle.IsManaFilled == false)
-            if(MyBottle.IsManaFilled == false)
-            if(MyBottle.IsManaFilled == false)
-                M++;
-                if (M >= _GeneratedCount)
-                {
-                    Last = true;
+            if (MyBottle.IsManaFilled == false)
+                if (MyBottle.IsManaFilled == false)
+                    if (MyBottle.IsManaFilled == false)
+                        if (MyBottle.IsManaFilled == false)
+                            if (MyBottle.IsManaFilled == false)
+                                M++;
+            if (M >= _GeneratedCount)
+            {
+                Last = true;
 
-                    MyGrowth = GrowthState.Planted;
-                    Tutorial_Text.Delivery = true;
-                    // 全て生成済なら枯れる
-                if (_IsCompleted && Last)
-                    {
-                        MyGrowth = GrowthState.Withered;
-                        M = 0;
-                    }
-                }
-                
-                MyBottle.IsManaFilled = true;
-                PlayerController.Instance.Tool = PlayerController.ToolState.BottleFilled;
-                Debug.Log("マナを収穫した");
                 MyGrowth = GrowthState.Planted;
+                Tutorial_Text.Delivery = true;
                 // 全て生成済なら枯れる
-                if (_IsCompleted)
+                if (_IsCompleted && Last)
+                {
                     MyGrowth = GrowthState.Withered;
+                    M = 0;
+                }
             }
+
+            MyBottle.IsManaFilled = true;
+            PlayerController.Instance.Tool = PlayerController.ToolState.BottleFilled;
+            Debug.Log("マナを収穫した");
+            MyGrowth = GrowthState.Planted;
+
         }
     }
 
-//protected void Withered()
-//{
-//    MyGarden.GetComponent<Garden>().IsPlanted = false;
-//    _WaterGauge.GetComponent<CanvasGroup>().alpha = 0;
-//    _FertGauge.GetComponent<CanvasGroup>().alpha = 0;
-//    Debug.Log("枯れてしまった..");
-//    Destroy(this.gameObject);
-//}
+
+
+    protected void Withered()
+    {
+        MyGarden.GetComponent<Garden>().IsPlanted = false;
+        _WaterGauge.GetComponent<CanvasGroup>().alpha = 0;
+        _FertGauge.GetComponent<CanvasGroup>().alpha = 0;
+        Debug.Log("枯れてしまった..");
+        Destroy(this.gameObject);
+    }
+}

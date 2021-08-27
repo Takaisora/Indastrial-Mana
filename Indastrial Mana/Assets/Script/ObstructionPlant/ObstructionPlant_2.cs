@@ -16,7 +16,7 @@ public class ObstructionPlant_2 : PlantBase
             base.DrawGauge();
             if (!PlayerController.Buff)
             {
-                PlayerController.MoveRatio = 1.0f;
+                PlayerController.Instance.MoveRatio = 1.0f;
             }
             if (base.PlantsWater <= 33 && base.PlantsFert <= 33)
             {
@@ -28,7 +28,7 @@ public class ObstructionPlant_2 : PlantBase
                         Vector3 SpeedDownPlantPosition = new Vector3(Mathf.RoundToInt(this.transform.position.x) + m, Mathf.RoundToInt(this.transform.position.y) + n);
                         if (SpeedDownPosition == SpeedDownPlantPosition)
                         {
-                            PlayerController.MoveRatio = 0.5f;
+                            PlayerController.Instance.MoveRatio = 0.5f;
                         }
                     }
                 }
@@ -56,11 +56,11 @@ public class ObstructionPlant_2 : PlantBase
             {
                 PlayerController PlayerController = Player.GetComponent<PlayerController>();
 
-                if (PlayerController.Tool == PlayerController.ToolState.Bucket && Bucket.IsWaterFilled)
+                if (PlayerController.Tool == PlayerController.ToolState.BucketFilled && Bucket.Instance.IsWaterFilled)
                     base.Watering();
-                else if (PlayerController.Tool == PlayerController.ToolState.Shovel && Shovel.IsFertFilled)
+                else if (PlayerController.Tool == PlayerController.ToolState.ShovelFilled && Shovel.Instance.IsFertFilled)
                     base.Fertilizing();
-                else if (PlayerController.Tool == PlayerController.ToolState.Bottle)// ボトルが空かは関数で判断
+                else if (PlayerController.Tool == PlayerController.ToolState.BottleEmpty)// ボトルが空かは関数で判断
                     base.Harvest();
             }
         }

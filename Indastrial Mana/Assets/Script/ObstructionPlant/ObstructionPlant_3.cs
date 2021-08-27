@@ -144,11 +144,11 @@ public class ObstructionPlant_3 : PlantBase
             {
                 PlayerController PlayerController = Player.GetComponent<PlayerController>();
 
-                if (PlayerController.Tool == PlayerController.ToolState.Bucket && Bucket.IsWaterFilled)
+                if (PlayerController.Tool == PlayerController.ToolState.BucketFilled && Bucket.Instance.IsWaterFilled)
                     base.Watering();
-                else if (PlayerController.Tool == PlayerController.ToolState.Shovel && Shovel.IsFertFilled)
+                else if (PlayerController.Tool == PlayerController.ToolState.ShovelFilled && Shovel.Instance.IsFertFilled)
                     base.Fertilizing();
-                else if (PlayerController.Tool == PlayerController.ToolState.Bottle)// ボトルが空かは関数で判断
+                else if (PlayerController.Tool == PlayerController.ToolState.BottleEmpty)// ボトルが空かは関数で判断
                     base.Harvest();
             }
         }

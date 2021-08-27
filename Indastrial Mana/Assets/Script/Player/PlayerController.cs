@@ -141,7 +141,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                     // A•¨‚ğ‚»‚Ìê‚ÉA‚¦‚é
                     CarryItem.transform.position = SetPosition;
                     // ƒQ[ƒW‹N“®
-                    CarryItem.GetComponent<PlantBase>().Plant(Gardens.WaterGauge, Gardens.FertGauge);
+                    CarryItem.GetComponent<PlantBase>().Plant(Garden);
                     CarryItem = null;
                     Tool = ToolState.None;
                     Tutorial_Text.Planted = true;

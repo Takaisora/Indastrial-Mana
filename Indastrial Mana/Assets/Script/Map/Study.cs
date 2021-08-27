@@ -112,12 +112,12 @@ public class Study : SingletonMonoBehaviour<Study>
                     switch (Craziness)
                     {
                         case 1:
-                            PlayerController.MoveRatio = 0.5f;
+                            PlayerController.Instance.MoveRatio = 0.5f;
                             PlayerController.Buff = true;
                             PlayerController.BuffTime += MadnessTime;
                             break;
                         case 2:
-                            PlayerController.MoveRatio = 0.0f;
+                            PlayerController.Instance.MoveRatio = 0.0f;
                             PlayerController.Buff = true;
                             PlayerController.BuffTime += MadnessTime;
                             break;
