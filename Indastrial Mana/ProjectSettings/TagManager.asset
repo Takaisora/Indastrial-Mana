@@ -7,6 +7,7 @@ TagManager:
   - Garden
   - Item
   - Study
+  - Debuff
   layers:
   - Default
   - TransparentFX

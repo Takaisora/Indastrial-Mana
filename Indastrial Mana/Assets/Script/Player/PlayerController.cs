@@ -21,6 +21,10 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     public List<GameObject> HitItems = new List<GameObject>();// 接触しているアイテム
     public bool IsEnterBottleStrage = false;
     public bool IsEnterStudyArea = false;
+    private Study _MyStudy = null;
+    private Rigidbody2D rb = null;
+    public static bool Buff = false;
+    public static float BuffTime = 0;
 
     public Joystick joystick;
 
@@ -38,8 +42,14 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private void Start()
     {
+        MoveRatio = 1;
         _PlayerScale = transform.localScale;
-        _RB = GetComponent<Rigidbody2D>();
+        Tool = ToolState.None;
+        GameObject Study = GameObject.Find("StudyArea");
+        _MyStudy = Study.GetComponent<Study>();
+        rb = GetComponent<Rigidbody2D>();
+        Buff = false;
+        BuffTime = 0;
     }
 
     private void Update()
@@ -52,7 +62,16 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         _MoveY = 0;
         _DeltaMove = _MoveSpeed * MoveRatio * Time.deltaTime;
 
-        /*
+        if (Buff)
+        {
+            BuffTime -= Time.deltaTime;
+            if (BuffTime <= 0)
+            {
+                MoveRatio = 1;
+                Buff = false;
+            }
+        }
+
         if (Input.GetKey(KeyCode.A))
         {
             _MoveX = -_DeltaMove;
@@ -72,8 +91,14 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         {
             _MoveY = -_DeltaMove;
         }
-        */
-
+#if UNITY_EDITOR
+        transform.Translate(_MoveX, _MoveY, 0);// PCが重いのでこっち
+#endif
+#if UNITY_IOS
+        Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
+        rb.velocity = move;
+#endif
+        #endregion
 
         //JoyStick
 

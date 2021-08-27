@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 2956639679861230184}
   - component: {fileID: 3594557301802053471}
   - component: {fileID: 1404681127627116142}
+  - component: {fileID: -6800662028196564132}
   m_Layer: 0
   m_Name: GardenPrefab
   m_TagString: Garden
@@ -269,7 +270,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaterGauge: {fileID: 3896781107936983486}
   FertGauge: {fileID: 7283146232438151010}
+  _Canvas: {fileID: 0}
+  _DefaultPlants: {fileID: 0}
   IsPlanted: 0
+--- !u!50 &-6800662028196564132
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2790033708968921247}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3896781107936983486
 GameObject:
   m_ObjectHideFlags: 0
