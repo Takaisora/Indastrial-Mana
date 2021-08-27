@@ -168,8 +168,8 @@ public class PlantBase : MonoBehaviour
 
             // フラグ処理
             Gardens.IsPlanted = true;
-            PlayerController.CarryItem = null;
-            PlayerController.Tool = PlayerController.ToolState.None;
+            PlayerController.Instance.CarryItem = null;
+            PlayerController.Instance.Tool = PlayerController.ToolState.None;
 
             MyGarden = Garden;
             this.gameObject.tag = "Untagged";// Itemだとプレイヤーが持てるので外す
@@ -255,12 +255,11 @@ public class PlantBase : MonoBehaviour
         }
     }
 
-    protected void Withered()
-    {
-        MyGarden.GetComponent<Garden>().IsPlanted = false;
-        _WaterGauge.GetComponent<CanvasGroup>().alpha = 0;
-        _FertGauge.GetComponent<CanvasGroup>().alpha = 0;
-        Debug.Log("枯れてしまった..");
-        Destroy(this.gameObject);
-    }
-}
+//protected void Withered()
+//{
+//    MyGarden.GetComponent<Garden>().IsPlanted = false;
+//    _WaterGauge.GetComponent<CanvasGroup>().alpha = 0;
+//    _FertGauge.GetComponent<CanvasGroup>().alpha = 0;
+//    Debug.Log("枯れてしまった..");
+//    Destroy(this.gameObject);
+//}

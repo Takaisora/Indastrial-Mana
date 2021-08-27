@@ -118,7 +118,6 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
             transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
         }
 
-        #endregion
 
         #region アニメーション
         byte AnimationState = (byte)Tool;

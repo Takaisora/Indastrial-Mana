@@ -29,16 +29,16 @@ public class BottoleStrage : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // プレイヤーが何も持っていなければ
-        if (collision.gameObject.tag == "Player" && PlayerController.Tool == PlayerController.ToolState.None)
+        if (collision.gameObject.tag == "Player" && PlayerController.Instance.Tool == PlayerController.ToolState.None)
         {
             _BottleList[BottleCount].GetComponent<Bottle>().IsManaFilled = false;
-            PlayerController.CarryItem = _BottleList[BottleCount];
-            PlayerController.CarryItem.transform.position = new Vector3(999, 999);
+            PlayerController.Instance.CarryItem = _BottleList[BottleCount];
+            PlayerController.Instance.CarryItem.transform.position = new Vector3(999, 999);
             BottleCount++;
             if (BottleCount > MaxBottle - 1)
                 BottleCount = 0;
 
-            PlayerController.Tool = PlayerController.ToolState.Bottle;
+            PlayerController.Instance.Tool = PlayerController.ToolState.Bottle;
             Debug.Log("ビンを手に入れた");
         }
     }
