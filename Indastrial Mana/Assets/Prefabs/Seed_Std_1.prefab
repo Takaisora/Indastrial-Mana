@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8097295840777284688}
   - component: {fileID: 3957574936037664999}
   - component: {fileID: 7988928743869254416}
+  - component: {fileID: -75058357964862359}
   m_Layer: 5
   m_Name: Seed_Std_1
   m_TagString: Item
@@ -170,6 +171,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-75058357964862359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3348985964859805512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26df457e24abd184db67ceeadf4dfb20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsHit: 0
+  Type: 1
 --- !u!1 &4142066863531716989
 GameObject:
   m_ObjectHideFlags: 0
