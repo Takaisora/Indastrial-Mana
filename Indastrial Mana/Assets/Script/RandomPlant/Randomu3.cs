@@ -35,7 +35,7 @@ public class Randomu3 : PlantBase
 
     //Garden Gardens;
 
-
+   
 
     private void Update()
     {
@@ -60,7 +60,7 @@ public class Randomu3 : PlantBase
             {
                 _FTimeCount = 0;
                 //生産、奪う処理
-                RobCreate = Random.Range(2, 3);
+                RobCreate = Random.Range(1, 3);
                 switch (RobCreate)
                 {
                     case 1: //生産
@@ -70,7 +70,7 @@ public class Randomu3 : PlantBase
                         Randomu3();
                         break;
                     case 2: //枯らして増やす
-                            RL = Random.Range(1, 2);
+                            RL = Random.Range(1, 3);
                         switch (RL)
                         {
                             case 1:
@@ -93,13 +93,15 @@ public class Randomu3 : PlantBase
     ////植物の数チェック
     private RaycastHit2D CheckPlantR(float X, float Y)
     {
+        //自身を除外
+        Physics2D.queriesStartInColliders = false;
+
         Hitr = null;
 
-        // 座標を四捨五入で整数に(偶数丸めなので不具合起こるかも？)
         Vector3 CellPosition = new Vector3(Mathf.RoundToInt(X)
                                          , Mathf.RoundToInt(Y));
         //植物あるかないか判定
-        RaycastHit2D HitR = Physics2D.Raycast(CellPosition, new Vector3(2, 0, 1), 100);
+        RaycastHit2D HitR = Physics2D.Raycast(CellPosition, new Vector3(2, 0, 0), 100);
 
         if (HitR)
         {
@@ -110,9 +112,11 @@ public class Randomu3 : PlantBase
 
     private RaycastHit2D CheckPlantL(float X, float Y)
     {
+        //自身を除外
+        Physics2D.queriesStartInColliders = false;
+
         Hitl = null;
 
-        // 座標を四捨五入で整数に(偶数丸めなので不具合起こるかも？)
         Vector3 CellPosition = new Vector3(Mathf.RoundToInt(X)
                                          , Mathf.RoundToInt(Y));
         //植物あるかないか判定
@@ -135,6 +139,7 @@ public class Randomu3 : PlantBase
 
             Create = true;
             this.Randomu3();
+            HitR.collider.gameObject.GetComponent<PlantBase>().Withered();
         }
     }
 
@@ -143,16 +148,12 @@ public class Randomu3 : PlantBase
     {
         RaycastHit2D HitL = CheckPlantL(transform.position.x, transform.position.y);
 
-        if (HitL.collider != null && HitL.collider.gameObject.CompareTag("Garden"))
+        if (HitL.collider != null && HitL.collider.gameObject.CompareTag("Untagged"))
         {
             Create = true;
             this.Randomu3();
+            HitL.collider.gameObject.GetComponent<PlantBase>().Withered();
         }
-        else
-        {
-            return;
-        }
-         
     }
 
     //収穫
