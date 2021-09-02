@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Study : SingletonMonoBehaviour<Study>
 {
@@ -32,6 +33,8 @@ public class Study : SingletonMonoBehaviour<Study>
     public bool Madnesslv5 = false;
     public bool Madnesslv6 = false;
 
+    [SerializeField]
+    public Image crazygauge = null;
 
     private Animator animator;
 
@@ -40,9 +43,10 @@ public class Study : SingletonMonoBehaviour<Study>
     void Start()
     {
         Madnesslv4 = false;
-        Madness = 90;
+        Madness = 50;
         AddMadness = 5;
         animator = GetComponent<Animator>();
+        crazygauge.fillAmount = (float)Madness / (float)100;
     }
 
     void Update()
@@ -66,10 +70,14 @@ public class Study : SingletonMonoBehaviour<Study>
                 SelectedSeed = Random.Range(0, PlantsType.Length);     // 0から配列のサイズまでの乱数
                 // 選ばれた番号の種を生成
                 GameObject MySeed = Instantiate(PlantsType[SelectedSeed]);
-                MySeed.name = "Seed";
+                if (SelectedSeed < 3)
+                    MySeed.name = "Seed";
+                else if (SelectedSeed < 6)
+                    MySeed.name = "ObsSeed";
                 MySeed.transform.position = SetPosition.transform.position;
                 MySeed.transform.parent = MapCanvas.transform;
                 Debug.Log("タイプ" + SelectedSeed + "の種が生産された");
+                AddMad();
 
                 
 
@@ -89,6 +97,7 @@ public class Study : SingletonMonoBehaviour<Study>
                     {
                         MadnessLv = 2;  //重度
                     }
+                    
                     //狂気度に応じたデバフの抽選
                     switch (MadnessLv)
                     {
@@ -170,6 +179,7 @@ public class Study : SingletonMonoBehaviour<Study>
     {
         Madness += AddMadness;                  //狂気度加算
                                                 //狂気度は100％を超えない
+        crazygauge.fillAmount = (float)Madness / (float)100;
         if (Madness > 100)
         {
             Madness = 100;

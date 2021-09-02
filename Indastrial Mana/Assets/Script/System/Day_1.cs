@@ -195,7 +195,7 @@ public class Day_1 : MonoBehaviour
         Day1ManaBottle.text = " x " +ManaBottle + " / " + RiquiredManaBottle;
         if (!Crazy_Flag)
         {
-            Day1ManaBottle.text = "ƒ}ƒi•r" + ManaBottle + "/" + RiquiredManaBottle;
+            Day1ManaBottle.text = "x" + ManaBottle + "/" + RiquiredManaBottle;
         }else if (Crazy_Flag)
         {
             Day1ManaBottle.text = ".@:]/,<>.+;[@[@]/..[";

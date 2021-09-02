@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class ObstructionPlant_2 : PlantBase
 {
+    private Animator animator;
+    private const string _Grow = "Grow";
+    private const string _Generat = "Generat";
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (base.MyGrowth == GrowthState.Planted)
+        {
             base.Growing();
+            animator.SetBool(_Grow, true);
+        }
 
-        if (base.MyGrowth != GrowthState.Seed)
+            if (base.MyGrowth != GrowthState.Seed)
         {
             base.DepletionCheck();
             base.DrawGauge();
@@ -33,7 +45,12 @@ public class ObstructionPlant_2 : PlantBase
                     }
                 }
             }
+
         }
+        if (base.MyGrowth == GrowthState.Generated)
+            animator.SetBool(_Generat, true);
+        else
+            animator.SetBool(_Generat, false);
 
         if (base.MyGrowth == GrowthState.Withered)
         SoundManager.Instance.WitherSound();

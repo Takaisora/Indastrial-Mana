@@ -41,6 +41,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         BottleEmpty,
         BottleFilled,
         Seed,
+        ObsSeed,
     }
 
     private void Start()
@@ -261,6 +262,10 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 break;
             case "Seed":
                 Tool = ToolState.Seed;
+                Debug.Log("í‚ğ‚Á‚½");
+                break;
+            case "ObsSeed":
+                Tool = ToolState.ObsSeed;
                 Debug.Log("í‚ğ‚Á‚½");
                 break;
             case "Bottle":

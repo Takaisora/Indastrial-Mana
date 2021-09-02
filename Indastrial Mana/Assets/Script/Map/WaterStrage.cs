@@ -9,6 +9,7 @@ public class WaterStrage : SingletonMonoBehaviour<WaterStrage>
             PlayerController.Instance.Tool = PlayerController.ToolState.BucketFilled;
             Bucket.Instance.IsWaterFilled = true;
             Debug.Log("…‚ğ‹‚‚ñ‚¾");
+            SoundManager.Instance.WaterSound();
         }
     }
 }

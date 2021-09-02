@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ObstructionPlant_3 : PlantBase
 {
+    private Animator animator;
+    private const string _Grow = "Grow";
+    private const string _Generat = "Generat";
 
     private int _RondamType = 0;
     private int _RondamType2 = 0;
@@ -22,17 +25,28 @@ public class ObstructionPlant_3 : PlantBase
    // [SerializeField] GameObject Test;
     List<Vector3> _RondamList = new List<Vector3>();
 
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     // Update is called once per frame
     private void Update()
     {
         if (base.MyGrowth == GrowthState.Planted)
+        {
             base.Growing();
-
+            animator.SetBool(_Grow, true);
+        }
         if (base.MyGrowth != GrowthState.Seed)
         {
             base.DepletionCheck();
             base.DrawGauge();
         }
+        if (base.MyGrowth == GrowthState.Generated)
+            animator.SetBool(_Generat, true);
+        else
+            animator.SetBool(_Generat, false);
+
 
         if (base.MyGrowth == GrowthState.Withered)
         {
@@ -128,6 +142,8 @@ public class ObstructionPlant_3 : PlantBase
                 Withered();
             }
         }
+
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
