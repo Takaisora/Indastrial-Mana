@@ -461,6 +461,24 @@ MonoBehaviour:
   Win: {fileID: 8300000, guid: f8ca95787c92b86479c5c02f36c0b421, type: 3}
   fertilizer: {fileID: 8300000, guid: 6c0854aece1344141bb7e1a374b427ae, type: 3}
   Wither: {fileID: 8300000, guid: 6eea76e8bbf122244b582639795635a0, type: 3}
+--- !u!1 &640668062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8414397586160824201, guid: fc1bcd4a2a9881c4284aa92392df8c06,
+    type: 3}
+  m_PrefabInstance: {fileID: 889385170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &640668066
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640668062}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &657367961 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4709969240148261756, guid: fc1bcd4a2a9881c4284aa92392df8c06,
@@ -1604,6 +1622,12 @@ PrefabInstance:
       propertyPath: m_Type
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1444330844296149726, guid: fc1bcd4a2a9881c4284aa92392df8c06,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 99e6df702a4e29d4fb5567feb2020374,
+        type: 3}
     - target: {fileID: 1802852575311723287, guid: fc1bcd4a2a9881c4284aa92392df8c06,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1628,6 +1652,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3352613561180231099, guid: fc1bcd4a2a9881c4284aa92392df8c06,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3955802872145456369, guid: fc1bcd4a2a9881c4284aa92392df8c06,
         type: 3}
@@ -1969,6 +1998,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -60.19995
       objectReference: {fileID: 0}
+    - target: {fileID: 4709969240901923765, guid: fc1bcd4a2a9881c4284aa92392df8c06,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 99e6df702a4e29d4fb5567feb2020374,
+        type: 3}
     - target: {fileID: 5213916988870075882, guid: fc1bcd4a2a9881c4284aa92392df8c06,
         type: 3}
       propertyPath: m_AnchoredPosition.y

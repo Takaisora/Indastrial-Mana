@@ -127,53 +127,27 @@ public class Day_1 : MonoBehaviour
             {
                 ResultSuccess.text = "Success";
 
+                //if (BottonDown)
+                //{
+                //    SceneManager.LoadScene("Result");
+
+                //}
+
                 if (BottonDown)
                 {
-                    SceneManager.LoadScene("Result");
+                    DayTime = 0;
+
+                    Result_Flag = false;
+
+                    Days += 1;
+
+                    ManaBottle = 0;
+
+                    Day_Start.SetActive(true);
+
+                    Day_Start.GetComponent<Day_1_Start>().ReStart();
 
                 }
-
-//#if UNITY_EDITOR
-
-//                if (Input.GetMouseButtonDown(0))
-//                {
-//                    DayTime = 0;
-
-//                    Result_Flag = false;
-
-//                    Days += 1;
-
-//                    ManaBottle = 0;
-
-//                    Day_Start.SetActive(true);
-
-//                    Day_Start.GetComponent<Day_1_Start>().ReStart();
-                    
-//                }
-
-//#endif
-
-////#if UNITY_IOS
-////                if (Input.touchCount > 0)
-////                {
-////                    Touch touch = Input.GetTouch(0);
-////                }
-
-////                if (touch.phase == TouchPhase.Began)
-////                {
-////                    DayTime = 0;
-
-////                    Result_Flag = false;
-
-////                    Days += 1;
-
-////                    ManaBottle = 0;
-
-////                    Day_Start.SetActive(true);
-
-////                    Day_Start.GetComponent<Day_1_Start>().ReStart();
-////                }
-////#endif
             }
 
             else
