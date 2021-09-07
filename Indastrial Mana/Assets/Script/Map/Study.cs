@@ -27,10 +27,23 @@ public class Study : SingletonMonoBehaviour<Study>
     int MadnessLv = 0;      //0＝軽度、1＝中度、2＝重度 
     int MadnessTime = 10;   //基本の発狂時間　MadnessLv*2を追加して使用。
     float CrazyTime = 0;    //発狂時間計測
-   //狂気フラグ
+                            //狂気フラグ
     public static bool Madnesslv4 = false;
     public bool Madnesslv5 = false;
     public bool Madnesslv6 = false;
+
+    //突然変異用
+    int B = 0;
+    int Y = 0;
+    //Rey用
+    //X
+    float X_ = 0;
+    //Y
+    float Y_ = 0;
+    //花壇の座標格納用
+    GameObject hit;
+
+
 
 
     private Animator animator;
@@ -77,6 +90,56 @@ public class Study : SingletonMonoBehaviour<Study>
                 {
                     Madness = 100;
                 }
+
+
+                //突然変異
+                //if (MadnessLv >= 0)
+                //{
+                    B = Random.Range(1, 6);
+                    switch (B)
+                    {
+                        case 1:
+                            //花壇の座標
+                            X_ = -6;
+                            Y_ = 3;
+                            //呼び出し
+                            GetPlants();
+                            break;
+
+                        case 2:
+                            //花壇の座標
+                            X_ = -3;
+                            Y_ = 3;
+                            //呼び出し
+                            GetPlants();
+                        break;
+
+                        case 3:
+                            //花壇の座標
+                            X_ = 0;
+                            Y_ = 3;
+                            //呼び出し
+                            GetPlants();
+                        break;
+
+                        case 4:
+                            //花壇の座標
+                            X_ = 3;
+                            Y_ = 3;
+                            //呼び出し
+                            GetPlants();
+                        break;
+
+                        case 5:
+                            //花壇の座標
+                            X_ = 6;
+                            Y_ = 3;
+                            //呼び出し
+                            GetPlants();
+                        break;
+                    }
+                //}
+
 
                 //発狂の抽選(モックでは使わないのでコメントアウト)
                 if (Random.Range(1, 101) <= Madness + BaseMadness)
@@ -169,4 +232,38 @@ public class Study : SingletonMonoBehaviour<Study>
                 Debug.Log("資金が足りません");
         }
     }
+
+    //花壇の選定
+    private RaycastHit2D CheckPlant(float X, float Y)
+    {
+        //自身を除外
+        Physics2D.queriesStartInColliders = false;
+
+        hit = null;
+
+        Vector3 CellPosition = new Vector3(Mathf.RoundToInt(X)
+                                         , Mathf.RoundToInt(Y));
+        //植物あるかないか判定
+        RaycastHit2D Hit = Physics2D.Raycast(CellPosition, new Vector3(X_, Y_, 0), 100);
+
+        if (Hit)
+        {
+            hit = Hit.transform.gameObject;
+        }
+        Debug.Log(Hit.collider.gameObject.transform.position);
+        return Hit;
+
+    }
+    void GetPlants()
+    {
+        RaycastHit2D Hit = CheckPlant(transform.position.x, transform.position.y);
+        //植物検知
+        if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Untagged"))
+        {
+            Hit.collider.gameObject.GetComponent<PlantBase>(). saiz();
+        }
+    }
+
+
 }
+

@@ -136,7 +136,6 @@ public class Randomu3 : PlantBase
         //A•¨ŒŸ’m
         if (HitR.collider != null && HitR.collider.gameObject.CompareTag("Untagged"))
         {
-
             Create = true;
             this.Randomu3();
             HitR.collider.gameObject.GetComponent<PlantBase>().Withered();

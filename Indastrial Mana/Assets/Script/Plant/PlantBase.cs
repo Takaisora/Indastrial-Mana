@@ -262,4 +262,14 @@ public class PlantBase : MonoBehaviour
         Debug.Log("ŒÍ‚ê‚Ä‚µ‚Ü‚Á‚½..");
         Destroy(this.gameObject);
     }
+
+    public void saiz()
+    {
+        BoxCollider2D collider = GetComponent<BoxCollider2D>();
+        collider.size = new Vector2(5, 5);
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Withered();
+    }
 }
