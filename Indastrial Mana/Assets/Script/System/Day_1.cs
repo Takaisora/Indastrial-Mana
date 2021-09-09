@@ -127,53 +127,27 @@ public class Day_1 : MonoBehaviour
             {
                 ResultSuccess.text = "Success";
 
+                //if (BottonDown)
+                //{
+                //    SceneManager.LoadScene("Result");
+
+                //}
+
                 if (BottonDown)
                 {
-                    SceneManager.LoadScene("Result");
+                    DayTime = 0;
+
+                    Result_Flag = false;
+
+                    Days += 1;
+
+                    ManaBottle = 0;
+
+                    Day_Start.SetActive(true);
+
+                    Day_Start.GetComponent<Day_1_Start>().ReStart();
 
                 }
-
-//#if UNITY_EDITOR
-
-//                if (Input.GetMouseButtonDown(0))
-//                {
-//                    DayTime = 0;
-
-//                    Result_Flag = false;
-
-//                    Days += 1;
-
-//                    ManaBottle = 0;
-
-//                    Day_Start.SetActive(true);
-
-//                    Day_Start.GetComponent<Day_1_Start>().ReStart();
-                    
-//                }
-
-//#endif
-
-////#if UNITY_IOS
-////                if (Input.touchCount > 0)
-////                {
-////                    Touch touch = Input.GetTouch(0);
-////                }
-
-////                if (touch.phase == TouchPhase.Began)
-////                {
-////                    DayTime = 0;
-
-////                    Result_Flag = false;
-
-////                    Days += 1;
-
-////                    ManaBottle = 0;
-
-////                    Day_Start.SetActive(true);
-
-////                    Day_Start.GetComponent<Day_1_Start>().ReStart();
-////                }
-////#endif
             }
 
             else
@@ -195,7 +169,7 @@ public class Day_1 : MonoBehaviour
         Day1ManaBottle.text = " x " +ManaBottle + " / " + RiquiredManaBottle;
         if (!Crazy_Flag)
         {
-            Day1ManaBottle.text = "ƒ}ƒi•r" + ManaBottle + "/" + RiquiredManaBottle;
+            Day1ManaBottle.text = "x" + ManaBottle + "/" + RiquiredManaBottle;
         }else if (Crazy_Flag)
         {
             Day1ManaBottle.text = ".@:]/,<>.+;[@[@]/..[";
@@ -233,7 +207,7 @@ public class Day_1 : MonoBehaviour
     public void DayEnd()
     {
         DayTime = 90;
-
+        SoundManager.Instance.EndSound();
         Invoke("Result", 3f);
     }
     public void Result()
@@ -244,12 +218,15 @@ public class Day_1 : MonoBehaviour
             Result_Flag = true;
 
             Success_Flag = false;
+            SoundManager.Instance.LoseSound();
         }
         else
         {
             Result_Flag = true;
 
             Success_Flag = true;
+            SoundManager.Instance.WinSound();
+
         }
     }
 

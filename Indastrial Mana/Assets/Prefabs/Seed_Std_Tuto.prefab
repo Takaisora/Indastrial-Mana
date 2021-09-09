@@ -96,6 +96,7 @@ MonoBehaviour:
   _WitherTimeCount: 0
   MyGrowth: 0
   _GeneratedCount: 0
+  _PlantsName: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\u7528"
   _NumOfGenerate: 1
   _DefaultWater: 100
   _DefaultFert: 50
@@ -148,7 +149,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: e32862df50f32e54386f4d735f554bf3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

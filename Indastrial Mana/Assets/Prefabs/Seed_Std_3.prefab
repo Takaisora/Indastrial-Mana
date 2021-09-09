@@ -344,11 +344,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b560cb4ec950e5438b9e5f0e0c3d580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GrowSpeed: 1
+  GrowS: 0
   PlantsWater: 0
   PlantsFert: 0
   _GenerateTimeCount: 0
   _WitherTimeCount: 0
   MyGrowth: 0
+  _GeneratedCount: 0
+  _PlantsName: "\u751F\u7523\u578B3"
   _NumOfGenerate: 2
   _DefaultWater: 100
   _DefaultFert: 100
@@ -357,6 +361,11 @@ MonoBehaviour:
   _GenerateTime: 10
   _WitherTime: 30
   _IsOR: 0
+  Buff: 0
+  BuffTime: 0
+  GetBuff: 0
+  Rob: 0
+  Create: 0
 --- !u!95 &5737107006602571575
 Animator:
   serializedVersion: 3

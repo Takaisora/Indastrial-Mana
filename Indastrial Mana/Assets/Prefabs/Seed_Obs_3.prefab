@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4, y: -3}
+  m_AnchoredPosition: {x: 4, y: -2}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3348985964859805509
@@ -95,23 +95,22 @@ MonoBehaviour:
   _WitherTimeCount: 0
   MyGrowth: 0
   _GeneratedCount: 0
-  _NumOfGenerate: 0
-  _DefaultWater: 0
-  _DefaultFert: 0
-  _WaterConsumption: 0
-  _FertConsumption: 0
-  _GenerateTime: 0
-  _WitherTime: 0
+  _PlantsName: "\u59A8\u5BB3\u578B3"
+  _NumOfGenerate: 2
+  _DefaultWater: 100
+  _DefaultFert: 100
+  _WaterConsumption: 10
+  _FertConsumption: 10
+  _GenerateTime: 40
+  _WitherTime: 5
   _IsOR: 0
   Buff: 0
   BuffTime: 0
   GetBuff: 0
   Rob: 0
   Create: 0
-  Debuff: {fileID: 0}
+  Debuff: {fileID: 5728597967949649881, guid: cf5c1b620f373714fbfdf160b977b838, type: 3}
   MapCanvas: {fileID: 0}
-  parentCanvas: {fileID: 0}
-  Test: {fileID: 0}
 --- !u!212 &-1855611040298533946
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -151,7 +150,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 5d0d1f84d38cbeb49be0be3e2b1c3584, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -173,7 +172,7 @@ Animator:
   m_GameObject: {fileID: 3348985964859805512}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e6cf7cd51bb1dd546b919b01df63837d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

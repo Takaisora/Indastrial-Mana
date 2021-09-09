@@ -49,7 +49,10 @@ public class Randomu3 : PlantBase
         }
 
         if (base.MyGrowth == GrowthState.Withered)
+        {
+            SoundManager.Instance.WitherSound();
             base.Withered();
+        }
 
         //ódê∏
         if (GrowS)
