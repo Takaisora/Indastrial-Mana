@@ -77,6 +77,7 @@ public class Study : SingletonMonoBehaviour<Study>
                 MySeed.transform.position = SetPosition.transform.position;
                 MySeed.transform.parent = MapCanvas.transform;
                 Debug.Log("タイプ" + SelectedSeed + "の種が生産された");
+                TextLog.Instance.Insert($"タイプ{SelectedSeed}の種が生産された");
                 AddMad();
 
                 
@@ -141,7 +142,7 @@ public class Study : SingletonMonoBehaviour<Study>
                             break;
                     }
                     Debug.Log("受けたデバフは" + Craziness + "です。");
-
+                    TextLog.Instance.Insert($"デバフ{ Craziness}を受けた");
                     //後々追加予定
                     //狂気度に応じてデバフを強化
                     //switch (Craziness)
@@ -168,10 +169,14 @@ public class Study : SingletonMonoBehaviour<Study>
                 PlayerController.Money -= (ushort)_MoneyCost;     //資金
                 PlayerController.Instance.MoveRatio = 0;// プレイヤーの移動を制限
                 Debug.Log("研究開始!\n資金残り" + PlayerController.Money);
+                TextLog.Instance.Insert($"研究開始!(資金残り{PlayerController.Money})");
                 SoundManager.Instance.MoneySound();
             }
             else
+            {
                 Debug.Log("資金が足りません");
+                TextLog.Instance.Insert("資金が足りません");
+            }
         }
     }
 

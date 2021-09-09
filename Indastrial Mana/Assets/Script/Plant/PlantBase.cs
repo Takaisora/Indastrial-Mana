@@ -32,6 +32,8 @@ public class PlantBase : MonoBehaviour
     private Image _FertGauge = null;
 
     // レベルデザイン用
+    [SerializeField, Header("植物名")]
+    private string _PlantsName = string.Empty;
     [SerializeField, Header("マナ生成回数（回, 整数）"), Space, Space, Space]
     byte _NumOfGenerate;
     [SerializeField, Header("水の初期量(上限100, 少数可)")]
@@ -135,6 +137,7 @@ public class PlantBase : MonoBehaviour
             MyGrowth = GrowthState.Generated;
             Tutorial_Text.Mana = true;
             Debug.Log("植物がマナを合計" + _GeneratedCount + "生成");
+            TextLog.Instance.Insert($"{_PlantsName}がマナを生成");
             // この生成で最後になるなら
             if (_NumOfGenerate <= _GeneratedCount)
             {
@@ -177,7 +180,7 @@ public class PlantBase : MonoBehaviour
             PlantsWater = _DefaultWater;
             PlantsFert = _DefaultFert;
             MyGrowth = GrowthState.Planted;
-            Debug.Log("種を植えた");
+            TextLog.Instance.Insert($"{_PlantsName}の種を植えた");
             //植えたら
             GrowS = true;
         }
@@ -202,6 +205,7 @@ public class PlantBase : MonoBehaviour
             Bucket.Instance.IsWaterFilled = false;
             PlayerController.Instance.Tool = PlayerController.ToolState.BucketEmpty;
             Debug.Log("水を与えた");
+            TextLog.Instance.Insert($"{_PlantsName}に水を与えた");
             PlantsWater = _MAXPLANTSWATER;
             Tutorial_Text.Water = true;
             SoundManager.Instance.WaterSound();
@@ -215,6 +219,7 @@ public class PlantBase : MonoBehaviour
             Shovel.Instance.IsFertFilled = false;
             PlayerController.Instance.Tool = PlayerController.ToolState.ShovelEmpty;
             Debug.Log("肥料を与えた");
+            TextLog.Instance.Insert($"{_PlantsName}に肥料を与えた");
             PlantsFert = _MAXPLANTSFERT;
             Tutorial_Text.Fert = true;
             SoundManager.Instance.fertilizerSound();
@@ -249,8 +254,8 @@ public class PlantBase : MonoBehaviour
             MyBottle.IsManaFilled = true;
             PlayerController.Instance.Tool = PlayerController.ToolState.BottleFilled;
             Debug.Log("マナを収穫した");
+            TextLog.Instance.Insert($"{_PlantsName}のマナを収穫した");
             MyGrowth = GrowthState.Planted;
-
         }
     }
 
@@ -262,6 +267,7 @@ public class PlantBase : MonoBehaviour
         _WaterGauge.GetComponent<CanvasGroup>().alpha = 0;
         _FertGauge.GetComponent<CanvasGroup>().alpha = 0;
         Debug.Log("枯れてしまった..");
+        TextLog.Instance.Insert($"{_PlantsName}は枯れてしまった...");
         Destroy(this.gameObject);
     }
 }

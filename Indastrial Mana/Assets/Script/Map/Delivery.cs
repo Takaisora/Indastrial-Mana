@@ -29,6 +29,7 @@ public class Delivery : SingletonMonoBehaviour<Delivery>
             if (Delay <= _DelayTime)
             {
                 Debug.Log("資金が" + _REWORD + "増えた");
+                TextLog.Instance.Insert($"資金が{_REWORD}増えた");
                 SoundManager.Instance.MoneySound();
                 DelayFlag = false;
                 _DelayTime = 0;
@@ -50,6 +51,7 @@ public class Delivery : SingletonMonoBehaviour<Delivery>
                 Day_1.ManaBottle += 1;
                 Tutorial.ManaBottle += 1;
                 Debug.Log("マナを納品した");
+                TextLog.Instance.Insert("マナを納品した");
                 SoundManager.Instance.ManaSound();
                 DelayFlag = true;
                 

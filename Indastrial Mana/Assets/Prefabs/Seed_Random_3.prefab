@@ -93,6 +93,7 @@ MonoBehaviour:
   _WitherTimeCount: 0
   MyGrowth: 0
   _GeneratedCount: 0
+  _PlantsName: "\u30E9\u30F3\u30C0\u30E0\u578B3"
   _NumOfGenerate: 1
   _DefaultWater: 50
   _DefaultFert: 50
