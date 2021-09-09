@@ -252,6 +252,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 else
                     Tool = ToolState.BucketEmpty;
                 Debug.Log("バケツを持った");
+                TextLog.Instance.Insert("バケツを持った");
                 break;
             case "Shovel":
                 if (Shovel.Instance.IsFertFilled)
@@ -259,14 +260,17 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 else
                     Tool = ToolState.ShovelEmpty;
                 Debug.Log("シャベルを持った");
+                TextLog.Instance.Insert("シャベルを持った");
                 break;
             case "Seed":
                 Tool = ToolState.Seed;
                 Debug.Log("種を持った");
+                TextLog.Instance.Insert("種を持った");
                 break;
             case "ObsSeed":
                 Tool = ToolState.ObsSeed;
                 Debug.Log("種を持った");
+                TextLog.Instance.Insert("種を持った");
                 break;
             case "Bottle":
                 if (CarryItem.GetComponent<Bottle>().IsManaFilled)
@@ -274,6 +278,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 else
                     Tool = ToolState.BottleEmpty;
                 Debug.Log("ビンを持った");
+                TextLog.Instance.Insert("ビンを持った");
                 break;
             default:
                 break;
@@ -335,15 +340,23 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 {
                     case ToolState.BucketEmpty:
                         Debug.Log("バケツを置いた");
+                        TextLog.Instance.Insert("バケツを置いた");
                         break;
                     case ToolState.ShovelEmpty:
                         Debug.Log("シャベルを置いた");
+                        TextLog.Instance.Insert("シャベルを置いた");
                         break;
                     case ToolState.Seed:
                         Debug.Log("種を置いた");
+                        TextLog.Instance.Insert("種を置いた");
+                        break;
+                    case ToolState.BottleEmpty:
+                        Debug.Log("ビンを置いた");
+                        TextLog.Instance.Insert("ビンを置いた");
                         break;
                     case ToolState.BottleFilled:
                         Debug.Log("ビンを置いた");
+                        TextLog.Instance.Insert("ビンを置いた");
                         break;
                     default:
                         break;

@@ -9,6 +9,7 @@ public class FertStrage : MonoBehaviour
             PlayerController.Instance.Tool = PlayerController.ToolState.ShovelFilled;
             Shovel.Instance.IsFertFilled = true;
             Debug.Log("”ì—¿‚ð‹d‚Á‚½");
+            TextLog.Instance.Insert("”ì—¿‚ð‹d‚Á‚½");
             SoundManager.Instance.fertilizerSound();
         }
     }

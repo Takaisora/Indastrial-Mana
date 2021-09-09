@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3348985964859805515}
   - component: {fileID: 805905064269510537}
   - component: {fileID: 4982609095032732341}
+  - component: {fileID: 2779099802329361697}
   m_Layer: 5
   m_Name: Seed_Random_3
   m_TagString: Item
@@ -29,7 +30,7 @@ RectTransform:
   m_GameObject: {fileID: 3348985964859805512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,7 +72,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10, y: 10}
+  m_Size: {x: 25, y: 25}
   m_EdgeRadius: 0
 --- !u!114 &805905064269510537
 MonoBehaviour:
@@ -93,6 +94,7 @@ MonoBehaviour:
   _WitherTimeCount: 0
   MyGrowth: 0
   _GeneratedCount: 0
+  _PlantsName: "\u30E9\u30F3\u30C0\u30E0\u578B3"
   _NumOfGenerate: 1
   _DefaultWater: 50
   _DefaultFert: 50
@@ -160,3 +162,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2779099802329361697
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3348985964859805512}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 33076e85615bacc4d856e1fa56734dae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

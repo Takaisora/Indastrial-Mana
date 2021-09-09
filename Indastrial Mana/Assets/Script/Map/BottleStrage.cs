@@ -37,5 +37,6 @@ public class BottleStrage : SingletonMonoBehaviour<BottleStrage>
 
         PlayerController.Instance.Tool = PlayerController.ToolState.BottleEmpty;
         Debug.Log("ƒrƒ“‚ðŽè‚É“ü‚ê‚½");
+        TextLog.Instance.Insert("ƒrƒ“‚ðŽè‚É“ü‚ê‚½");
     }
 }

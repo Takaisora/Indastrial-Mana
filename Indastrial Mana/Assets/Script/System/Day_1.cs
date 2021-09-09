@@ -244,4 +244,18 @@ public class Day_1 : MonoBehaviour
     {
         BottonDown = false;
     }
+
+    public void Dayplus()
+    {
+        if (Days >= 7)
+            Days = 7;
+        else Days++;
+    }
+
+    public void Dayminus()
+    {
+        if (Days <= 1)
+            Days = 1;
+        else Days--;
+    }
 }
