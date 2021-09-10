@@ -4,7 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class Day_1 : MonoBehaviour
 {
-    public static int Days = 1;
+    public enum Days : byte
+    {
+        None,
+        Day1,
+        Day2,
+        Day3,
+        Day4,
+        Day5,
+        Day6,
+        Day7,
+        Ended,
+    }
+    //public static int Days = 1;
+
+    public static Days day = Days.Day1;
 
     public int RiquiredManaBottle = 0;//クリアに必要なマナボトル
 
@@ -113,11 +127,11 @@ public class Day_1 : MonoBehaviour
             Player.GetComponent<PlayerController>().enabled = false;
         }
 
-        if(Result_Flag == true)
+        if (Result_Flag == true)
         {
             Day_Result.SetActive(true);
 
-            ResultDay.text = Days + "Days";
+            ResultDay.text = $"{(int)day} Days";
 
             ResultMoney.text = " x " + PlayerController.Money;
 
@@ -141,7 +155,7 @@ public class Day_1 : MonoBehaviour
 
                     Result_Flag = false;
 
-                    Days += 1;
+                    day++;
 
                     ManaBottle = 0;
 
@@ -160,15 +174,13 @@ public class Day_1 : MonoBehaviour
                     SceneManager.LoadScene("Result");
 
             }
-
-
         }
         else
         {
             Day_Result.SetActive(false);
         }
 
-        Day.text = Days +"Day";
+        Day.text = $"{(int)day}Day";
 
         Day1Money.text =" x " + PlayerController.Money;
 
@@ -195,8 +207,6 @@ public class Day_1 : MonoBehaviour
         {
             Day1Time.text = "End";
         }
-
-
     }
 
     public void SFlag()
@@ -232,7 +242,6 @@ public class Day_1 : MonoBehaviour
 
             Success_Flag = true;
             SoundManager.Instance.WinSound();
-
         }
     }
 
@@ -253,15 +262,15 @@ public class Day_1 : MonoBehaviour
 
     public void Dayplus()
     {
-        if (Days >= 7)
-            Days = 7;
-        else Days++;
+        if (day >= Days.Ended)
+            day = Days.Day7;
+        else day++;
     }
 
     public void Dayminus()
     {
-        if (Days <= 1)
-            Days = 1;
-        else Days--;
+        if (day <= Days.None)
+            day = Days.Day1;
+        else day--;
     }
 }
