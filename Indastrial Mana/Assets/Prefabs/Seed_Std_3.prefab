@@ -359,7 +359,7 @@ MonoBehaviour:
   _WaterConsumption: 30
   _FertConsumption: 30
   _GenerateTime: 10
-  _WitherTime: 30
+  _WitherTime: 5
   _IsOR: 0
   Buff: 0
   BuffTime: 0

@@ -70,7 +70,7 @@ public class Randomu3 : PlantBase
                         Create = true;
                         Debug.Log("—d¸‚ªƒ}ƒi‚Ì¶Y‚É¬Œ÷‚µ‚½");
                         GrowS = false;
-                        Randomu3();
+                        //Randomu3();
                         break;
                     case 2: //ŒÍ‚ç‚µ‚Ä‘‚â‚·
                             RL = Random.Range(1, 3);
@@ -140,7 +140,7 @@ public class Randomu3 : PlantBase
         if (HitR.collider != null && HitR.collider.gameObject.CompareTag("Untagged"))
         {
             Create = true;
-            this.Randomu3();
+            //this.Randomu3();
             HitR.collider.gameObject.GetComponent<PlantBase>().Withered();
         }
     }
@@ -153,7 +153,7 @@ public class Randomu3 : PlantBase
         if (HitL.collider != null && HitL.collider.gameObject.CompareTag("Untagged"))
         {
             Create = true;
-            this.Randomu3();
+            //this.Randomu3();
             HitL.collider.gameObject.GetComponent<PlantBase>().Withered();
         }
     }

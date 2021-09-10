@@ -142,6 +142,7 @@ public class PlantBase : MonoBehaviour
             // この生成で最後になるなら
             if (_NumOfGenerate <= _GeneratedCount)
             {
+                Debug.Log("witherd");
                 _IsCompleted = true;
             }
         }
@@ -189,14 +190,14 @@ public class PlantBase : MonoBehaviour
 
 
     //ランダム型3のマナ処理
-    public void Randomu3()
-    {
-        if (Create)
-        {
-            _GeneratedCount = 1;
-            Debug.Log("妖精はマナを" + _GeneratedCount + "本生産した");
-        }
-    }
+    //public void Randomu3()
+    //{
+    //    if (Create)
+    //    {
+    //        _GeneratedCount = 1;
+    //        Debug.Log("妖精はマナを" + _GeneratedCount + "本生産した");
+    //    }
+    //}
 
 
     protected void Watering()
@@ -232,31 +233,39 @@ public class PlantBase : MonoBehaviour
         if (MyGrowth == GrowthState.Generated)
         {
             Bottle MyBottle = PlayerController.Instance.CarryItem.GetComponent<Bottle>();
-            if (MyBottle.IsManaFilled == false)
-                if (MyBottle.IsManaFilled == false)
-                    if (MyBottle.IsManaFilled == false)
-                        if (MyBottle.IsManaFilled == false)
-                            if (MyBottle.IsManaFilled == false)
-                                M++;
-            if (M >= _GeneratedCount)
-            {
-                Last = true;
+            //if (MyBottle.IsManaFilled == false)
+            //    if (MyBottle.IsManaFilled == false)
+            //        if (MyBottle.IsManaFilled == false)
+            //            if (MyBottle.IsManaFilled == false)
+            //                if (MyBottle.IsManaFilled == false)
+            //                    M++;
+            //if (M >= _GeneratedCount)
+            //{
+                //Last = true;
 
                 MyGrowth = GrowthState.Planted;
                 Tutorial_Text.Delivery = true;
-                // 全て生成済なら枯れる
-                if (_IsCompleted && Last)
-                {
-                    MyGrowth = GrowthState.Withered;
-                    M = 0;
-                }
+
+            // 全て生成済なら枯れる
+            //if (_IsCompleted && Last)
+            //{
+            //    MyGrowth = GrowthState.Withered;
+            //    M = 0;
+            //}
+
+            // 全て生成済なら枯れる
+            if (_IsCompleted)
+            {
+                MyGrowth = GrowthState.Withered;
+                //M = 0;
             }
+            //}
 
             MyBottle.IsManaFilled = true;
             PlayerController.Instance.Tool = PlayerController.ToolState.BottleFilled;
             Debug.Log("マナを収穫した");
             TextLog.Instance.Insert($"{_PlantsName}のマナを収穫した");
-            MyGrowth = GrowthState.Planted;
+            //MyGrowth = GrowthState.Planted;
         }
     }
 
