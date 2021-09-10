@@ -117,11 +117,17 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         if(joystick.Horizontal < 0)
         {
             transform.localScale = new Vector3(_PlayerScale.x, _PlayerScale.y);
-            //SoundManager.Instance.PlayerMoveSound();
+            SoundManager.delayKeyWalk = true;
+        }
+        else if(joystick.Horizontal > 0)
+        {
+            transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
+            SoundManager.delayKeyWalk = true;
         }
         else
         {
-            transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
+            SoundManager.delayKeyWalk = false;
+            SoundManager.WalkCount = 0;
         }
 
 

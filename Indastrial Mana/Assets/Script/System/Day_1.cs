@@ -218,7 +218,8 @@ public class Day_1 : MonoBehaviour
             Result_Flag = true;
 
             Success_Flag = false;
-            SoundManager.Instance.LoseSound();
+            SoundManager.delayKeyWalk = false;
+            SoundManager.delayKeyLose = true;
         }
         else
         {

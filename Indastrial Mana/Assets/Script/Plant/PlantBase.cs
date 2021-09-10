@@ -255,7 +255,7 @@ public class PlantBase : MonoBehaviour
             PlayerController.Instance.Tool = PlayerController.ToolState.BottleFilled;
             Debug.Log("マナを収穫した");
             TextLog.Instance.Insert($"{_PlantsName}のマナを収穫した");
-            MyGrowth = GrowthState.Planted;
+            //MyGrowth = GrowthState.Planted;
         }
     }
 
@@ -263,6 +263,7 @@ public class PlantBase : MonoBehaviour
 
     public void Withered()
     {
+        SoundManager.Instance.WitherSound();
         MyGarden.GetComponent<Garden>().IsPlanted = false;
         _WaterGauge.GetComponent<CanvasGroup>().alpha = 0;
         _FertGauge.GetComponent<CanvasGroup>().alpha = 0;

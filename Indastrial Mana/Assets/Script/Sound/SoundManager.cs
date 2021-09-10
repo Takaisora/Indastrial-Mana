@@ -15,15 +15,63 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     public AudioClip fertilizer;//”ì—¿‚ğã‚°‚½
     public AudioClip Wither;//A•¨‚ªŒÍ‚ê‚½
 
+    public static int WalkCount = 0;
+    public static bool delayKeyWalk = false;
+    private float delayTimeWalk = 0;
+    private int LoseCount = 0;
+    public static bool delayKeyLose = false;
+    private float delayTimeLose = 0;
 
     AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        WalkCount = 0;
+        delayKeyWalk = false;
+        delayKeyLose = false;
     }
 
     // Update is called once per frame
+    void Update()
+    {
+        if (delayKeyWalk)
+        {
+            if (WalkCount == 0)
+            {
+                PlayerMoveSound();
+                WalkCount++;
+            }
+            else
+            {
+                delayTimeWalk += Time.deltaTime;
+                if(delayTimeWalk > 0.4)
+                {
+                    PlayerMoveSound();
+                    delayTimeWalk = 0;
+                }
+            }
+        }
+
+        if (delayKeyLose)
+        {
+            if(LoseCount == 0)
+            {
+                LoseSound();
+                LoseCount++;
+            }
+            else
+            {
+                delayTimeLose += Time.deltaTime;
+                if(delayTimeLose > 2.6)
+                {
+                    LoseSound();
+                    delayTimeLose = 0;
+                }
+            }
+        }
+    }
+
     public void ItemCarrySound()
     {
         audioSource.PlayOneShot(ItemCarry);

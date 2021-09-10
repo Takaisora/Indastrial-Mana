@@ -110,7 +110,8 @@ MonoBehaviour:
   Rob: 0
   Create: 0
   Debuff: {fileID: 5728597967949649881, guid: cf5c1b620f373714fbfdf160b977b838, type: 3}
-  MapCanvas: {fileID: 0}
+  MapCanvas: {fileID: 2337145008851335855, guid: 19b73f955af360e4287568ace395f0f0,
+    type: 3}
 --- !u!212 &-1855611040298533946
 SpriteRenderer:
   m_ObjectHideFlags: 0
