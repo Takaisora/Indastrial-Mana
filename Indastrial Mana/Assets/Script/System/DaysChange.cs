@@ -11,6 +11,6 @@ public class DaysChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _text.text = Day_1.Days + "Day";
+        _text.text = (int)Day_1.day + "Day";
     }
 }
