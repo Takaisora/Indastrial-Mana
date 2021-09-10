@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3348985964859805513}
   - component: {fileID: 3348985964859805509}
   - component: {fileID: 3348985964859805515}
+  - component: {fileID: 7056948639098829825}
   - component: {fileID: 5250477280752551916}
   - component: {fileID: 6557818170946818224}
   m_Layer: 5
@@ -73,6 +74,40 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 25, y: 25}
   m_EdgeRadius: 0
+--- !u!114 &7056948639098829825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3348985964859805512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a05d577b96351428ede5a621b8fca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrowSpeed: 1
+  GrowS: 0
+  PlantsWater: 0
+  PlantsFert: 0
+  _GenerateTimeCount: 0
+  _WitherTimeCount: 0
+  MyGrowth: 0
+  _GeneratedCount: 0
+  _PlantsName: "\u30E9\u30F3\u30C0\u30E0\u578B1"
+  _NumOfGenerate: 1
+  _DefaultWater: 50
+  _DefaultFert: 100
+  _WaterConsumption: 10
+  _FertConsumption: 10
+  _GenerateTime: 10
+  _WitherTime: 5
+  _IsOR: 1
+  Buff: 0
+  BuffTime: 0
+  GetBuff: 0
+  Rob: 0
+  Create: 0
 --- !u!212 &5250477280752551916
 SpriteRenderer:
   m_ObjectHideFlags: 0

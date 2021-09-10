@@ -133,7 +133,9 @@ public class Day_1 : MonoBehaviour
 
                 //}
 
-                if (BottonDown)
+                if (Days == 7 && BottonDown)
+                    SceneManager.LoadScene("Result");
+                else if(BottonDown)
                 {
                     DayTime = 0;
 
@@ -153,6 +155,10 @@ public class Day_1 : MonoBehaviour
             else
             {
                 ResultSuccess.text = "Fail";
+
+                if (BottonDown)
+                    SceneManager.LoadScene("Result");
+
             }
 
 
