@@ -147,7 +147,7 @@ public class Day_1 : MonoBehaviour
 
                 //}
 
-                if (Days == 7 && BottonDown)
+                if (day == Days.Day7 && BottonDown)
                     SceneManager.LoadScene("Result");
                 else if(BottonDown)
                 {
