@@ -161,7 +161,7 @@ PrefabInstance:
     - target: {fileID: 2948381137546959602, guid: 5714ecd4824921a41a79e6d00bf98e1a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2948381137546959602, guid: 5714ecd4824921a41a79e6d00bf98e1a,
         type: 3}
@@ -1108,7 +1108,7 @@ PrefabInstance:
     - target: {fileID: 2948381137546959602, guid: 5714ecd4824921a41a79e6d00bf98e1a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2948381137546959602, guid: 5714ecd4824921a41a79e6d00bf98e1a,
         type: 3}
@@ -2647,6 +2647,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5423254734642308053, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5423254734772815272, guid: 425f1ab1642d7344387878e52b44ed8f,
         type: 3}
       propertyPath: DayManager
@@ -2656,6 +2661,67 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_fontSizeMin
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_enableKerning
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_isOrthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4281479730
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423254735020081667, guid: 425f1ab1642d7344387878e52b44ed8f,
+        type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5423254735080934773, guid: 425f1ab1642d7344387878e52b44ed8f,
         type: 3}
