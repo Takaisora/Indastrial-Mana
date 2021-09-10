@@ -163,6 +163,7 @@ public class Day_1 : MonoBehaviour
 
                     Day_Start.GetComponent<Day_1_Start>().ReStart();
 
+                    SceneManager.LoadScene("Day");
                 }
             }
 
@@ -262,14 +263,14 @@ public class Day_1 : MonoBehaviour
 
     public void Dayplus()
     {
-        if (day >= Days.Ended)
+        if (day >= Days.Day7)
             day = Days.Day7;
         else day++;
     }
 
     public void Dayminus()
     {
-        if (day <= Days.None)
+        if (day <= Days.Day1)
             day = Days.Day1;
         else day--;
     }
