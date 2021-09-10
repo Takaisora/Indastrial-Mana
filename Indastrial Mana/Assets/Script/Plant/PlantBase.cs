@@ -90,7 +90,7 @@ public class PlantBase : MonoBehaviour
     {
         _DecreaseRatio = DayParameter.Instance.DecreaseRatios[(int)Day_1.day - 1];// ƒCƒ“ƒfƒbƒNƒX‚ª0`6Aday‚ª1`7‚È‚Ì‚Å-1
 
-        if (MyGrowth == GrowthState.Planted)
+        if (MyGrowth == GrowthState.Planted || MyGrowth == GrowthState.Generated)
         {
             // …‚Æ”ì—¿‚ÌÁ–Õ
             PlantsWater -= _WaterConsumption * Time.deltaTime * _DecreaseRatio;
@@ -139,12 +139,6 @@ public class PlantBase : MonoBehaviour
             Tutorial_Text.Mana = true;
             Debug.Log("A•¨‚ªƒ}ƒi‚ğ‡Œv" + _GeneratedCount + "¶¬");
             TextLog.Instance.Insert($"{_PlantsName}‚ªƒ}ƒi‚ğ¶¬");
-            // ‚±‚Ì¶¬‚ÅÅŒã‚É‚È‚é‚È‚ç
-            if (_NumOfGenerate <= _GeneratedCount)
-            {
-                Debug.Log("witherd");
-                _IsCompleted = true;
-            }
         }
     }
 
@@ -202,30 +196,24 @@ public class PlantBase : MonoBehaviour
 
     protected void Watering()
     {
-        if (!_IsCompleted)
-        {
-            Bucket.Instance.IsWaterFilled = false;
-            PlayerController.Instance.Tool = PlayerController.ToolState.BucketEmpty;
-            Debug.Log("…‚ğ—^‚¦‚½");
-            TextLog.Instance.Insert($"{_PlantsName}‚É…‚ğ—^‚¦‚½");
-            PlantsWater = _MAXPLANTSWATER;
-            Tutorial_Text.Water = true;
-            SoundManager.Instance.WaterSound();
-        }
+        Bucket.Instance.IsWaterFilled = false;
+        PlayerController.Instance.Tool = PlayerController.ToolState.BucketEmpty;
+        Debug.Log("…‚ğ—^‚¦‚½");
+        TextLog.Instance.Insert($"{_PlantsName}‚É…‚ğ—^‚¦‚½");
+        PlantsWater = _MAXPLANTSWATER;
+        Tutorial_Text.Water = true;
+        SoundManager.Instance.WaterSound();
     }
 
     protected void Fertilizing()
     {
-        if (!_IsCompleted)
-        {
-            Shovel.Instance.IsFertFilled = false;
-            PlayerController.Instance.Tool = PlayerController.ToolState.ShovelEmpty;
-            Debug.Log("”ì—¿‚ğ—^‚¦‚½");
-            TextLog.Instance.Insert($"{_PlantsName}‚É”ì—¿‚ğ—^‚¦‚½");
-            PlantsFert = _MAXPLANTSFERT;
-            Tutorial_Text.Fert = true;
-            SoundManager.Instance.fertilizerSound();
-        }
+        Shovel.Instance.IsFertFilled = false;
+        PlayerController.Instance.Tool = PlayerController.ToolState.ShovelEmpty;
+        Debug.Log("”ì—¿‚ğ—^‚¦‚½");
+        TextLog.Instance.Insert($"{_PlantsName}‚É”ì—¿‚ğ—^‚¦‚½");
+        PlantsFert = _MAXPLANTSFERT;
+        Tutorial_Text.Fert = true;
+        SoundManager.Instance.fertilizerSound();
     }
 
     protected void Harvest()
@@ -243,8 +231,8 @@ public class PlantBase : MonoBehaviour
             //{
                 //Last = true;
 
-                MyGrowth = GrowthState.Planted;
-                Tutorial_Text.Delivery = true;
+            MyGrowth = GrowthState.Planted;
+            Tutorial_Text.Delivery = true;
 
             // ‘S‚Ä¶¬Ï‚È‚çŒÍ‚ê‚é
             //if (_IsCompleted && Last)
@@ -253,12 +241,13 @@ public class PlantBase : MonoBehaviour
             //    M = 0;
             //}
 
-            // ‘S‚Ä¶¬Ï‚È‚çŒÍ‚ê‚é
-            if (_IsCompleted)
+            // ‚±‚Ì¶¬‚ÅÅŒã‚É‚È‚é‚È‚ç
+            if (_NumOfGenerate <= _GeneratedCount)
             {
+                _IsCompleted = true;
                 MyGrowth = GrowthState.Withered;
-                //M = 0;
             }
+
             //}
 
             MyBottle.IsManaFilled = true;

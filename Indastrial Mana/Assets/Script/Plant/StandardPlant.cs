@@ -28,6 +28,7 @@ public class StandardPlant : PlantBase
             base.DepletionCheck();
             base.DrawGauge(); 
         }
+
         if (base.MyGrowth == GrowthState.Generated)
             animator.SetBool(_Generat, true);
         else
