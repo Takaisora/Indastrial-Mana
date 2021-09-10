@@ -30,6 +30,7 @@ public class PlantBase : MonoBehaviour
     private GameObject MyGarden = null;
     private Image _WaterGauge = null;
     private Image _FertGauge = null;
+    private float _DecreaseRatio = 0;
 
     // レベルデザイン用
     [SerializeField, Header("植物名")]
@@ -40,9 +41,9 @@ public class PlantBase : MonoBehaviour
     byte _DefaultWater;
     [SerializeField, Header("肥料の初期量(上限100, 少数可)")]
     byte _DefaultFert;
-    [SerializeField, Header("水消費量/秒(整数)")]
+    [SerializeField, Header("水基本消費量/秒(整数)")]
     byte _WaterConsumption;
-    [SerializeField, Header("肥料消費量/秒(整数)")]
+    [SerializeField, Header("肥料基本消費量/秒(整数)")]
     byte _FertConsumption;
     [SerializeField, Header("マナ生成までに必要な時間(秒, 少数可)")]
     float _GenerateTime;
@@ -50,8 +51,6 @@ public class PlantBase : MonoBehaviour
     float _WitherTime;
     [SerializeField, Header("水か肥料どちらかだけでも枯れる？")]
     bool _IsOR;
-
-
 
     //ランダム型2
     // バフがかかっているかを判別するbool変数
@@ -89,13 +88,15 @@ public class PlantBase : MonoBehaviour
     /// </summary>
     protected void DepletionCheck()
     {
+        _DecreaseRatio = DayParameter.Instance.DecreaseRatios[(int)Day_1.day - 1];// インデックスが0～6、dayが1～7なので-1
+
         if (MyGrowth == GrowthState.Planted)
         {
             // 水と肥料の消耗
-            PlantsWater -= _WaterConsumption * Time.deltaTime;
+            PlantsWater -= _WaterConsumption * Time.deltaTime * _DecreaseRatio;
             if (PlantsWater < 0)
                 PlantsWater = 0;
-            PlantsFert -= _FertConsumption * Time.deltaTime;
+            PlantsFert -= _FertConsumption * Time.deltaTime * _DecreaseRatio;
             if (PlantsFert < 0)
                 PlantsFert = 0;
 
