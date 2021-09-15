@@ -6,15 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Title : MonoBehaviour
 {
-    Touch touch;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
 #if UNITY_EDITOR
 
@@ -33,9 +25,7 @@ public class Title : MonoBehaviour
             {
                 SceneManager.LoadScene("Select");
             }
-        }
-
-        
+        } 
 #endif
     }
 }
