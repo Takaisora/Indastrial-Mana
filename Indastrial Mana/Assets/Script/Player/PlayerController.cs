@@ -6,6 +6,8 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 {
     [SerializeField]
     private Animator _Animator = null;
+    [SerializeField]
+    GameObject Vine;
     [SerializeField, Header("‰Šú‘‹à")]
     public static ushort Money = 500;// (“ú”‚Ü‚½‚¢‚Åˆø‚«Œp‚®)
     [SerializeField, Header("ˆÚ“®‚Ì‘¬‚³")]
@@ -25,6 +27,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     private Rigidbody2D rb = null;
     public static bool Buff = false;
     public static float BuffTime = 0;
+    public static bool Obs1Buff = false;
 
     public AudioClip ItemCarry;
     AudioSource audioSource;
@@ -97,12 +100,17 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         if (Buff)
         {
             BuffTime -= Time.deltaTime;
+            if (Obs1Buff)
+                Vine.SetActive(true);
             if (BuffTime <= 0)
             {
                 MoveRatio = 1;
                 Buff = false;
+                Obs1Buff = false;
             }
         }
+        if (!Buff)
+            Vine.SetActive(false);
 
         if (Input.GetKey(KeyCode.A))
         {

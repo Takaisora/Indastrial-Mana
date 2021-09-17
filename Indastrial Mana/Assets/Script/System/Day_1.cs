@@ -164,6 +164,9 @@ public class Day_1 : MonoBehaviour
                     Day_Start.GetComponent<Day_1_Start>().ReStart();
 
                     SceneManager.LoadScene("Day");
+
+                    if (PlayerController.Money <= 500)
+                        PlayerController.Money = 500;
                 }
             }
 

@@ -25,7 +25,7 @@ public class Study : SingletonMonoBehaviour<Study>
     int Medium = 70;        //中度、重度判別用（％）
     int BaseMadness = 10;   //発狂抽選基本確率（％）
     int MadnessLv = 0;      //0＝軽度、1＝中度、2＝重度 
-    int MadnessTime = 10;   //基本の発狂時間　MadnessLv*2を追加して使用。
+    int MadnessTime = 3;   //基本の発狂時間　MadnessLv*2を追加して使用。
     float CrazyTime = 0;    //発狂時間計測
                             //狂気フラグ
     public static bool Madnesslv4 = false;

@@ -41,6 +41,7 @@ public class ObstructionPlant_1 : PlantBase
                             {
                                 PlayerController.Instance.MoveRatio = 0;
                                 PlayerController.Buff = true;
+                                PlayerController.Obs1Buff = true;
                                 PlayerController.BuffTime = DebuffTime;
                                 _isBuffed = true;
                             }
