@@ -305,6 +305,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7164233440109006745, guid: 7a3b7bb3d68a37543b1966652acee3d1,
         type: 3}
+      propertyPath: Vine
+      value: 
+      objectReference: {fileID: 1765981673}
+    - target: {fileID: 7164233440109006745, guid: 7a3b7bb3d68a37543b1966652acee3d1,
+        type: 3}
       propertyPath: Shovel
       value: 
       objectReference: {fileID: 0}
@@ -976,7 +981,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PlantsType.Array.data[0]
       value: 
-      objectReference: {fileID: 3348985964859805512, guid: b97b7a77d863a5d409b2af0c4079797b,
+      objectReference: {fileID: 3348985964859805512, guid: 7e9909d4be87c904eb61e20c77fe3001,
         type: 3}
     - target: {fileID: 2802687900017154875, guid: 19b73f955af360e4287568ace395f0f0,
         type: 3}
@@ -2871,6 +2876,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1765981673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 625891665531777067, guid: 7a3b7bb3d68a37543b1966652acee3d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 367735698}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1963647869 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7164233440109006745, guid: 7a3b7bb3d68a37543b1966652acee3d1,

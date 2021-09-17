@@ -6,6 +6,8 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 {
     [SerializeField]
     private Animator _Animator = null;
+    [SerializeField]
+    GameObject Vine;
     [SerializeField, Header("‰Šú‘‹à")]
     public static ushort Money = 500;// (“ú”‚Ü‚½‚¢‚Åˆø‚«Œp‚®)
     [SerializeField, Header("ˆÚ“®‚Ì‘¬‚³")]
@@ -70,12 +72,16 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         if (Buff)
         {
             BuffTime -= Time.deltaTime;
+            if (MoveRatio == 0)
+                Vine.SetActive(true);
             if (BuffTime <= 0)
             {
                 MoveRatio = 1;
                 Buff = false;
             }
         }
+        if (!Buff)
+            Vine.SetActive(false);
 
         if (Input.GetKey(KeyCode.A))
         {
