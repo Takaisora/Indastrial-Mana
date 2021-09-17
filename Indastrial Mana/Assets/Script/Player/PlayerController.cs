@@ -21,6 +21,13 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     public List<GameObject> HitItems = new List<GameObject>();// 接触しているアイテム
     public bool IsEnterBottleStrage = false;
     public bool IsEnterStudyArea = false;
+    private Study _MyStudy = null;
+    private Rigidbody2D rb = null;
+    public static bool Buff = false;
+    public static float BuffTime = 0;
+
+    public AudioClip ItemCarry;
+    AudioSource audioSource;
 
     public Joystick joystick;
 
@@ -34,12 +41,20 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         BottleEmpty,
         BottleFilled,
         Seed,
+        ObsSeed,
     }
 
     private void Start()
     {
+        MoveRatio = 1;
         _PlayerScale = transform.localScale;
-        _RB = GetComponent<Rigidbody2D>();
+        Tool = ToolState.None;
+        GameObject Study = GameObject.Find("StudyArea");
+        _MyStudy = Study.GetComponent<Study>();
+        rb = GetComponent<Rigidbody2D>();
+        Buff = false;
+        BuffTime = 0;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -52,7 +67,16 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         _MoveY = 0;
         _DeltaMove = _MoveSpeed * MoveRatio * Time.deltaTime;
 
-        /*
+        if (Buff)
+        {
+            BuffTime -= Time.deltaTime;
+            if (BuffTime <= 0)
+            {
+                MoveRatio = 1;
+                Buff = false;
+            }
+        }
+
         if (Input.GetKey(KeyCode.A))
         {
             _MoveX = -_DeltaMove;
@@ -72,8 +96,14 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         {
             _MoveY = -_DeltaMove;
         }
-        */
-
+#if UNITY_EDITOR
+        transform.Translate(_MoveX, _MoveY, 0);// PCが重いのでこっち
+#endif
+#if UNITY_IOS
+        Vector2 move = new Vector2(_MoveX, _MoveY);// 最終的にはこっち
+        rb.velocity = move;
+#endif
+        #endregion
 
         //JoyStick
 
@@ -84,16 +114,22 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
             transform.Translate(MoveVecter * _DeltaMove, Space.World);
         }
 
-        if(joystick.Horizontal <= 0)
+        if(joystick.Horizontal < 0)
         {
             transform.localScale = new Vector3(_PlayerScale.x, _PlayerScale.y);
+            SoundManager.delayKeyWalk = true;
+        }
+        else if(joystick.Horizontal > 0)
+        {
+            transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
+            SoundManager.delayKeyWalk = true;
         }
         else
         {
-            transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
+            SoundManager.delayKeyWalk = false;
+            SoundManager.WalkCount = 0;
         }
 
-        #endregion
 
         #region アニメーション
         byte AnimationState = (byte)Tool;
@@ -117,7 +153,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                     // 植物をその場に植える
                     CarryItem.transform.position = SetPosition;
                     // ゲージ起動
-                    CarryItem.GetComponent<PlantBase>().Plant(Gardens.WaterGauge, Gardens.FertGauge);
+                    CarryItem.GetComponent<PlantBase>().Plant(Garden);
                     CarryItem = null;
                     Tool = ToolState.None;
                     Tutorial_Text.Planted = true;
@@ -186,14 +222,20 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         if (Tool == ToolState.None)
         {
             if (HitItems.Count > 0)
+            {
                 GetItem();
+                SoundManager.Instance.ItemCarrySound();
+            }
             else if (IsEnterStudyArea)
             {
                 Study.Instance.Studying();
                 Tutorial_Text.Stady = true;
             }
             else if (IsEnterBottleStrage)
+            {
+                SoundManager.Instance.ItemCarrySound();
                 BottleStrage.Instance.GetBottle();
+            }
         }
         else
             RemoveItem(transform.position.x, transform.position.y);
@@ -210,11 +252,13 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         switch (ItemType[0])
         {
             case "Bucket":
+                audioSource.PlayOneShot(ItemCarry);
                 if (Bucket.Instance.IsWaterFilled)
                     Tool = ToolState.BucketFilled;
                 else
                     Tool = ToolState.BucketEmpty;
                 Debug.Log("バケツを持った");
+                TextLog.Instance.Insert("バケツを持った");
                 break;
             case "Shovel":
                 if (Shovel.Instance.IsFertFilled)
@@ -222,10 +266,17 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 else
                     Tool = ToolState.ShovelEmpty;
                 Debug.Log("シャベルを持った");
+                TextLog.Instance.Insert("シャベルを持った");
                 break;
             case "Seed":
                 Tool = ToolState.Seed;
                 Debug.Log("種を持った");
+                TextLog.Instance.Insert("種を持った");
+                break;
+            case "ObsSeed":
+                Tool = ToolState.ObsSeed;
+                Debug.Log("種を持った");
+                TextLog.Instance.Insert("種を持った");
                 break;
             case "Bottle":
                 if (CarryItem.GetComponent<Bottle>().IsManaFilled)
@@ -233,6 +284,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 else
                     Tool = ToolState.BottleEmpty;
                 Debug.Log("ビンを持った");
+                TextLog.Instance.Insert("ビンを持った");
                 break;
             default:
                 break;
@@ -294,15 +346,23 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 {
                     case ToolState.BucketEmpty:
                         Debug.Log("バケツを置いた");
+                        TextLog.Instance.Insert("バケツを置いた");
                         break;
                     case ToolState.ShovelEmpty:
                         Debug.Log("シャベルを置いた");
+                        TextLog.Instance.Insert("シャベルを置いた");
                         break;
                     case ToolState.Seed:
                         Debug.Log("種を置いた");
+                        TextLog.Instance.Insert("種を置いた");
+                        break;
+                    case ToolState.BottleEmpty:
+                        Debug.Log("ビンを置いた");
+                        TextLog.Instance.Insert("ビンを置いた");
                         break;
                     case ToolState.BottleFilled:
                         Debug.Log("ビンを置いた");
+                        TextLog.Instance.Insert("ビンを置いた");
                         break;
                     default:
                         break;

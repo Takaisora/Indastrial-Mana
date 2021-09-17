@@ -12,11 +12,30 @@ public class Delivery : SingletonMonoBehaviour<Delivery>
 
     private const string _Delyvery = "Delyvery";
 
+    private int Delay = 2;//ディレイ用
+    private float _DelayTime = 0;
+    private bool DelayFlag = false;//ディレイ用のフラグ
+
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        if (DelayFlag)
+        {
+            _DelayTime += Time.deltaTime;
+            if (Delay <= _DelayTime)
+            {
+                Debug.Log("資金が" + _REWORD + "増えた");
+                TextLog.Instance.Insert($"資金が{_REWORD}増えた");
+                SoundManager.Instance.MoneySound();
+                DelayFlag = false;
+                _DelayTime = 0;
+            }
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player" && _PlayerController.Tool == PlayerController.ToolState.BottleFilled)
@@ -32,7 +51,10 @@ public class Delivery : SingletonMonoBehaviour<Delivery>
                 Day_1.ManaBottle += 1;
                 Tutorial.ManaBottle += 1;
                 Debug.Log("マナを納品した");
-                Debug.Log("資金が" + _REWORD + "増えた");
+                TextLog.Instance.Insert("マナを納品した");
+                SoundManager.Instance.ManaSound();
+                DelayFlag = true;
+                
             }
         }
     }

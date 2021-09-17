@@ -40,7 +40,7 @@ public class Start_Tutorial : MonoBehaviour
     }
     void Day1()
     {
-        Day1Start.text = Day_1.Days + "Days";
+        Day1Start.text = $"{Day_1.day}Days";
     }
     void Start1()
     {

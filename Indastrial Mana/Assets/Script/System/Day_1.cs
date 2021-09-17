@@ -4,7 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class Day_1 : MonoBehaviour
 {
-    public static int Days = 1;
+    public enum Days : byte
+    {
+        None,
+        Day1,
+        Day2,
+        Day3,
+        Day4,
+        Day5,
+        Day6,
+        Day7,
+        Ended,
+    }
+    //public static int Days = 1;
+
+    public static Days day = Days.Day1;
 
     public int RiquiredManaBottle = 0;//クリアに必要なマナボトル
 
@@ -17,6 +31,8 @@ public class Day_1 : MonoBehaviour
     public bool Result_Flag = false;//リザルト判定
 
     public bool Success_Flag = false;//クリア判定
+
+    public static bool Crazy_Flag = false;//ボトル数が見えなくなる判定
 
     [SerializeField]
     int RiquiredManaBottle1 = 3;//1日目の目標数
@@ -59,6 +75,8 @@ public class Day_1 : MonoBehaviour
 
     Touch touch;
 
+    public float CrazyTime = 0;//狂気時間計測
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -67,6 +85,7 @@ public class Day_1 : MonoBehaviour
         RiquiredManaBottle = RiquiredManaBottle1;//目標数設定
 
         Day_1_Start script = Day_Start.GetComponent<Day_1_Start>();
+        Crazy_Flag = false;//判定のリセット
     }
 
     // Update is called once per frame
@@ -108,11 +127,11 @@ public class Day_1 : MonoBehaviour
             Player.GetComponent<PlayerController>().enabled = false;
         }
 
-        if(Result_Flag == true)
+        if (Result_Flag == true)
         {
             Day_Result.SetActive(true);
 
-            ResultDay.text = Days + "Days";
+            ResultDay.text = $"{(int)day} Days";
 
             ResultMoney.text = " x " + PlayerController.Money;
 
@@ -122,72 +141,64 @@ public class Day_1 : MonoBehaviour
             {
                 ResultSuccess.text = "Success";
 
-                if (BottonDown)
-                {
+                //if (BottonDown)
+                //{
+                //    SceneManager.LoadScene("Result");
+
+                //}
+
+                if (day == Days.Day7 && BottonDown)
                     SceneManager.LoadScene("Result");
+                else if(BottonDown)
+                {
+                    DayTime = 0;
 
+                    Result_Flag = false;
+
+                    day++;
+
+                    ManaBottle = 0;
+
+                    Day_Start.SetActive(true);
+
+                    Day_Start.GetComponent<Day_1_Start>().ReStart();
+
+                    SceneManager.LoadScene("Day");
                 }
-
-//#if UNITY_EDITOR
-
-//                if (Input.GetMouseButtonDown(0))
-//                {
-//                    DayTime = 0;
-
-//                    Result_Flag = false;
-
-//                    Days += 1;
-
-//                    ManaBottle = 0;
-
-//                    Day_Start.SetActive(true);
-
-//                    Day_Start.GetComponent<Day_1_Start>().ReStart();
-                    
-//                }
-
-//#endif
-
-////#if UNITY_IOS
-////                if (Input.touchCount > 0)
-////                {
-////                    Touch touch = Input.GetTouch(0);
-////                }
-
-////                if (touch.phase == TouchPhase.Began)
-////                {
-////                    DayTime = 0;
-
-////                    Result_Flag = false;
-
-////                    Days += 1;
-
-////                    ManaBottle = 0;
-
-////                    Day_Start.SetActive(true);
-
-////                    Day_Start.GetComponent<Day_1_Start>().ReStart();
-////                }
-////#endif
             }
 
             else
             {
                 ResultSuccess.text = "Fail";
+
+                if (BottonDown)
+                    SceneManager.LoadScene("Result");
+
             }
-
-
         }
         else
         {
             Day_Result.SetActive(false);
         }
 
-        Day.text = Days +"Day";
+        Day.text = $"{(int)day}Day";
 
         Day1Money.text =" x " + PlayerController.Money;
 
         Day1ManaBottle.text = " x " +ManaBottle + " / " + RiquiredManaBottle;
+        if (!Crazy_Flag)
+        {
+            Day1ManaBottle.text = "x" + ManaBottle + "/" + RiquiredManaBottle;
+        }else if (Crazy_Flag)
+        {
+            Day1ManaBottle.text = ".@:]/,<>.+;[@[@]/..[";
+            CrazyTime += Time.deltaTime;
+            if(CrazyTime >= 10)
+            {
+                Crazy_Flag = false;
+                CrazyTime = 0;
+            }
+        }
 
         Day1Time.text = time.ToString("F0");
 
@@ -197,8 +208,6 @@ public class Day_1 : MonoBehaviour
         {
             Day1Time.text = "End";
         }
-
-
     }
 
     public void SFlag()
@@ -212,6 +221,12 @@ public class Day_1 : MonoBehaviour
         DayTime += Time.deltaTime;
     }
 
+    public void DayEnd()
+    {
+        DayTime = 90;
+        SoundManager.Instance.EndSound();
+        Invoke("Result", 3f);
+    }
     public void Result()
     {
 
@@ -220,12 +235,15 @@ public class Day_1 : MonoBehaviour
             Result_Flag = true;
 
             Success_Flag = false;
+            SoundManager.delayKeyWalk = false;
+            SoundManager.delayKeyLose = true;
         }
         else
         {
             Result_Flag = true;
 
             Success_Flag = true;
+            SoundManager.Instance.WinSound();
         }
     }
 
@@ -242,5 +260,19 @@ public class Day_1 : MonoBehaviour
     public void buttonf()
     {
         BottonDown = false;
+    }
+
+    public void Dayplus()
+    {
+        if (day >= Days.Day7)
+            day = Days.Day7;
+        else day++;
+    }
+
+    public void Dayminus()
+    {
+        if (day <= Days.Day1)
+            day = Days.Day1;
+        else day--;
     }
 }

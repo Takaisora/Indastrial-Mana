@@ -6,21 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class Title : MonoBehaviour
 {
-    Touch touch;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
 #if UNITY_EDITOR
 
         if (Input.GetMouseButtonDown(0))
         {
-            SceneManager.LoadScene("Tutorial");
+            SceneManager.LoadScene("Select");
         }
 
 #endif
@@ -31,11 +23,9 @@ public class Title : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                SceneManager.LoadScene("Tutorial");
+                SceneManager.LoadScene("Select");
             }
-        }
-
-        
+        } 
 #endif
     }
 }

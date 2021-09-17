@@ -28,13 +28,17 @@ public class StandardPlant : PlantBase
             base.DepletionCheck();
             base.DrawGauge(); 
         }
+
         if (base.MyGrowth == GrowthState.Generated)
             animator.SetBool(_Generat, true);
         else
             animator.SetBool(_Generat, false);
 
         if (base.MyGrowth == GrowthState.Withered)
+        {
+            SoundManager.Instance.WitherSound();
             base.Withered();
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

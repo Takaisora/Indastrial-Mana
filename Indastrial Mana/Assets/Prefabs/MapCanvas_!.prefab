@@ -584,7 +584,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3623241124993657087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1672,6 +1672,7 @@ MonoBehaviour:
   - {fileID: 3348985964859805512, guid: 10208b98e73a27d4fa5258eec8e51f29, type: 3}
   SetPosition: {fileID: 3623241124649035270}
   MapCanvas: {fileID: 3623241124993657072}
+  IsStudying: 0
 --- !u!1001 &3623241124417771898
 PrefabInstance:
   m_ObjectHideFlags: 0
