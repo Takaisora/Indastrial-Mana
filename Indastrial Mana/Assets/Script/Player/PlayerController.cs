@@ -59,6 +59,33 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private void Update()
     {
+        #region í‚ğA‚¦‚éˆ—
+        if (Tool == ToolState.Seed)
+        {
+            RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
+            if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Garden"))
+            {
+                GameObject Garden = Hit.collider.gameObject;
+                Garden Gardens = Garden.GetComponent<Garden>();
+                if (!Gardens.IsPlanted)
+                {
+                    Vector3 SetPosition = new Vector3(Mathf.RoundToInt(transform.position.x)
+                                , Mathf.RoundToInt(transform.position.y));
+                    // A•¨‚ğ‚»‚Ìê‚ÉA‚¦‚é
+                    CarryItem.transform.position = SetPosition;
+                    // ƒQ[ƒW‹N“®
+                    CarryItem.GetComponent<PlantBase>().Plant(Garden);
+                    CarryItem = null;
+                    Tool = ToolState.None;
+                    Tutorial_Text.Planted = true;
+                }
+            }
+        }
+        #endregion
+    }
+
+    private void FixedUpdate()
+    {
         #region ˆÚ“®ˆ—
 #if UNITY_EDITOR
         _MoveSpeed = 5;
@@ -103,23 +130,22 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         Vector2 move = new Vector2(_MoveX, _MoveY);// ÅI“I‚É‚Í‚±‚Á‚¿
         rb.velocity = move;
 #endif
-        #endregion
 
         //JoyStick
 
         Vector3 MoveVecter = (Vector3.right * joystick.Horizontal + Vector3.up * joystick.Vertical);
 
-        if(MoveVecter != Vector3.zero)
+        if (MoveVecter != Vector3.zero)
         {
             transform.Translate(MoveVecter * _DeltaMove, Space.World);
         }
 
-        if(joystick.Horizontal < 0)
+        if (joystick.Horizontal < 0)
         {
             transform.localScale = new Vector3(_PlayerScale.x, _PlayerScale.y);
             SoundManager.delayKeyWalk = true;
         }
-        else if(joystick.Horizontal > 0)
+        else if (joystick.Horizontal > 0)
         {
             transform.localScale = new Vector3(-_PlayerScale.x, _PlayerScale.y);
             SoundManager.delayKeyWalk = true;
@@ -129,37 +155,13 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
             SoundManager.delayKeyWalk = false;
             SoundManager.WalkCount = 0;
         }
-
+        #endregion
 
         #region ƒAƒjƒ[ƒVƒ‡ƒ“
         byte AnimationState = (byte)Tool;
         if (_MoveX != 0 || _MoveY != 0 || MoveVecter != Vector3.zero)
             AnimationState += 100;// “®‚¢‚Ä‚¢‚é‚È‚ç+100
         _Animator.SetInteger("PlayerState", AnimationState);
-        #endregion
-
-        #region í‚ğA‚¦‚éˆ—
-        if (Tool == ToolState.Seed)
-        {
-            RaycastHit2D Hit = CheckCell(transform.position.x, transform.position.y);
-            if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Garden"))
-            {
-                GameObject Garden = Hit.collider.gameObject;
-                Garden Gardens = Garden.GetComponent<Garden>();
-                if (!Gardens.IsPlanted)
-                {
-                    Vector3 SetPosition = new Vector3(Mathf.RoundToInt(transform.position.x)
-                                , Mathf.RoundToInt(transform.position.y));
-                    // A•¨‚ğ‚»‚Ìê‚ÉA‚¦‚é
-                    CarryItem.transform.position = SetPosition;
-                    // ƒQ[ƒW‹N“®
-                    CarryItem.GetComponent<PlantBase>().Plant(Garden);
-                    CarryItem = null;
-                    Tool = ToolState.None;
-                    Tutorial_Text.Planted = true;
-                }
-            }
-        }
         #endregion
     }
 
