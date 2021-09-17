@@ -97,13 +97,13 @@ MonoBehaviour:
   _GeneratedCount: 0
   _PlantsName: "\u59A8\u5BB3\u578B2"
   _NumOfGenerate: 2
-  _DefaultWater: 100
-  _DefaultFert: 100
-  _WaterConsumption: 10
-  _FertConsumption: 10
-  _GenerateTime: 40
-  _WitherTime: 10
-  _IsOR: 0
+  _DefaultWater: 70
+  _DefaultFert: 70
+  _WaterConsumption: 5
+  _FertConsumption: 5
+  _GenerateTime: 11
+  _WitherTime: 1
+  _IsOR: 1
   Buff: 0
   BuffTime: 0
   GetBuff: 0
