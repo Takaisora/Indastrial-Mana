@@ -21,7 +21,7 @@ public class PlantBase : MonoBehaviour
     [SerializeField]
     private float _GenerateTimeCount = 0;// 生成までの経過時間カウント
     [SerializeField]
-    private float _WitherTimeCount = 0;// 枯渇時間カウント
+    public float _WitherTimeCount = 0;// 枯渇時間カウント
     [SerializeField]
     protected GrowthState MyGrowth = GrowthState.Seed;// 植物の成長状態
     protected GameObject Player = null;
@@ -48,7 +48,7 @@ public class PlantBase : MonoBehaviour
     [SerializeField, Header("マナ生成までに必要な時間(秒, 少数可)")]
     float _GenerateTime;
     [SerializeField, Header("条件を満たした時に枯れるまでの時間(秒, 少数可)")]
-    float _WitherTime;
+    public float _WitherTime;
     [SerializeField, Header("水か肥料どちらかだけでも枯れる？")]
     bool _IsOR;
 

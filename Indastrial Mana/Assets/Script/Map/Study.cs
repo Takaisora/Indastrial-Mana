@@ -68,6 +68,8 @@ public class Study : SingletonMonoBehaviour<Study>
 
             animator.SetBool(_Study_Anim, true);
 
+            Tutorial_Text.Stady = true;
+
             //3•bŒo‚Á‚½‚çŽí¶ŽY
             if (_TimeCount >= _TimeRequired)
             {
