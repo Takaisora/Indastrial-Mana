@@ -18,7 +18,6 @@ public class Study : SingletonMonoBehaviour<Study>
     GameObject MapCanvas = null;
     private float _TimeCount = 0;        //時間
     public bool IsStudying = false;    //研究中判定
-    private int SelectedSeed = 0;   //抽選された種
     public static int Madness = 0;        //狂気度
     public static int AddMadness = 5;     //1度の研究で加算される狂気度
     int Craziness = 0;      //発狂種類
@@ -78,17 +77,52 @@ public class Study : SingletonMonoBehaviour<Study>
                 PlayerController.Instance.MoveRatio = 1;// 元に戻す
 
                 //種抽選
-                SelectedSeed = Random.Range(0, PlantsType.Length);     // 0から配列のサイズまでの乱数
+                int MaxRange = 0;
+
+                switch(Day_1.day)
+                {
+                    case Day_1.Days.Day1:
+                        MaxRange = 3;
+                        break;
+                    case Day_1.Days.Day2:
+                        MaxRange = 4;
+                        break;
+                    case Day_1.Days.Day3:
+                        MaxRange = 5;
+                        break;
+                    case Day_1.Days.Day4:
+                        MaxRange = 6;
+                        // ここから突然変異
+                        break;
+                    case Day_1.Days.Day5:
+                        MaxRange = 7;
+                        break;
+                    case Day_1.Days.Day6:
+                        MaxRange = 8;
+                        break;
+                    case Day_1.Days.Day7:
+                        MaxRange = 9;
+                        break;
+                    default:
+                        break;
+                }
+
+                if (MaxRange > PlantsType.Length)
+                    MaxRange = PlantsType.Length;// 例外処理
+
+                int SelectedNum = Random.Range(0, MaxRange);     // 0から配列のサイズまでの乱数
+
+
                 // 選ばれた番号の種を生成
-                GameObject MySeed = Instantiate(PlantsType[SelectedSeed]);
-                if (SelectedSeed < 3)
+                GameObject MySeed = Instantiate(PlantsType[SelectedNum]);
+                if (SelectedNum < 3)
                     MySeed.name = "Seed";
-                else if (SelectedSeed < 6)
+                else if (SelectedNum < 6)
                     MySeed.name = "ObsSeed";
                 MySeed.transform.position = SetPosition.transform.position;
                 MySeed.transform.parent = MapCanvas.transform;
-                Debug.Log("タイプ" + SelectedSeed + "の種が生産された");
-                TextLog.Instance.Insert($"タイプ{SelectedSeed}の種が生産された");
+                Debug.Log("タイプ" + SelectedNum + "の種が生産された");
+                TextLog.Instance.Insert($"タイプ{SelectedNum + 1}の種が生産された");
                 AddMad();
 
                 
