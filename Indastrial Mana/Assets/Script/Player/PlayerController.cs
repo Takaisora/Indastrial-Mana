@@ -27,6 +27,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     private Rigidbody2D rb = null;
     public static bool Buff = false;
     public static float BuffTime = 0;
+    public static bool Obs1Buff = false;
 
     public AudioClip ItemCarry;
     AudioSource audioSource;
@@ -72,12 +73,13 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         if (Buff)
         {
             BuffTime -= Time.deltaTime;
-            if (MoveRatio == 0)
+            if (Obs1Buff)
                 Vine.SetActive(true);
             if (BuffTime <= 0)
             {
                 MoveRatio = 1;
                 Buff = false;
+                Obs1Buff = false;
             }
         }
         if (!Buff)

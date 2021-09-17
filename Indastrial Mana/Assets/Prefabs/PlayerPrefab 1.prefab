@@ -249,6 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Animator: {fileID: 6222857777895105203}
+  Vine: {fileID: 625891665531777067}
   _MoveSpeed: 5
   MoveRatio: 1
   CarryItem: {fileID: 0}

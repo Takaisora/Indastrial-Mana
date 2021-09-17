@@ -820,6 +820,12 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Facility
       objectReference: {fileID: 0}
+    - target: {fileID: 2125181874619746398, guid: 19b73f955af360e4287568ace395f0f0,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 07409ec34d5a1684f85090e85d975157,
+        type: 3}
     - target: {fileID: 2431165232101556543, guid: 19b73f955af360e4287568ace395f0f0,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -983,7 +989,7 @@ PrefabInstance:
     - target: {fileID: 2802687900017154875, guid: 19b73f955af360e4287568ace395f0f0,
         type: 3}
       propertyPath: PlantsType.Array.size
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2802687900017154875, guid: 19b73f955af360e4287568ace395f0f0,
         type: 3}
