@@ -1,9 +1,9 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DayParameter : SingletonMonoBehaviour<DayParameter>
 {
-    [SerializeField, Header("Še“ú”‚Ì…E”ì—¿‚ÌŒ¸­”{—¦(Day1`7)")]
+    [SerializeField, Header("ÂŠeÂ“ÃºÂÂ”Â‚ÄšÂÂ…ÂEÂ”Ä›Â—Å¼Â‚ÄšÂŒÂ¸ÂÂ­Â”{Â—Åš(Day1Â`7)")]
     public float[] DecreaseRatios = new float[7];
 }

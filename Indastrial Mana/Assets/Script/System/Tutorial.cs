@@ -1,9 +1,16 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
+    public enum Days : byte
+    {
+        None,
+        Day0,
+        Ended,
+    }
+
     public int Tu = 0;
 
     public GameObject TutorialUI;
@@ -13,30 +20,30 @@ public class Tutorial : MonoBehaviour
     public Text Tutorial_Text;
 
 
-    public static int Days = 1;
+    public static Days day = Days.Day0;
 
-    public int RiquiredManaBottle = 0;//ƒNƒŠƒA‚É•K—v‚Èƒ}ƒiƒ{ƒgƒ‹
+    public int RiquiredManaBottle = 0;//ã‚¯ãƒªã‚¢ã«å¿…è¦ãªãƒãƒŠãƒœãƒˆãƒ«
 
-    public static int ManaBottle = 0;//ƒ}ƒiƒ{ƒgƒ‹
+    public static int ManaBottle = 0;//ãƒãƒŠãƒœãƒˆãƒ«
 
-    public float DayTime = 0;//ˆê“ú•ª‚ÌŠÔ
+    public float DayTime = 0;//ä¸€æ—¥åˆ†ã®æ™‚é–“
 
-    public bool Start_Flag = false;//ˆê“ú‚ÌnI
+    public bool Start_Flag = false;//ä¸€æ—¥ã®å§‹çµ‚
 
-    public bool Result_Flag = false;//ƒŠƒUƒ‹ƒg”»’è
+    public bool Result_Flag = false;//ãƒªã‚¶ãƒ«ãƒˆåˆ¤å®š
 
-    public bool Success_Flag = false;//ƒNƒŠƒA”»’è
+    public bool Success_Flag = false;//ã‚¯ãƒªã‚¢åˆ¤å®š
 
     [SerializeField]
-    int RiquiredManaBottle1 = 1;//1“ú–Ú‚Ì–Ú•W”
+    int RiquiredManaBottle1 = 1;//1æ—¥ç›®ã®ç›®æ¨™æ•°
 
-    public GameObject Day_Start;//ƒIƒuƒWƒFƒNƒg‰¼’u‚«
+    public GameObject Day_Start;//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä»®ç½®ã
 
     Day_1_Start script;
 
-    public GameObject Day_Time;//ƒIƒuƒWƒFƒNƒg‰¼’u‚«
+    public GameObject Day_Time;//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä»®ç½®ã
 
-    public GameObject Day_Money;//ƒIƒuƒWƒFƒNƒg‰¼’u‚«
+    public GameObject Day_Money;//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä»®ç½®ã
 
     public GameObject Day_ManaBottle;
 
@@ -60,9 +67,9 @@ public class Tutorial : MonoBehaviour
 
     public Text Day1Time;//Text
 
-    public float time = 0;//•\¦‚³‚ê‚éŠÔ
+    public float time = 0;//è¡¨ç¤ºã•ã‚Œã‚‹æ™‚é–“
 
-    public float LimitTime = 90;//§ŒÀŠÔ
+    public float LimitTime = 90;//åˆ¶é™æ™‚é–“
 
     int SF = 0;
 
@@ -79,7 +86,7 @@ public class Tutorial : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        RiquiredManaBottle = RiquiredManaBottle1;//–Ú•W”İ’è
+        RiquiredManaBottle = RiquiredManaBottle1;//ç›®æ¨™æ•°è¨­å®š
 
         Day_1_Start script = Day_Start.GetComponent<Day_1_Start>();
 
@@ -89,7 +96,7 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        #region ƒfƒoƒbƒO—p
+        #region ãƒ‡ãƒãƒƒã‚°ç”¨
         //Debug.Log(DayTime);
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -121,7 +128,7 @@ public class Tutorial : MonoBehaviour
 
                 ResultManaBottle.text = " x " + ManaBottle + " / " + RiquiredManaBottle;
 
-                ResultSuccess.text = "ƒ`ƒ…[ƒgƒŠƒAƒ‹Š®—¹";
+                ResultSuccess.text = "ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«å®Œäº†";
 
                 Player.GetComponent<PlayerController>().enabled = false;
 
@@ -238,7 +245,7 @@ public class Tutorial : MonoBehaviour
 
     public void SFlag()
     {
-        Tutorial_Text_Botton.text = ("‹ß‚­‚Ì•¨‚É\nƒAƒNƒVƒ‡ƒ“‚ğs‚¤‚æ") ;
+        Tutorial_Text_Botton.text = ("è¿‘ãã®ç‰©ã«\nã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’è¡Œã†ã‚ˆ") ;
         Stick_Back.SetActive(false);
         yazirusi.SetActive(true);
 

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -6,70 +6,70 @@ using UnityEngine.UI;
 
 public class PlantBase : MonoBehaviour
 {
-    public float GrowSpeed = 1;// A•¨‚Ì¬’·‘¬“x
+    public float GrowSpeed = 1;// ?A??????????x
 
-    //¶Y‚ªI‚í‚Á‚Ä‚¢‚¢‚é‚©‚Ç‚¤‚©
+    //???Y???I???????????????
     protected bool Grow = false;
-    //A‚¦‚ç‚ê‚½‚ç
+    //?A???????
     public bool GrowS = false;
 
-    public float PlantsWater = 0;// …’~Ï’l
-    public float PlantsFert = 0;// ”ì—¿’~Ï’l
-    private const byte _MAXPLANTSWATER = 100;// …’~ÏãŒÀ’l
-    private const byte _MAXPLANTSFERT = 100;// ”ì—¿’~ÏãŒÀ’l
-    // ƒfƒoƒbƒO—pSerialize
+    public float PlantsWater = 0;// ???~??l
+    public float PlantsFert = 0;// ???~??l
+    private const byte _MAXPLANTSWATER = 100;// ???~?????l
+    private const byte _MAXPLANTSFERT = 100;// ???~?????l
+    // ?f?o?b?O?pSerialize
     [SerializeField]
-    private float _GenerateTimeCount = 0;// ¶¬‚Ü‚Å‚ÌŒo‰ßŠÔƒJƒEƒ“ƒg
+    private float _GenerateTimeCount = 0;// ????????o?????J?E???g
     [SerializeField]
-    public float _WitherTimeCount = 0;// ŒÍŠ‰ŠÔƒJƒEƒ“ƒg
+    public float _WitherTimeCount = 0;// ???????J?E???g
     [SerializeField]
-    protected GrowthState MyGrowth = GrowthState.Seed;// A•¨‚Ì¬’·ó‘Ô
+    protected GrowthState MyGrowth = GrowthState.Seed;// ?A??????????
     protected GameObject Player = null;
-    public byte _GeneratedCount = 0;// ƒ}ƒi¶¬–ˆ‚ÉƒJƒEƒ“ƒg
-    protected bool _IsCompleted = false;// ƒ}ƒi‚ğ‘S‚Ä¶¬‚µ‚«‚Á‚½‚©
+    public byte _GeneratedCount = 0;// ?}?i????????J?E???g
+    protected bool _IsCompleted = false;// ?}?i??S???????????????
     private GameObject MyGarden = null;
     private Image _WaterGauge = null;
     private Image _FertGauge = null;
     private float _DecreaseRatio = 0;
 
-    // ƒŒƒxƒ‹ƒfƒUƒCƒ“—p
-    [SerializeField, Header("A•¨–¼")]
+    // ???x???f?U?C???p
+    [SerializeField, Header("?A????")]
     private string _PlantsName = string.Empty;
-    [SerializeField, Header("ƒ}ƒi¶¬‰ñ”i‰ñ, ®”j"), Space, Space, Space]
+    [SerializeField, Header("?}?i??????i??, ?????j"), Space, Space, Space]
     byte _NumOfGenerate;
-    [SerializeField, Header("…‚Ì‰Šú—Ê(ãŒÀ100, ­”‰Â)")]
+    [SerializeField, Header("?????????(???100, ??????)")]
     byte _DefaultWater;
-    [SerializeField, Header("”ì—¿‚Ì‰Šú—Ê(ãŒÀ100, ­”‰Â)")]
+    [SerializeField, Header("?????????(???100, ??????)")]
     byte _DefaultFert;
-    [SerializeField, Header("…Šî–{Á”ï—Ê/•b(®”)")]
+    [SerializeField, Header("????{?????/?b(????)")]
     byte _WaterConsumption;
-    [SerializeField, Header("”ì—¿Šî–{Á”ï—Ê/•b(®”)")]
+    [SerializeField, Header("????{?????/?b(????)")]
     byte _FertConsumption;
-    [SerializeField, Header("ƒ}ƒi¶¬‚Ü‚Å‚É•K—v‚ÈŠÔ(•b, ­”‰Â)")]
+    [SerializeField, Header("?}?i????????K?v?????(?b, ??????)")]
     float _GenerateTime;
-    [SerializeField, Header("ğŒ‚ğ–‚½‚µ‚½‚ÉŒÍ‚ê‚é‚Ü‚Å‚ÌŠÔ(•b, ­”‰Â)")]
+    [SerializeField, Header("????????????????????????(?b, ??????)")]
     public float _WitherTime;
-    [SerializeField, Header("…‚©”ì—¿‚Ç‚¿‚ç‚©‚¾‚¯‚Å‚àŒÍ‚ê‚éH")]
+    [SerializeField, Header("??????????????????????H")]
     bool _IsOR;
 
-    //ƒ‰ƒ“ƒ_ƒ€Œ^2
-    // ƒoƒt‚ª‚©‚©‚Á‚Ä‚¢‚é‚©‚ğ”»•Ê‚·‚ébool•Ï”
+    //?????_???^2
+    // ?o?t???????????????????bool???
     public bool Buff = false;
-    // ƒoƒt‚ª‚©‚©‚Á‚Ä‚¢‚é‚È‚çŠÔ‚ğƒJƒEƒ“ƒg‚·‚éfloat•Ï”
-    [SerializeField, Header("ƒoƒtŠ|‚©‚é‚Ü‚Å")]
+    // ?o?t???????????????????J?E???g????float???
+    [SerializeField, Header("?o?t?|??????")]
     public float BuffTime;
-    // ƒoƒt‚ÌŒø‰ÊŠÔ‚ğó‚¯æ‚éfloat•Ï”
-    [SerializeField, Header("ƒoƒtŠÔ")]
+    // ?o?t?????????????float???
+    [SerializeField, Header("?o?t????")]
     public float GetBuff;
 
-    //ƒ‰ƒ“ƒ_ƒ€Œ^3
-    //’D‚¤
+    //?????_???^3
+    //?D??
     public bool Rob = false;
-    //¶Y
+    //???Y
     public bool Create = false;
-    //•¡”ûŠn—p
+    //???????n?p
     bool Last = false;
-    //ûŠn‰ñ”
+    //???n??
     float M = 0;
 
 
@@ -77,22 +77,22 @@ public class PlantBase : MonoBehaviour
 
     protected enum GrowthState : byte
     {
-        Seed,     // í
-        Planted,  // A‚¦‚½
-        Generated,// ƒ}ƒi¶¬
-        Withered  // ŒÍ‚ê‚½
+        Seed,     // ??
+        Planted,  // ?A????
+        Generated,// ?}?i????
+        Withered  // ???
     }
 
     /// <summary>
-    /// …‚Æ”ì—¿‚ğÁ–Õ‚µAŒÍŠ‰‚µ‚Ä‚¢‚é‚È‚çğŒ‚É‰‚¶‚ÄŒÍ‚ê‚é
+    /// ?????????????A?????????????????????????
     /// </summary>
     protected void DepletionCheck()
     {
-        _DecreaseRatio = DayParameter.Instance.DecreaseRatios[(int)Day_1.day - 1];// ƒCƒ“ƒfƒbƒNƒX‚ª0`6Aday‚ª1`7‚È‚Ì‚Å-1
+        _DecreaseRatio = DayParameter.Instance.DecreaseRatios[(int)Day_1.day - 1];// ?C???f?b?N?X??0?`6?Aday??1?`7????-1
 
         if (MyGrowth == GrowthState.Planted || MyGrowth == GrowthState.Generated)
         {
-            // …‚Æ”ì—¿‚ÌÁ–Õ
+            // ??????????
             PlantsWater -= _WaterConsumption * Time.deltaTime * _DecreaseRatio;
             if (PlantsWater < 0)
                 PlantsWater = 0;
@@ -100,32 +100,32 @@ public class PlantBase : MonoBehaviour
             if (PlantsFert < 0)
                 PlantsFert = 0;
 
-            // ŒÍŠ‰Œo‰ßŠÔ‚ğƒJƒEƒ“ƒg
+            // ????o???????J?E???g
             _WitherTimeCount += Time.deltaTime;
 
-            // …”ì—¿•Ğ•û‚Å‚à‚È‚¢ê‡ŒÍ‚ên‚ß‚é
+            // ?????Ğ•????????????n???
             if (_IsOR)
             {
-                // —¼•û‚Æ‚à‚ ‚é‚È‚çƒJƒEƒ“ƒgƒŠƒZƒbƒg
+                // ?????????????J?E???g???Z?b?g
                 if (PlantsWater > 0 && PlantsFert > 0)
                     _WitherTimeCount = 0;
             }
-            // …”ì—¿—¼•û‚È‚¢ê‡ŒÍ‚ên‚ß‚é
+            // ????????????????n???
             else
             {
-                // ‚Ç‚¿‚ç‚©‚ ‚é‚È‚çƒJƒEƒ“ƒgƒŠƒZƒbƒg
+                // ???????????J?E???g???Z?b?g
                 if (PlantsWater > 0 || PlantsFert > 0)
                     _WitherTimeCount = 0;
             }
 
-            // ‹K’è‚ÌŠÔ‚É’B‚µ‚½‚çŒÍ‚ê‚é
+            // ?K???????B?????????
             if (_WitherTime <= _WitherTimeCount)
                 MyGrowth = GrowthState.Withered;
         }
     }
 
     /// <summary>
-    /// ŠÔ‚ğƒJƒEƒ“ƒgAˆê’èŠÔ‚Å¬’·‚³‚¹‚é
+    /// ??????J?E???g?A??è????????????
     /// </summary>
     protected void Growing()
     {
@@ -137,59 +137,59 @@ public class PlantBase : MonoBehaviour
             _GenerateTimeCount = 0;
             MyGrowth = GrowthState.Generated;
             Tutorial_Text.Mana = true;
-            Debug.Log("A•¨‚ªƒ}ƒi‚ğ‡Œv" + _GeneratedCount + "¶¬");
-            TextLog.Instance.Insert($"{_PlantsName}‚ªƒ}ƒi‚ğ¶¬");
+            Debug.Log("?A?????}?i?????v" + _GeneratedCount + "????");
+            TextLog.Instance.Insert("{_PlantsName}???}?i???");
         }
     }
 
     protected void DrawGauge()
     {
-        // ƒQ[ƒWUI‚É•S•ª—¦‚Å‘ã“ü
+        // ?Q?[?WUI??S????????
         _WaterGauge.fillAmount = PlantsWater / 100;
         _FertGauge.fillAmount = PlantsFert / 100;
     }
 
     /// <summary>
-    /// A•¨‚ğA‚¦‚éˆ—
+    /// ?A????A???éˆ??
     /// </summary>
-    /// <param name="WGauge">A‚¦‚½‰Ô’d‚Ì…ƒQ[ƒWUI</param>
-    /// <param name="FGauge">A‚¦‚½‰Ô’d‚Ì”ì—¿ƒQ[ƒWUI</param>
+    /// <param name="WGauge">?A??????d????Q?[?WUI</param>
+    /// <param name="FGauge">?A??????d????Q?[?WUI</param>
     public void Plant(GameObject Garden)
     {
         if (MyGrowth == GrowthState.Seed)
         {
             Garden Gardens = Garden.GetComponent<Garden>();
-            // ƒQ[ƒW‹N“®
+            // ?Q?[?W?N??
             _WaterGauge = Gardens.WaterGauge.GetComponent<Image>();
             _WaterGauge.GetComponent<CanvasGroup>().alpha = 1;
             _FertGauge = Gardens.FertGauge.GetComponent<Image>();
             _FertGauge.GetComponent<CanvasGroup>().alpha = 1;
 
-            // ƒtƒ‰ƒOˆ—
+            // ?t???O????
             Gardens.IsPlanted = true;
             PlayerController.Instance.CarryItem = null;
             PlayerController.Instance.Tool = PlayerController.ToolState.None;
 
             MyGarden = Garden;
-            this.gameObject.tag = "Untagged";// Item‚¾‚ÆƒvƒŒƒCƒ„[‚ª‚Ä‚é‚Ì‚ÅŠO‚·
+            this.gameObject.tag = "Untagged";// Item????v???C???[?????????O??
             this.name = "Plant";
             PlantsWater = _DefaultWater;
             PlantsFert = _DefaultFert;
             MyGrowth = GrowthState.Planted;
-            TextLog.Instance.Insert($"{_PlantsName}‚Ìí‚ğA‚¦‚½");
-            //A‚¦‚½‚ç
+            TextLog.Instance.Insert($"{_PlantsName}????A????");
+            //?A??????
             GrowS = true;
         }
     }
 
 
-    //ƒ‰ƒ“ƒ_ƒ€Œ^3‚Ìƒ}ƒiˆ—
+    //?????_???^3??}?i????
     //public void Randomu3()
     //{
     //    if (Create)
     //    {
     //        _GeneratedCount = 1;
-    //        Debug.Log("—d¸‚Íƒ}ƒi‚ğ" + _GeneratedCount + "–{¶Y‚µ‚½");
+    //        Debug.Log("?d????}?i??" + _GeneratedCount + "?{???Y????");
     //    }
     //}
 
@@ -198,8 +198,8 @@ public class PlantBase : MonoBehaviour
     {
         Bucket.Instance.IsWaterFilled = false;
         PlayerController.Instance.Tool = PlayerController.ToolState.BucketEmpty;
-        Debug.Log("…‚ğ—^‚¦‚½");
-        TextLog.Instance.Insert($"{_PlantsName}‚É…‚ğ—^‚¦‚½");
+        Debug.Log("????^????");
+        TextLog.Instance.Insert($"{_PlantsName}?????^????");
         PlantsWater = _MAXPLANTSWATER;
         Tutorial_Text.Water = true;
         SoundManager.Instance.WaterSound();
@@ -209,8 +209,8 @@ public class PlantBase : MonoBehaviour
     {
         Shovel.Instance.IsFertFilled = false;
         PlayerController.Instance.Tool = PlayerController.ToolState.ShovelEmpty;
-        Debug.Log("”ì—¿‚ğ—^‚¦‚½");
-        TextLog.Instance.Insert($"{_PlantsName}‚É”ì—¿‚ğ—^‚¦‚½");
+        Debug.Log("????^????");
+        TextLog.Instance.Insert($"{_PlantsName}?????^????");
         PlantsFert = _MAXPLANTSFERT;
         Tutorial_Text.Fert = true;
         SoundManager.Instance.fertilizerSound();
@@ -234,14 +234,14 @@ public class PlantBase : MonoBehaviour
             MyGrowth = GrowthState.Planted;
             Tutorial_Text.Delivery = true;
 
-            // ‘S‚Ä¶¬Ï‚È‚çŒÍ‚ê‚é
+            // ?S????????????
             //if (_IsCompleted && Last)
             //{
             //    MyGrowth = GrowthState.Withered;
             //    M = 0;
             //}
 
-            // ‚±‚Ì¶¬‚ÅÅŒã‚É‚È‚é‚È‚ç
+            // ????????????????
             if (_NumOfGenerate <= _GeneratedCount)
             {
                 _IsCompleted = true;
@@ -252,8 +252,8 @@ public class PlantBase : MonoBehaviour
 
             MyBottle.IsManaFilled = true;
             PlayerController.Instance.Tool = PlayerController.ToolState.BottleFilled;
-            Debug.Log("ƒ}ƒi‚ğûŠn‚µ‚½");
-            TextLog.Instance.Insert($"{_PlantsName}‚Ìƒ}ƒi‚ğûŠn‚µ‚½");
+            Debug.Log("?}?i?????n????");
+            TextLog.Instance.Insert("{_PlantsName}??}?i?????n????");
             //MyGrowth = GrowthState.Planted;
         }
     }
@@ -266,8 +266,8 @@ public class PlantBase : MonoBehaviour
         MyGarden.GetComponent<Garden>().IsPlanted = false;
         _WaterGauge.GetComponent<CanvasGroup>().alpha = 0;
         _FertGauge.GetComponent<CanvasGroup>().alpha = 0;
-        Debug.Log("ŒÍ‚ê‚Ä‚µ‚Ü‚Á‚½..");
-        TextLog.Instance.Insert($"{_PlantsName}‚ÍŒÍ‚ê‚Ä‚µ‚Ü‚Á‚½...");
+        Debug.Log("??????????..");
+        TextLog.Instance.Insert($"{_PlantsName}???????????...");
         Destroy(this.gameObject);
     }
 

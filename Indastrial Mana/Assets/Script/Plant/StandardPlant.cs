@@ -21,6 +21,7 @@ public class StandardPlant : PlantBase
         {
             base.Growing();
             animator.SetBool(_Grow, true);
+            Tutorial_Text.Planted = true;
         }
 
         if (base.MyGrowth != GrowthState.Seed)
