@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -6,41 +6,41 @@ using UnityEngine.UI;
 
 public class Study : SingletonMonoBehaviour<Study>
 {
-    [SerializeField, Header("Œ¤‹†‚É•K—v‚È‘‹à")]
+    [SerializeField, Header("ç ”ç©¶ã«å¿…è¦ãªè³‡é‡‘")]
     int _MoneyCost = 0;
-    [SerializeField, Header("Œ¤‹†‚É‚©‚©‚éŠÔ(•b)")]
+    [SerializeField, Header("ç ”ç©¶ã«ã‹ã‹ã‚‹æ™‚é–“(ç§’)")]
     int _TimeRequired = 0;
-    [SerializeField, Header("¶Y‚³‚ê‚éA•¨")]
-    GameObject[] PlantsType = new GameObject[3];// ‚Æ‚è‚ ‚¦‚¸Šî–{Œ^3í
-    [SerializeField, Header("¶Y‚³‚ê‚½í‚ª’u‚©‚ê‚éˆÊ’u")]
+    [SerializeField, Header("ç”Ÿç”£ã•ã‚Œã‚‹æ¤ç‰©")]
+    GameObject[] PlantsType = new GameObject[3];// ã¨ã‚Šã‚ãˆãšåŸºæœ¬å‹3ç¨®
+    [SerializeField, Header("ç”Ÿç”£ã•ã‚ŒãŸç¨®ãŒç½®ã‹ã‚Œã‚‹ä½ç½®")]
     GameObject SetPosition = null;
-    [SerializeField, Header("í‚ª‘®‚·‚éeƒIƒuƒWƒFƒNƒg")]
+    [SerializeField, Header("ç¨®ãŒå±ã™ã‚‹è¦ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     GameObject MapCanvas = null;
-    private float _TimeCount = 0;        //ŠÔ
-    public bool IsStudying = false;    //Œ¤‹†’†”»’è
-    public static int Madness = 0;        //‹¶‹C“x
-    public static int AddMadness = 5;     //1“x‚ÌŒ¤‹†‚Å‰ÁZ‚³‚ê‚é‹¶‹C“x
-    int Craziness = 0;      //”­‹¶í—Ş
-    int Light = 50;         //Œy“x”»•Ê—pi“j
-    int Medium = 70;        //’†“xAd“x”»•Ê—pi“j
-    int BaseMadness = 10;   //”­‹¶’Š‘IŠî–{Šm—¦i“j
-    int MadnessLv = 0;      //0Œy“xA1’†“xA2d“x 
-    int MadnessTime = 3;   //Šî–{‚Ì”­‹¶ŠÔ@MadnessLv*2‚ğ’Ç‰Á‚µ‚Äg—pB
-    float CrazyTime = 0;    //”­‹¶ŠÔŒv‘ª
-                            //‹¶‹Cƒtƒ‰ƒO
+    private float _TimeCount = 0;        //æ™‚é–“
+    public bool IsStudying = false;    //ç ”ç©¶ä¸­åˆ¤å®š
+    public static int Madness = 0;        //ç‹‚æ°—åº¦
+    public static int AddMadness = 5;     //1åº¦ã®ç ”ç©¶ã§åŠ ç®—ã•ã‚Œã‚‹ç‹‚æ°—åº¦
+    int Craziness = 0;      //ç™ºç‹‚ç¨®é¡
+    int Light = 50;         //è»½åº¦åˆ¤åˆ¥ç”¨ï¼ˆï¼…ï¼‰
+    int Medium = 70;        //ä¸­åº¦ã€é‡åº¦åˆ¤åˆ¥ç”¨ï¼ˆï¼…ï¼‰
+    int BaseMadness = 10;   //ç™ºç‹‚æŠ½é¸åŸºæœ¬ç¢ºç‡ï¼ˆï¼…ï¼‰
+    int MadnessLv = 0;      //0ï¼è»½åº¦ã€1ï¼ä¸­åº¦ã€2ï¼é‡åº¦ 
+    int MadnessTime = 3;   //åŸºæœ¬ã®ç™ºç‹‚æ™‚é–“ã€€MadnessLv*2ã‚’è¿½åŠ ã—ã¦ä½¿ç”¨ã€‚
+    float CrazyTime = 0;    //ç™ºç‹‚æ™‚é–“è¨ˆæ¸¬
+                            //ç‹‚æ°—ãƒ•ãƒ©ã‚°
     public static bool Madnesslv4 = false;
     public bool Madnesslv5 = false;
     public bool Madnesslv6 = false;
 
-    //“Ë‘R•ÏˆÙ—p
+    //çªç„¶å¤‰ç•°ç”¨
     int B = 0;
     int Y = 0;
-    //Rey—p
+    //Reyç”¨
     //X
     float X_ = 0;
     //Y
     float Y_ = 0;
-    //‰Ô’d‚ÌÀ•WŠi”[—p
+    //èŠ±å£‡ã®åº§æ¨™æ ¼ç´ç”¨
     GameObject hit;
 
     [SerializeField]
@@ -61,24 +61,24 @@ public class Study : SingletonMonoBehaviour<Study>
 
     void Update()
     {
-        //Œ¤‹†’†‚È‚ç
+        //ç ”ç©¶ä¸­ãªã‚‰
         if (IsStudying)
         {
-            _TimeCount += Time.deltaTime;                 //ŠÔ‰ÁZ
+            _TimeCount += Time.deltaTime;                 //æ™‚é–“åŠ ç®—
 
             animator.SetBool(_Study_Anim, true);
 
             Tutorial_Text.Stady = true;
 
-            //3•bŒo‚Á‚½‚çí¶Y
+            //3ç§’çµŒã£ãŸã‚‰ç¨®ç”Ÿç”£
             if (_TimeCount >= _TimeRequired)
             {
                 animator.SetBool(_Study_Anim, false);
                 IsStudying = false;
                 _TimeCount = 0;
-                PlayerController.Instance.MoveRatio = 1;// Œ³‚É–ß‚·
+                PlayerController.Instance.MoveRatio = 1;// å…ƒã«æˆ»ã™
 
-                //í’Š‘I
+                //ç¨®æŠ½é¸
                 int MaxRange = 0;
 
                 switch(Day_1.day)
@@ -94,7 +94,7 @@ public class Study : SingletonMonoBehaviour<Study>
                         break;
                     case Day_1.Days.Day4:
                         MaxRange = 6;
-                        // ‚±‚±‚©‚ç“Ë‘R•ÏˆÙ
+                        // ã“ã“ã‹ã‚‰çªç„¶å¤‰ç•°
                         break;
                     case Day_1.Days.Day5:
                         MaxRange = 7;
@@ -110,12 +110,12 @@ public class Study : SingletonMonoBehaviour<Study>
                 }
 
                 if (MaxRange > PlantsType.Length)
-                    MaxRange = PlantsType.Length;// —áŠOˆ—
+                    MaxRange = PlantsType.Length;// ä¾‹å¤–å‡¦ç†
 
-                int SelectedNum = Random.Range(0, MaxRange);     // 0‚©‚ç”z—ñ‚ÌƒTƒCƒY‚Ü‚Å‚Ì—”
+                int SelectedNum = Random.Range(0, MaxRange);     // 0ã‹ã‚‰é…åˆ—ã®ã‚µã‚¤ã‚ºã¾ã§ã®ä¹±æ•°
 
 
-                // ‘I‚Î‚ê‚½”Ô†‚Ìí‚ğ¶¬
+                // é¸ã°ã‚ŒãŸç•ªå·ã®ç¨®ã‚’ç”Ÿæˆ
                 GameObject MySeed = Instantiate(PlantsType[SelectedNum]);
                 if (SelectedNum < 3)
                     MySeed.name = "Seed";
@@ -123,80 +123,80 @@ public class Study : SingletonMonoBehaviour<Study>
                     MySeed.name = "ObsSeed";
                 MySeed.transform.position = SetPosition.transform.position;
                 MySeed.transform.parent = MapCanvas.transform;
-                Debug.Log("ƒ^ƒCƒv" + SelectedNum + "‚Ìí‚ª¶Y‚³‚ê‚½");
-                TextLog.Instance.Insert($"ƒ^ƒCƒv{SelectedNum + 1}‚Ìí‚ª¶Y‚³‚ê‚½");
+                Debug.Log("ã‚¿ã‚¤ãƒ—" + SelectedNum + "ã®ç¨®ãŒç”Ÿç”£ã•ã‚ŒãŸ");
+                TextLog.Instance.Insert($"ã‚¿ã‚¤ãƒ—{SelectedNum + 1}ã®ç¨®ãŒç”Ÿç”£ã•ã‚ŒãŸ");
                 AddMad();
 
                 
 
 
-                //“Ë‘R•ÏˆÙ
+                //çªç„¶å¤‰ç•°
                 //if (MadnessLv >= 0)
                 //{
                     B = Random.Range(1, 6);
                     switch (B)
                     {
                         case 1:
-                            //‰Ô’d‚ÌÀ•W
+                            //èŠ±å£‡ã®åº§æ¨™
                             X_ = -6;
                             Y_ = 3;
-                            //ŒÄ‚Ño‚µ
+                            //å‘¼ã³å‡ºã—
                             GetPlants();
                             break;
 
                         case 2:
-                            //‰Ô’d‚ÌÀ•W
+                            //èŠ±å£‡ã®åº§æ¨™
                             X_ = -3;
                             Y_ = 3;
-                            //ŒÄ‚Ño‚µ
+                            //å‘¼ã³å‡ºã—
                             GetPlants();
                         break;
 
                         case 3:
-                            //‰Ô’d‚ÌÀ•W
+                            //èŠ±å£‡ã®åº§æ¨™
                             X_ = 0;
                             Y_ = 3;
-                            //ŒÄ‚Ño‚µ
+                            //å‘¼ã³å‡ºã—
                             GetPlants();
                         break;
 
                         case 4:
-                            //‰Ô’d‚ÌÀ•W
+                            //èŠ±å£‡ã®åº§æ¨™
                             X_ = 3;
                             Y_ = 3;
-                            //ŒÄ‚Ño‚µ
+                            //å‘¼ã³å‡ºã—
                             GetPlants();
                         break;
 
                         case 5:
-                            //‰Ô’d‚ÌÀ•W
+                            //èŠ±å£‡ã®åº§æ¨™
                             X_ = 6;
                             Y_ = 3;
-                            //ŒÄ‚Ño‚µ
+                            //å‘¼ã³å‡ºã—
                             GetPlants();
                         break;
                     }
                 //}
 
 
-                //”­‹¶‚Ì’Š‘I(ƒ‚ƒbƒN‚Å‚Íg‚í‚È‚¢‚Ì‚ÅƒRƒƒ“ƒgƒAƒEƒg)
+                //ç™ºç‹‚ã®æŠ½é¸(ãƒ¢ãƒƒã‚¯ã§ã¯ä½¿ã‚ãªã„ã®ã§ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆ)
                 if (Random.Range(1, 101) <= Madness + BaseMadness)
                 {
-                    //‹¶‹C“x‚Ì”»’è
+                    //ç‹‚æ°—åº¦ã®åˆ¤å®š
                     if (Madness < Light)
                     {
-                        MadnessLv = 0;  //Œy“x
+                        MadnessLv = 0;  //è»½åº¦
                     }
                     else if (Madness <= Medium)
                     {
-                        MadnessLv = 1;  //’†“x
+                        MadnessLv = 1;  //ä¸­åº¦
                     }
                     else
                     {
-                        MadnessLv = 2;  //d“x
+                        MadnessLv = 2;  //é‡åº¦
                     }
                     
-                    //‹¶‹C“x‚É‰‚¶‚½ƒfƒoƒt‚Ì’Š‘I
+                    //ç‹‚æ°—åº¦ã«å¿œã˜ãŸãƒ‡ãƒãƒ•ã®æŠ½é¸
                     switch (MadnessLv)
                     {
                         case 0:
@@ -227,7 +227,7 @@ public class Study : SingletonMonoBehaviour<Study>
                             Day_1.Crazy_Flag = true;
                             break;
                         case 4:
-                            Madnesslv4 = true;//‚»‚ê‚¼‚êí‚ÌƒXƒNƒŠƒvƒg‚Åƒtƒ‰ƒO¬—§‚Éƒ}ƒi¶¬ƒ^ƒCƒ€‚ğƒŠƒZƒbƒg‚·‚éB
+                            Madnesslv4 = true;//ãã‚Œãã‚Œç¨®ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ãƒ•ãƒ©ã‚°æˆç«‹æ™‚ã«ãƒãƒŠç”Ÿæˆã‚¿ã‚¤ãƒ ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã€‚
                             break;
                         case 5:
                             Madnesslv5 = true;
@@ -238,10 +238,10 @@ public class Study : SingletonMonoBehaviour<Study>
                         default:
                             break;
                     }
-                    Debug.Log("ó‚¯‚½ƒfƒoƒt‚Í" + Craziness + "‚Å‚·B");
-                    TextLog.Instance.Insert($"ƒfƒoƒt{ Craziness}‚ğó‚¯‚½");
-                    //ŒãX’Ç‰Á—\’è
-                    //‹¶‹C“x‚É‰‚¶‚Äƒfƒoƒt‚ğ‹­‰»
+                    Debug.Log("å—ã‘ãŸãƒ‡ãƒãƒ•ã¯" + Craziness + "ã§ã™ã€‚");
+                    TextLog.Instance.Insert($"ãƒ‡ãƒãƒ•{ Craziness}ã‚’å—ã‘ãŸ");
+                    //å¾Œã€…è¿½åŠ äºˆå®š
+                    //ç‹‚æ°—åº¦ã«å¿œã˜ã¦ãƒ‡ãƒãƒ•ã‚’å¼·åŒ–
                     //switch (Craziness)
                     //{
                     //    case 0:
@@ -256,31 +256,31 @@ public class Study : SingletonMonoBehaviour<Study>
 
     public void Studying()
     {
-        //Œ¤‹†’†‚Å‚È‚¯‚ê‚Î
+        //ç ”ç©¶ä¸­ã§ãªã‘ã‚Œã°
         if (!IsStudying)
         {
-            //¶ƒNƒŠƒbƒN‚Å‘‹à‚ª‘«‚è‚Ä‚¢‚ê‚ÎŒ¤‹†ŠJn
+            //å·¦ã‚¯ãƒªãƒƒã‚¯ã§è³‡é‡‘ãŒè¶³ã‚Šã¦ã„ã‚Œã°ç ”ç©¶é–‹å§‹
             if (PlayerController.Money >= _MoneyCost)
             {
                 IsStudying = true;
-                PlayerController.Money -= (ushort)_MoneyCost;     //‘‹à
-                PlayerController.Instance.MoveRatio = 0;// ƒvƒŒƒCƒ„[‚ÌˆÚ“®‚ğ§ŒÀ
-                Debug.Log("Œ¤‹†ŠJn!\n‘‹àc‚è" + PlayerController.Money);
-                TextLog.Instance.Insert($"Œ¤‹†ŠJn!(‘‹àc‚è{PlayerController.Money})");
+                PlayerController.Money -= (ushort)_MoneyCost;     //è³‡é‡‘
+                PlayerController.Instance.MoveRatio = 0;// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•ã‚’åˆ¶é™
+                Debug.Log("ç ”ç©¶é–‹å§‹!\nè³‡é‡‘æ®‹ã‚Š" + PlayerController.Money);
+                TextLog.Instance.Insert($"ç ”ç©¶é–‹å§‹!(è³‡é‡‘æ®‹ã‚Š{PlayerController.Money})");
                 SoundManager.Instance.MoneySound();
             }
             else
             {
-                Debug.Log("‘‹à‚ª‘«‚è‚Ü‚¹‚ñ");
-                TextLog.Instance.Insert("‘‹à‚ª‘«‚è‚Ü‚¹‚ñ");
+                Debug.Log("è³‡é‡‘ãŒè¶³ã‚Šã¾ã›ã‚“");
+                TextLog.Instance.Insert("è³‡é‡‘ãŒè¶³ã‚Šã¾ã›ã‚“");
             }
         }
     }
 
     public void AddMad()
     {
-        Madness += AddMadness;                  //‹¶‹C“x‰ÁZ
-                                                //‹¶‹C“x‚Í100“‚ğ’´‚¦‚È‚¢
+        Madness += AddMadness;                  //ç‹‚æ°—åº¦åŠ ç®—
+                                                //ç‹‚æ°—åº¦ã¯100ï¼…ã‚’è¶…ãˆãªã„
         crazygauge.fillAmount = (float)Madness / (float)100;
         if (Madness > 100)
         {
@@ -288,17 +288,17 @@ public class Study : SingletonMonoBehaviour<Study>
         }
     }
 
-    //‰Ô’d‚Ì‘I’è
+    //èŠ±å£‡ã®é¸å®š
     private RaycastHit2D CheckPlant(float X, float Y)
     {
-        //©g‚ğœŠO
+        //è‡ªèº«ã‚’é™¤å¤–
         Physics2D.queriesStartInColliders = false;
 
         hit = null;
 
         Vector3 CellPosition = new Vector3(Mathf.RoundToInt(X)
                                          , Mathf.RoundToInt(Y));
-        //A•¨‚ ‚é‚©‚È‚¢‚©”»’è
+        //æ¤ç‰©ã‚ã‚‹ã‹ãªã„ã‹åˆ¤å®š
         RaycastHit2D Hit = Physics2D.Raycast(CellPosition, new Vector3(X_, Y_, 0), 100);
 
         if (Hit)
@@ -312,7 +312,7 @@ public class Study : SingletonMonoBehaviour<Study>
     void GetPlants()
     {
         RaycastHit2D Hit = CheckPlant(transform.position.x, transform.position.y);
-        //A•¨ŒŸ’m
+        //æ¤ç‰©æ¤œçŸ¥
         if (Hit.collider != null && Hit.collider.gameObject.CompareTag("Untagged"))
         {
             Hit.collider.gameObject.GetComponent<PlantBase>(). saiz();
