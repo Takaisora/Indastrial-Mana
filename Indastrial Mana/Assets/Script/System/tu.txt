@@ -127,6 +127,7 @@ public class Tutorial : MonoBehaviour
 
                 if (ButtonDown)
                 {
+                    PlayerController.Money = 500;
                     SceneManager.LoadScene("Day");
 
                 }
