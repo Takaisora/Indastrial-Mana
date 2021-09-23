@@ -7,6 +7,7 @@ public class ObstructionPlant_1 : PlantBase
     private Animator animator;
     private const string _Grow = "Grow";
     private const string _Generat = "Generat";
+    private const string _Witheted = "Witheted";
     private float DebuffTime = 3;//S‘©ŽžŠÔ
     private bool _isBuffed = false;
     // Update is called once per frame
@@ -54,6 +55,10 @@ public class ObstructionPlant_1 : PlantBase
             animator.SetBool(_Generat, true);
         else
             animator.SetBool(_Generat, false);
+        if(_WitherTimeCount >= _WitherTime / 5)
+            animator.SetBool(_Witheted, true);
+        else
+            animator.SetBool(_Witheted, false);
 
         if (base.MyGrowth == GrowthState.Withered)
         {

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -63,24 +63,26 @@ public class Tutorial_Text : MonoBehaviour
         {
             Bottleya.SetActive(false);
             Deliya.SetActive(true);
-            TutorialText.text = ("”[•i‚µ‚æ‚¤I");
+            TutorialText.text = ("ç´å“ã—ã‚ˆã†ï¼");
         }
         else if(Bottle == true)
         {
             Bottleya.SetActive(true);
-            TutorialText.text = ("•r‚ğ‚Á‚Ä‚«‚Ä\n‹l‚ß‚æ‚¤");
+            TutorialText.text = ("ç“¶ã‚’æŒã£ã¦ãã¦\nè©°ã‚ã‚ˆã†");
         }
         else if(Mana == true)
         {
             Waterya.SetActive(false);
             Bucketya.SetActive(false);
-            TutorialText.text = ("ƒ}ƒi‚ª¶Y‚³‚ê‚½‚Ë");
+            Fertya.SetActive(false);
+            Shovelya.SetActive(false);
+            TutorialText.text = ("ãƒãƒŠãŒç”Ÿç”£ã•ã‚ŒãŸã­");
         }
         else if(Water == true)
         {
             Waterya.SetActive(false);
             Bucketya.SetActive(false);
-            TutorialText.text = ("¬’·‚·‚é‚Ü‚Å‘Ò‚Æ‚¤");
+            TutorialText.text = ("æˆé•·ã™ã‚‹ã¾ã§å¾…ã¨ã†");
         }
         else if(Fert == true)
         {
@@ -88,19 +90,19 @@ public class Tutorial_Text : MonoBehaviour
             Shovelya.SetActive(false);
             Waterya.SetActive(true);
             Bucketya.SetActive(true);
-            TutorialText.text = ("ƒoƒPƒc‚ğg‚Á‚Ä\n…‚ğ‚ ‚°‚æ‚¤");
+            TutorialText.text = ("ãƒã‚±ãƒ„ã‚’ä½¿ã£ã¦\næ°´ã‚’ã‚ã’ã‚ˆã†");
         }
         else if(Planted == true)
         {
             Stya.SetActive(false);
             Fertya.SetActive(true);
             Shovelya.SetActive(true);
-            TutorialText.text = ("ƒVƒƒƒxƒ‹‚ğg‚Á‚Ä\n”ì—¿‚ğ‚ ‚°‚æ‚¤");
+            TutorialText.text = ("ã‚·ãƒ£ãƒ™ãƒ«ã‚’ä½¿ã£ã¦\nè‚¥æ–™ã‚’ã‚ã’ã‚ˆã†");
         }
         else if(Stady == true)
         {
             Stya.SetActive(false);
-            TutorialText.text = ("í‚ğA‚¦‚æ‚¤");
+            TutorialText.text = ("ç¨®ã‚’æ¤ãˆã‚ˆã†");
         }
     }
 }

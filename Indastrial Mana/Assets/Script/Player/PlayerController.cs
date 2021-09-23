@@ -306,7 +306,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         switch (ItemType[0])
         {
             case "Bucket":
-                audioSource.PlayOneShot(ItemCarry);
+                //audioSource.PlayOneShot(ItemCarry);
                 if (Bucket.Instance.IsWaterFilled)
                     Tool = ToolState.BucketFilled;
                 else
