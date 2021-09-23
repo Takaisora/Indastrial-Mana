@@ -61,10 +61,10 @@ public class ObstructionPlant_1 : PlantBase
             base.Withered();
         }
 
-        if (Study.Madnesslv4)
+        if (Study.CrazinessLv4)
         {
             _GeneratedCount = 0;
-            Study.Madnesslv4 = false;
+            Study.CrazinessLv4 = false;
         }
 
     }

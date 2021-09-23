@@ -8,6 +8,14 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     private Animator _Animator = null;
     [SerializeField]
     GameObject Vine;
+    [SerializeField]
+    GameObject Late;
+    [SerializeField]
+    GameObject Stop;
+    [SerializeField]
+    GameObject Forget;
+    [SerializeField]
+    GameObject Omission;
     [SerializeField, Header("èâä˙éëã‡")]
     public static ushort Money = 500;// (ì˙êîÇ‹ÇΩÇ¢Ç≈à¯Ç´åpÇÆ)
     [SerializeField, Header("à⁄ìÆÇÃë¨Ç≥")]
@@ -28,6 +36,10 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     public static bool Buff = false;
     public static float BuffTime = 0;
     public static bool Obs1Buff = false;
+    public static bool Crazy1Buff = false;
+    public static bool Crazy2Buff = false;
+    public static bool Crazy3Buff = false;
+    public static bool Crazy4Buff = false;
 
     public AudioClip ItemCarry;
     AudioSource audioSource;
@@ -57,6 +69,10 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         rb = GetComponent<Rigidbody2D>();
         Buff = false;
         BuffTime = 0;
+        Crazy1Buff = false;
+        Crazy2Buff = false;
+        Crazy3Buff = false;
+        Crazy4Buff = false;
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -101,17 +117,45 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         {
             BuffTime -= Time.deltaTime;
             if (Obs1Buff)
+            {
                 Vine.SetActive(true);
+            }
+            if (Crazy1Buff)
+            {
+                Late.SetActive(true);
+            }
+            if (Crazy2Buff)
+            {
+                Stop.SetActive(true);
+            }
+            if (Crazy3Buff)
+            {
+                Forget.SetActive(true);
+            }
+            if (Crazy4Buff)
+            {
+                Omission.SetActive(true);
+            }
             if (BuffTime <= 0)
             {
                 MoveRatio = 1;
                 Buff = false;
                 Obs1Buff = false;
+                Crazy1Buff = false;
+                Crazy2Buff = false;
+                Crazy3Buff = false;
+                Crazy4Buff = false;
             }
         }
         if (!Buff)
+        {
             Vine.SetActive(false);
-
+            Late.SetActive(false);
+            Stop.SetActive(false);
+            Forget.SetActive(false);
+            Omission.SetActive(false);
+        }
+        
         if (Input.GetKey(KeyCode.A))
         {
             _MoveX = -_DeltaMove;

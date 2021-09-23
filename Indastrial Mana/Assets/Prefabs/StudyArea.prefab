@@ -85,6 +85,10 @@ MonoBehaviour:
   SetPosition: {fileID: 8875460320418150481}
   MapCanvas: {fileID: 0}
   IsStudying: 0
+  CrazinessLv5: {fileID: 1302369804817896888, guid: 037d301de335a014d8a9c5aecfcf3858,
+    type: 3}
+  CrazinessLv6: {fileID: 0}
+  crazygauge: {fileID: 0}
 --- !u!95 &929865519353753408
 Animator:
   serializedVersion: 3

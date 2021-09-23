@@ -20,17 +20,27 @@ public class Study : SingletonMonoBehaviour<Study>
     public bool IsStudying = false;    //研究中判定
     public static int Madness = 0;        //狂気度
     public static int AddMadness = 5;     //1度の研究で加算される狂気度
-    int Craziness = 0;      //発狂種類
+    public static int Craziness = 0;      //発狂種類
     int Light = 50;         //軽度判別用（％）
     int Medium = 70;        //中度、重度判別用（％）
     int BaseMadness = 10;   //発狂抽選基本確率（％）
     int MadnessLv = 0;      //0＝軽度、1＝中度、2＝重度 
     int MadnessTime = 3;   //基本の発狂時間　MadnessLv*2を追加して使用。
     float CrazyTime = 0;    //発狂時間計測
-                            //狂気フラグ
-    public static bool Madnesslv4 = false;
-    public bool Madnesslv5 = false;
-    public bool Madnesslv6 = false;
+
+    private int positionX = 0;
+    private int positionY = 0;
+    private float MadTime = 0;
+    private float MadDelayTime = 0;
+    private int Cra5Count = 0;
+
+    public static bool CrazinessLv4 = false;//狂気4番目フラグ
+
+    [SerializeField]
+    GameObject CrazinessLv5;
+
+    [SerializeField]
+    GameObject CrazinessLv6;
 
     //突然変異用
     int B = 0;
@@ -50,13 +60,15 @@ public class Study : SingletonMonoBehaviour<Study>
 
     private const string _Study_Anim = "Study_Anim";
 
+
     void Start()
     {
-        Madnesslv4 = false;
-        Madness = 50;
+        CrazinessLv4 = false;
+        Madness = 80;
         AddMadness = 5;
         animator = GetComponent<Animator>();
         crazygauge.fillAmount = (float)Madness / (float)100;
+        Craziness = 0;
     }
 
     void Update()
@@ -128,7 +140,7 @@ public class Study : SingletonMonoBehaviour<Study>
                 
 
 
-                //突然変異
+ /*               //突然変異
                 //if (MadnessLv >= 0)
                 //{
                     B = Random.Range(1, 6);
@@ -174,7 +186,7 @@ public class Study : SingletonMonoBehaviour<Study>
                             GetPlants();
                         break;
                     }
-                //}
+                //}*/   
 
 
                 //発狂の抽選(モックでは使わないのでコメントアウト)
@@ -204,7 +216,7 @@ public class Study : SingletonMonoBehaviour<Study>
                             Craziness = Random.Range(1, 5);
                             break;
                         case 2:
-                            Craziness = Random.Range(1, 7);
+                            Craziness = Random.Range(1, 6);
                             break;
                         default:
                             break;
@@ -215,23 +227,43 @@ public class Study : SingletonMonoBehaviour<Study>
                             PlayerController.Instance.MoveRatio = 0.5f;
                             PlayerController.Buff = true;
                             PlayerController.BuffTime += MadnessTime;
+                            PlayerController.Crazy1Buff = true;
                             break;
                         case 2:
                             PlayerController.Instance.MoveRatio = 0.0f;
                             PlayerController.Buff = true;
                             PlayerController.BuffTime += MadnessTime;
+                            PlayerController.Crazy2Buff = true;
                             break;
                         case 3:
                             Day_1.Crazy_Flag = true;
+                            PlayerController.Buff = true;
+                            PlayerController.BuffTime += MadnessTime;
+                            PlayerController.Crazy3Buff = true;
                             break;
                         case 4:
-                            Madnesslv4 = true;//それぞれ種のスクリプトでフラグ成立時にマナ生成タイムをリセットする。
+                            CrazinessLv4 = true;//それぞれ種のスクリプトでフラグ成立時にマナ生成タイムをリセットする。
+                            PlayerController.Buff = true;
+                            PlayerController.BuffTime += MadnessTime;
+                            PlayerController.Crazy4Buff = true;
                             break;
                         case 5:
-                            Madnesslv5 = true;
+                            positionX = Random.Range(1, 12);
+                            positionY = Random.Range(1, 9);
+                            Vector3 SetPostion = new Vector3(Mathf.RoundToInt(positionX), Mathf.RoundToInt(positionY));
+                            var temp = Instantiate(CrazinessLv5,SetPostion, Quaternion.identity);
+                            MapCanvas = GameObject.Find("MapCanvas");
+                            temp.transform.parent = MapCanvas.transform;
+                            //CrazinessLv5.transform.Translate(SetPostion);
+                            MadTime += Time.deltaTime;
+                            if (MadTime > 14)
+                            {
+                                Cra5Count++;
+                                MadTime = 0;
+                            }
                             break;
                         case 6:
-                            Madnesslv6 = true;
+                            CrazinessLv6.SetActive(true);
                             break;
                         default:
                             break;
@@ -307,7 +339,7 @@ public class Study : SingletonMonoBehaviour<Study>
         return Hit;
     }
 
-    void GetPlants()
+    /*void GetPlants()
     {
         RaycastHit2D Hit = CheckPlant(transform.position.x, transform.position.y);
         //植物検知
@@ -315,5 +347,5 @@ public class Study : SingletonMonoBehaviour<Study>
         {
             Hit.collider.gameObject.GetComponent<PlantBase>(). saiz();
         }
-    }
+    }*/
 }
