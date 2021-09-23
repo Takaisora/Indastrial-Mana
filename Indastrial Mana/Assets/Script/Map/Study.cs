@@ -216,7 +216,7 @@ public class Study : SingletonMonoBehaviour<Study>
                             Craziness = Random.Range(1, 5);
                             break;
                         case 2:
-                            Craziness = Random.Range(1, 6);
+                            Craziness = Random.Range(5, 6);
                             break;
                         default:
                             break;
@@ -252,8 +252,8 @@ public class Study : SingletonMonoBehaviour<Study>
                             positionY = Random.Range(1, 9);
                             Vector3 SetPostion = new Vector3(Mathf.RoundToInt(positionX), Mathf.RoundToInt(positionY));
                             var temp = Instantiate(CrazinessLv5,SetPostion, Quaternion.identity);
-                            MapCanvas = GameObject.Find("MapCanvas");
-                            temp.transform.parent = MapCanvas.transform;
+                           // MapCanvas = GameObject.Find("MapCanvas");
+                           // temp.transform.parent = MapCanvas.transform;
                             //CrazinessLv5.transform.Translate(SetPostion);
                             MadTime += Time.deltaTime;
                             if (MadTime > 14)

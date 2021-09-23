@@ -36,19 +36,19 @@ public class Madnesslv5 : MonoBehaviour
         }
         else
         {*/
-            MadDelayTime += Time.deltaTime;
-            if(MadDelayTime >= 3)
+        MadDelayTime += Time.deltaTime;
+        MadTime += Time.deltaTime;
+        if (MadDelayTime >= 3)
             {
                 positionX = Random.Range(1, 13);
                 positionY = Random.Range(1, 10);
                 Vector3 SetPostion = new Vector3(Mathf.RoundToInt(positionX), Mathf.RoundToInt(positionY));
-                this.transform.Translate(SetPostion);
-                MadTime += Time.deltaTime;
+                this.gameObject.transform.Translate(SetPostion);
+                MadDelayTime = 0;
                 if (MadTime > 14)
                 {
                     Cra5Count++;
                     MadTime = 0;
-                    MadDelayTime = 0;
                     if (Cra5Count == 5)
                     {
                         Destroy(this.gameObject);
